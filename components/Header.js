@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { largeText } from '../util/sharedStyles';
 
 const headerContainer = css`
@@ -44,13 +43,21 @@ export default function Header() {
         </Link>
       </div>
       <div>
-        <Link href="/about">
+        <Link href="#about">
           <a>
             <span>About</span>
           </a>
         </Link>
-        <span>Contact</span>
-        <span>Sign in</span>
+        <Link href="#contact">
+          <a>
+            <span>Contact</span>
+          </a>
+        </Link>
+        <Link href="/sign-in">
+          <a>
+            <span>Sign in</span>
+          </a>
+        </Link>
       </div>
     </div>
   );

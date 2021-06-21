@@ -1,3 +1,4 @@
+/** @css css */
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -38,7 +39,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      <section id="about">
         <div>
           <h3>About</h3>
           <div>
@@ -83,7 +84,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section>
+      <section id="contact">
         <div>
           <ContactForm />
         </div>
