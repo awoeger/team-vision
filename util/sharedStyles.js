@@ -1,7 +1,7 @@
 // Color Palette
 export const darkBlue = '#1d2a48';
 export const lightBlue = '#41d4dc';
-export const beige = '#f8dad0';
+export const lightPink = '#f8dad0';
 
 // Text sizes
 export const normalText = '16px';
