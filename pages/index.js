@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import ContactForm from '../components/ContactForm';
 import Header from '../components/Header';
 
 const heroDiv = css`
@@ -83,7 +84,9 @@ export default function Home() {
       </section>
 
       <section>
-        <div></div>
+        <div>
+          <ContactForm />
+        </div>
         <div>
           <h3>Contact information</h3>
           <div>
