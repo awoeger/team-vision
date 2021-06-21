@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import { largeText } from '../util/sharedStyles';
 
@@ -26,16 +27,28 @@ export default function Header() {
   return (
     <div css={headerContainer}>
       <div>
-        <Image
-          alt="Logo Icon"
-          src="/images/logo_blue/logo_blue.png"
-          width="50px"
-          height="40px"
-        />
-        <span>Create new team</span>
+        <Link href="/">
+          <a>
+            <Image
+              alt="Logo Icon"
+              src="/images/logo_blue/logo_blue.png"
+              width="50px"
+              height="40px"
+            />
+          </a>
+        </Link>
+        <Link href="/create-new-team">
+          <a>
+            <span>Create new team</span>
+          </a>
+        </Link>
       </div>
       <div>
-        <span>About</span>
+        <Link href="/about">
+          <a>
+            <span>About</span>
+          </a>
+        </Link>
         <span>Contact</span>
         <span>Sign in</span>
       </div>

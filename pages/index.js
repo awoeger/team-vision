@@ -22,18 +22,90 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <div css={heroDiv}>
-        <Image
-          alt="Logo Icon"
-          src="/images/logo_blue/logo_blue.png"
-          width="90px"
-          height="80px"
-        />
-        <div>
-          <h1>Team Vision</h1>
-          <h2>Plan smarter, not harder</h2>
+      <section>
+        <div css={heroDiv}>
+          <Image
+            alt="Logo Icon"
+            src="/images/logo_blue/logo_blue.png"
+            width="90px"
+            height="80px"
+          />
+          <div>
+            <h1>Team Vision</h1>
+            <h2>Plan smarter, not harder</h2>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section>
+        <div>
+          <h3>About</h3>
+          <div>
+            <p>TEXT TEXTTEX TTEXTT EXTTE XTTEXT</p>
+          </div>
+          <div>
+            <p>TEXTTEXT TEXT TEXTTEXTT EXT TEXT</p>
+          </div>
+        </div>
+
+        <div>
+          <h3>Functionalities</h3>
+          <div>
+            <div>
+              <p>Icon</p>
+              <h4>CREATE TEAMS</h4>
+            </div>
+            <div>
+              <p>Ability to create a team and let your players sign-up.</p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <p>Icon</p>
+              <h4>CREATE EVENTS</h4>
+            </div>
+            <div>
+              <p>Ability to see all upcoming team events.</p>
+            </div>
+          </div>
+
+          <div>
+            <div>
+              <p>Icon</p>
+              <h4>WORKOUTS</h4>
+            </div>
+            <div>
+              <p>Having a collection of exercises for your team.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div></div>
+        <div>
+          <h3>Contact information</h3>
+          <div>
+            <p>Icon</p>
+            <p>Adress</p>
+            <p>Team Vision GmbH</p>
+            <p>Schönerweg 45</p>
+            <p>1020 Vienna</p>
+            <p>Austria</p>
+          </div>
+          <div>
+            <p>Icon</p>
+            <p>Email</p>
+            <p>team@vision.com</p>
+          </div>
+          <div>
+            <p>Icon</p>
+            <p>Phone</p>
+            <p>0664/ 555 55 44 33</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
