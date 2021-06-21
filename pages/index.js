@@ -5,6 +5,8 @@ import Image from 'next/image';
 import ContactForm from '../components/ContactForm';
 import Header from '../components/Header';
 
+// Todo: Video as background
+
 const heroDiv = css`
   display: flex;
   justify-content: center;
