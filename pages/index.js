@@ -4,8 +4,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import ContactForm from '../components/ContactForm';
 import Header from '../components/Header';
+import { largeText } from '../util/sharedStyles';
 
 // Todo: Video as background
+// ToDO: fix overflow
+// Todo: put h1 in middle - header is pushing it down
+// Todo: About Section Design
+// Todo: Contact Section Design
 
 const heroDiv = css`
   display: flex;
@@ -14,6 +19,36 @@ const heroDiv = css`
 
   Image {
     margin-right: 5px;
+  }
+`;
+
+const sections = css`
+  height: 100vh;
+  width: 100vw;
+`;
+
+const aboutSubSection = css`
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 2em;
+    color: white;
+    padding: 20px 0 20px 20px;
+  }
+
+  > div {
+    width: 100vw;
+    display: flex;
+
+    div {
+      width: 45%;
+      color: white;
+      font-size: ${largeText};
+      margin-left: 20px;
+    }
   }
 `;
 
@@ -26,7 +61,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <section>
+      <section css={sections}>
         <div css={heroDiv}>
           <Image
             alt="Logo Icon"
@@ -41,14 +76,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="about">
-        <div>
+      <section css={sections} id="about">
+        <div css={aboutSubSection}>
           <h3>About</h3>
           <div>
-            <p>TEXT TEXTTEX TTEXTT EXTTE XTTEXT</p>
-          </div>
-          <div>
-            <p>TEXTTEXT TEXT TEXTTEXTT EXT TEXT</p>
+            <div>
+              <p>
+                Team Vision is a digital organiser for sport teams. It allows
+                coaches and players to see all upcoming events for their team
+                and filter through the different event categories.
+                <p>
+                  Additionally Team Vision provides a collection of exercises,
+                  that players can use for home workouts to stay fit throughout
+                  the season.
+                </p>
+              </p>
+            </div>
+            <div>
+              <p>
+                This project was created by Andrea Wöger as the final project in
+                the Upleveled Fullstack Developer Bootcamp in May 2021.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -86,7 +135,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="contact">
+      <section css={sections} id="contact">
         <div>
           <ContactForm />
         </div>

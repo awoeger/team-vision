@@ -8,8 +8,9 @@ const headerContainer = css`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  width: 100vw;
 
-  :first-child {
+  > div {
     display: flex;
     align-items: center;
   }
@@ -19,6 +20,10 @@ const headerContainer = css`
     font-size: ${largeText};
     font-weight: 600;
     margin-left: 50px;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -43,12 +48,12 @@ export default function Header() {
         </Link>
       </div>
       <div>
-        <Link href="#about">
+        <Link href="/#about">
           <a>
             <span>About</span>
           </a>
         </Link>
-        <Link href="#contact">
+        <Link href="/#contact">
           <a>
             <span>Contact</span>
           </a>
