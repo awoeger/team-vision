@@ -10,7 +10,7 @@ exports.up = async function up(sql) {
 			user_password varchar(50) NOT NULL,
 			user_birthday DATE NOT NULL,
 			position_on_team varchar (100) NOT NULL,
-			playing_since year NOT NULL
+			playing_since DATE NOT NULL
 		)
 	`;
 };

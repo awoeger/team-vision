@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "dotenv ley"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.3.0",
     "@emotion/react": "^11.4.0",
     "bootstrap": "^5.0.1",
     "camelcase-keys": "^6.2.2",
+    "dotenv-cli": "^4.0.0",
     "dotenv-safe": "^8.2.0",
     "ley": "^0.7.1",
     "next": "11.0.0",
