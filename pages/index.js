@@ -24,7 +24,7 @@ const heroDiv = css`
 
 const sections = css`
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 `;
 
 const aboutSubSection = css`
@@ -52,6 +52,10 @@ const aboutSubSection = css`
   }
 `;
 
+const mainContainer = css`
+  width: 100%;
+`;
+
 export default function Home() {
   return (
     <div>
@@ -61,106 +65,108 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <section css={sections}>
-        <div css={heroDiv}>
-          <Image
-            alt="Logo Icon"
-            src="/images/logo_blue/logo_blue.png"
-            width="90px"
-            height="80px"
-          />
-          <div>
-            <h1>Team Vision</h1>
-            <h2>Plan smarter, not harder</h2>
-          </div>
-        </div>
-      </section>
-
-      <section css={sections} id="about">
-        <div css={aboutSubSection}>
-          <h3>About</h3>
-          <div>
+      <div css={mainContainer}>
+        <section css={sections}>
+          <div css={heroDiv}>
+            <Image
+              alt="Logo Icon"
+              src="/images/logo_blue/logo_blue.png"
+              width="90px"
+              height="80px"
+            />
             <div>
-              <p>
-                Team Vision is a digital organiser for sport teams. It allows
-                coaches and players to see all upcoming events for their team
-                and filter through the different event categories.
+              <h1>Team Vision</h1>
+              <h2>Plan smarter, not harder</h2>
+            </div>
+          </div>
+        </section>
+
+        <section css={sections} id="about">
+          <div css={aboutSubSection}>
+            <h3>About</h3>
+            <div>
+              <div>
                 <p>
-                  Additionally Team Vision provides a collection of exercises,
-                  that players can use for home workouts to stay fit throughout
-                  the season.
+                  Team Vision is a digital organiser for sport teams. It allows
+                  coaches and players to see all upcoming events for their team
+                  and filter through the different event categories.
+                  <p>
+                    Additionally Team Vision provides a collection of exercises,
+                    that players can use for home workouts to stay fit
+                    throughout the season.
+                  </p>
                 </p>
-              </p>
-            </div>
-            <div>
-              <p>
-                This project was created by Andrea Wöger as the final project in
-                the Upleveled Fullstack Developer Bootcamp in May 2021.
-              </p>
+              </div>
+              <div>
+                <p>
+                  This project was created by Andrea Wöger as the final project
+                  in the Upleveled Fullstack Developer Bootcamp in May 2021.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div>
-          <h3>Functionalities</h3>
           <div>
+            <h3>Functionalities</h3>
+            <div>
+              <div>
+                <p>Icon</p>
+                <h4>CREATE TEAMS</h4>
+              </div>
+              <div>
+                <p>Ability to create a team and let your players sign-up.</p>
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <p>Icon</p>
+                <h4>CREATE EVENTS</h4>
+              </div>
+              <div>
+                <p>Ability to see all upcoming team events.</p>
+              </div>
+            </div>
+
+            <div>
+              <div>
+                <p>Icon</p>
+                <h4>WORKOUTS</h4>
+              </div>
+              <div>
+                <p>Having a collection of exercises for your team.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section css={sections} id="contact">
+          <div>
+            <ContactForm />
+          </div>
+          <div>
+            <h3>Contact information</h3>
             <div>
               <p>Icon</p>
-              <h4>CREATE TEAMS</h4>
+              <p>Adress</p>
+              <p>Team Vision GmbH</p>
+              <p>Schönerweg 45</p>
+              <p>1020 Vienna</p>
+              <p>Austria</p>
             </div>
-            <div>
-              <p>Ability to create a team and let your players sign-up.</p>
-            </div>
-          </div>
-
-          <div>
             <div>
               <p>Icon</p>
-              <h4>CREATE EVENTS</h4>
+              <p>Email</p>
+              <p>team@vision.com</p>
             </div>
-            <div>
-              <p>Ability to see all upcoming team events.</p>
-            </div>
-          </div>
-
-          <div>
             <div>
               <p>Icon</p>
-              <h4>WORKOUTS</h4>
-            </div>
-            <div>
-              <p>Having a collection of exercises for your team.</p>
+              <p>Phone</p>
+              <p>0664/ 555 55 44 33</p>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section css={sections} id="contact">
-        <div>
-          <ContactForm />
-        </div>
-        <div>
-          <h3>Contact information</h3>
-          <div>
-            <p>Icon</p>
-            <p>Adress</p>
-            <p>Team Vision GmbH</p>
-            <p>Schönerweg 45</p>
-            <p>1020 Vienna</p>
-            <p>Austria</p>
-          </div>
-          <div>
-            <p>Icon</p>
-            <p>Email</p>
-            <p>team@vision.com</p>
-          </div>
-          <div>
-            <p>Icon</p>
-            <p>Phone</p>
-            <p>0664/ 555 55 44 33</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 }

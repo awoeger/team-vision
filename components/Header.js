@@ -8,7 +8,7 @@ const headerContainer = css`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  width: 100vw;
+  width: 100%;
 
   > div {
     display: flex;

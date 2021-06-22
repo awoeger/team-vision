@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
             font-family: 'Barlow', sans-serif;
             font-size: ${normalText};
             color: ${darkBlue};
-            width: 100vw;
+            width: 100%;
             height: 100vh;
           }
           h1 {
