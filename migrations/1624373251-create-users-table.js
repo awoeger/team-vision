@@ -6,7 +6,7 @@ exports.up = async function up(sql) {
 			team_id INT REFERENCES teams(id) NOT NULL,
 			user_first_name varchar(50) NOT NULL,
 			user_last_name varchar(50) NOT NULL,
-			user_email varchar(50) NOT NULL,
+			user_email varchar(50) UNIQUE NOT NULL,
 			user_password_hash varchar(100) NOT NULL,
 			user_birthday DATE NOT NULL
 		)
