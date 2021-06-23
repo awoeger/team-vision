@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { largeText } from '../util/sharedStyles';
+import { darkBlue, largeText } from '../util/sharedStyles';
 
 const headerContainer = css`
   display: flex;
@@ -9,6 +9,10 @@ const headerContainer = css`
   align-items: center;
   padding: 20px;
   width: 100%;
+  background-color: ${darkBlue};
+  position: fixed;
+  /* top: 0; */
+  z-index: 1;
 
   > div {
     display: flex;
@@ -24,6 +28,7 @@ const headerContainer = css`
 
   a {
     text-decoration: none;
+    color: white;
   }
 `;
 
@@ -41,16 +46,14 @@ export default function Header() {
             />
           </a>
         </Link>
-        <Link href="/create-new-team">
-          <a>
-            <span>Create new team</span>
-          </a>
-        </Link>
-      </div>
-      <div>
         <Link href="/#about">
           <a>
             <span>About</span>
+          </a>
+        </Link>
+        <Link href="/#guide">
+          <a>
+            <span>Guide</span>
           </a>
         </Link>
         <Link href="/#contact">
@@ -58,6 +61,8 @@ export default function Header() {
             <span>Contact</span>
           </a>
         </Link>
+      </div>
+      <div>
         <Link href="/sign-in">
           <a>
             <span>Sign in</span>

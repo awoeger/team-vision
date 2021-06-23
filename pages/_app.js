@@ -18,19 +18,19 @@ function MyApp({ Component, pageProps }) {
             font-family: 'Barlow', sans-serif;
             font-size: ${normalText};
             color: ${darkBlue};
-            width: 100%;
-            height: 100vh;
           }
           h1 {
-            font-size: 4em;
+            font-size: 5em;
             font-weight: 800;
             text-transform: uppercase;
             margin: 0px;
+            color: white;
           }
           h2 {
             margin: 0px;
             font-weight: 600;
-            font-size: 1.5em;
+            font-size: 2em;
+            color: white;
           }
         `}
       />

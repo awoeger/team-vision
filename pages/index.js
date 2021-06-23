@@ -2,13 +2,12 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import ContactForm from '../components/ContactForm';
 import Header from '../components/Header';
-import { largeText } from '../util/sharedStyles';
+import { normalText } from '../util/sharedStyles';
 
 // Todo: Video as background
-// ToDO: fix overflow
-// Todo: put h1 in middle - header is pushing it down
 // Todo: About Section Design
 // Todo: Contact Section Design
 
@@ -18,13 +17,28 @@ const heroDiv = css`
   align-items: flex-start;
 
   Image {
-    margin-right: 5px;
+    margin-right: 10px;
   }
 `;
 
 const sections = css`
   height: 100vh;
   width: 100%;
+`;
+
+const firstSection = css`
+  background-image: url(/images/background_blue_smoke.PNG);
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    color: white;
+  }
 `;
 
 const aboutSubSection = css`
@@ -37,17 +51,23 @@ const aboutSubSection = css`
     font-size: 2em;
     color: white;
     padding: 20px 0 20px 20px;
+    margin-left: 20px;
   }
 
   > div {
-    width: 100vw;
+    width: 100%;
     display: flex;
 
     div {
       width: 45%;
       color: white;
-      font-size: ${largeText};
-      margin-left: 20px;
+      font-size: ${normalText};
+      margin: 10px 40px 40px 40px;
+      text-align: justify;
+
+      a {
+        color: white;
+      }
     }
   }
 `;
@@ -66,13 +86,13 @@ export default function Home() {
       </Head>
       <Header />
       <div css={mainContainer}>
-        <section css={sections}>
+        <section css={firstSection}>
           <div css={heroDiv}>
             <Image
               alt="Logo Icon"
               src="/images/logo_blue/logo_blue.png"
-              width="90px"
-              height="80px"
+              width="110px"
+              height="100px"
             />
             <div>
               <h1>Team Vision</h1>
@@ -87,27 +107,44 @@ export default function Home() {
             <div>
               <div>
                 <p>
-                  Team Vision is a digital organiser for sport teams. It allows
-                  coaches and players to see all upcoming events for their team
-                  and filter through the different event categories.
-                  <p>
-                    Additionally Team Vision provides a collection of exercises,
-                    that players can use for home workouts to stay fit
-                    throughout the season.
-                  </p>
+                  Team Vision is a project, that was created for educational
+                  purposes, by Andrea Wöger during the Upleveld Fullstack
+                  Developer Bootcamp in June 2021.
+                </p>
+                <p>
+                  "I love trying out new sports and getting to know different
+                  teams. However, I found that many coaches still use Doodle
+                  polls or WhatsApp messages to see which people will show up
+                  for upcoming events. Especially in marginal sports, the club's
+                  budget often has to be spent sparingly, which means coaches
+                  don't want to spend a monthly amount on event planning
+                  applications.
                 </p>
               </div>
               <div>
                 <p>
-                  This project was created by Andrea Wöger as the final project
-                  in the Upleveled Fullstack Developer Bootcamp in May 2021.
+                  Therefore I wanted to create a free to use application.
+                  Coaches and players should get a quick overview about all
+                  upcoming trainings, tournaments and socials. Additionally I
+                  want to provide a collection of exercises, that players can
+                  use for their home workout, to stay fit throughout the
+                  season."
+                </p>
+                <p>
+                  Additional functionalities are already in planning and will be
+                  implemented as soon as possible. If you have any ideas on new
+                  functionalities, please feel free to contact me through our{' '}
+                  <Link href="/#contact">
+                    <a>contact form</a>
+                  </Link>
+                  .
                 </p>
               </div>
             </div>
           </div>
 
           <div>
-            <h3>Functionalities</h3>
+            <h3 id="guide">GUIDE</h3>
             <div>
               <div>
                 <p>Icon</p>
