@@ -33,8 +33,8 @@ export default function RegistrationSuccessful() {
           Your account has been successfully created.
           <br />
           Please{' '}
-          <Link href="/sign-in">
-            <a>sign in</a>
+          <Link href="/login">
+            <a>slog in</a>
           </Link>{' '}
           now.
         </h2>

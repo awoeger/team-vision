@@ -54,6 +54,7 @@ export async function insertUser({
 }: UserWithPasswordHash) {
   const users = await sql`
     INSERT INTO users
+    -- column names
       (user_first_name, user_last_name, username, user_email, user_password_hash, user_role_id)
     VALUES
       (${firstName}, ${lastName}, ${username}, ${email}, ${passwordHash}, ${roleId})
@@ -76,11 +77,11 @@ export async function getUserById(id?: number) {
   const users = await sql<[User]>`
     SELECT
       id,
-      first_name,
-      last_name,
+      user_first_name,
+      user_last_name,
       username,
-      email
-      role_id
+      user_email
+      user_role_id
     FROM
       users
     WHERE
@@ -96,11 +97,11 @@ export async function getUserByUsername(username?: string) {
   const users = await sql<[User]>`
     SELECT
       id,
-      first_name,
-      last_name,
+      user_first_name,
+      user_last_name,
       username,
-      email
-      role_id
+      user_email
+      user_role_id
     FROM
       users
     WHERE
