@@ -1,12 +1,15 @@
 // user_role in object is the second column in user_roles table
-const userRoles = [{ user_role: 'coach' }, { user_role: 'player' }];
+const userRoles = [
+  { user_role: 'coach', id: 1 },
+  { user_role: 'player', id: 2 },
+];
 
 // user_roles is the table
 //  userRoles the array of objects
 // 'user_role' is the key of the object
 exports.up = async function up(sql) {
   await sql`
-	INSERT INTO user_roles ${sql(userRoles, 'user_role')}
+	INSERT INTO user_roles ${sql(userRoles, 'id', 'user_role')}
 	`;
 };
 
