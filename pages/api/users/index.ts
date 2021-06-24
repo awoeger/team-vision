@@ -15,6 +15,7 @@ export default async function Users(req: NextApiRequest, res: NextApiResponse) {
     const newUser: UserWithPasswordHash = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      username: req.body.username,
       email: req.body.email,
       passwordHash: req.body.password_hash,
       roleId: req.body.roleId,

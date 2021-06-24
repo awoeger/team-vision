@@ -6,9 +6,10 @@ import Header from '../components/Header';
 export default function Register() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [role, setRole] = useState('');
+  const [roleId, setRoleId] = useState('1');
   const router = useRouter();
 
   return (
@@ -32,9 +33,10 @@ export default function Register() {
             body: JSON.stringify({
               firstName: firstName,
               lastName: lastName,
+              username: username,
               password: password,
               email: email,
-              role: role,
+              roleId: Number(roleId),
             }),
           });
 
@@ -62,6 +64,18 @@ export default function Register() {
               value={lastName}
               onChange={(event) => {
                 setLastName(event.currentTarget.value);
+              }}
+            />
+          </label>
+        </div>
+
+        <div>
+          <label>
+            Username:
+            <input
+              value={username}
+              onChange={(event) => {
+                setUsername(event.currentTarget.value);
               }}
             />
           </label>
@@ -98,9 +112,9 @@ export default function Register() {
             Role:
             <select
               id="role"
-              value={role}
+              value={roleId}
               onChange={(event) => {
-                setRole(event.currentTarget.value);
+                setRoleId(event.currentTarget.value);
               }}
             >
               <option value="1">Coach</option>

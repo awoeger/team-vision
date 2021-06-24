@@ -2,7 +2,7 @@ exports.up = async function up(sql) {
   await sql`
 		CREATE TABLE user_roles (
 			id integer PRIMARY KEY NOT NULL,
-			user_role varchar(10)
+			user_role_id varchar(10)
 		)
 	`;
 };

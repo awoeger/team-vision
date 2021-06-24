@@ -16,12 +16,14 @@ export default async function Register(
     const {
       firstName,
       lastName,
+      username,
       email,
       password,
       roleId,
     }: {
       firstName: string;
       lastName: string;
+      username: string;
       password: string;
       email: string;
       roleId: number;
@@ -29,7 +31,8 @@ export default async function Register(
 
     // Create a hash of the password to save in the database
     const passwordHash = await argon2.hash(password);
-    const user = { firstName, lastName, email, passwordHash, roleId };
+    console.log('passwordHash', passwordHash);
+    const user = { firstName, lastName, username, email, passwordHash, roleId };
     const userNew = await insertUser(user);
 
     return res.status(200).json({ user: userNew });

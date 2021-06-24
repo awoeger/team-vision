@@ -1,7 +1,7 @@
 // user_role in object is the second column in user_roles table
 const userRoles = [
-  { user_role: 'coach', id: 1 },
-  { user_role: 'player', id: 2 },
+  { user_role_id: 'coach', id: 1 },
+  { user_role_id: 'player', id: 2 },
 ];
 
 // user_roles is the table
@@ -9,7 +9,7 @@ const userRoles = [
 // 'user_role' is the key of the object
 exports.up = async function up(sql) {
   await sql`
-	INSERT INTO user_roles ${sql(userRoles, 'id', 'user_role')}
+	INSERT INTO user_roles ${sql(userRoles, 'id', 'user_role_id')}
 	`;
 };
 
@@ -22,7 +22,7 @@ exports.down = async function down(sql) {
       DELETE FROM
         user_roles
       WHERE
-        user_role = ${userRole.role}
+        user_role_id = ${userRole.user_role_id}
     `;
   }
 };

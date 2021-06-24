@@ -38,7 +38,7 @@ function connectOneTimeToDatabase() {
 // Connect to PostgreSQL
 const sql = connectOneTimeToDatabase();
 
-// // Perform a first query
+// Perform a first query
 // export async function getSeeds() {
 //   const seeds = await sql`SELECT * FROM seeds`;
 //   return seeds.map((seed) => camelcaseKeys(seed));
@@ -48,21 +48,22 @@ export async function insertUser({
   firstName,
   lastName,
   email,
+  username,
   passwordHash,
   roleId,
 }: UserWithPasswordHash) {
   const users = await sql`
     INSERT INTO users
-      (first_name, last_name, email, password_hash, role_id)
+      (user_first_name, user_last_name, username, user_email, user_password_hash, user_role_id)
     VALUES
-      (${firstName}, ${lastName}, ${email}, ${passwordHash}, ${roleId})
+      (${firstName}, ${lastName}, ${username}, ${email}, ${passwordHash}, ${roleId})
     RETURNING
       id,
-      first_name,
-      last_name,
+      user_first_name,
+      user_last_name,
       username,
-      email,
-      role_id
+      user_email,
+      user_role_id
   `;
   return users.map((user) => camelcaseKeys(user))[0];
 }
@@ -99,6 +100,7 @@ export async function getUserByUsername(username?: string) {
       last_name,
       username,
       email
+      role_id
     FROM
       users
     WHERE
