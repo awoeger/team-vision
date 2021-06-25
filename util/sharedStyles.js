@@ -1,6 +1,6 @@
 // Color Palette
 export const darkBlue = '#1d2a48';
-export const lightBlue = '#41d4dc';
+export const lightBlue = '#1c9a96';
 export const lightPink = '#f8dad0';
 
 // Text sizes

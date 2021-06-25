@@ -39,10 +39,6 @@ function connectOneTimeToDatabase() {
 const sql = connectOneTimeToDatabase();
 
 // Perform a first query
-// export async function getSeeds() {
-//   const seeds = await sql`SELECT * FROM seeds`;
-//   return seeds.map((seed) => camelcaseKeys(seed));
-// }
 
 export async function insertUser({
   firstName,

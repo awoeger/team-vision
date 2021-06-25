@@ -34,7 +34,7 @@ export default function RegistrationSuccessful() {
           <br />
           Please{' '}
           <Link href="/login">
-            <a>slog in</a>
+            <a>login</a>
           </Link>{' '}
           now.
         </h2>
