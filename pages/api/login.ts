@@ -1,10 +1,14 @@
 import argon2 from 'argon2';
+import crypto from 'crypto';
 import { NextApiRequest, NextApiResponse } from 'next';
 // Since all files in the API folder
 // are server-side only, we can import from
 // the database statically at the top
-import { getUserWithPasswordHashByUsername } from '../../util/database';
-import { ApplicationError, User } from '../../util/types';
+import {
+  getUserWithPasswordHashByUsername,
+  insertSession,
+} from '../../util/database';
+import { ApplicationError, User, UserWithPasswordHash } from '../../util/types';
 
 export type LoginResponse = { user: User } | { errors: ApplicationError[] };
 
@@ -49,11 +53,14 @@ export default async function Login(
         .json({ errors: [{ message: 'Username or password did not match' }] });
     }
 
-    // TODO: Generate token consisting of a long string of letters
+    // Generate token consisting of a long string of letters
     // and number, which will serve as a record that the user
     // at one point did log in correctly
+    const token = crypto.randomBytes(64).toString('base64');
 
-    // TODO: Save the token to the database with a time limit
+    // TODO: Save the token to the database with a automatically generated time limit of 24 hours
+
+    const session = await insertSession(token, userWithPasswordHash.id);
 
     // TODO: Save the token in a cookie on the user's machine
     // (cookies get sent automatically to the server every time

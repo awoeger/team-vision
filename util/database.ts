@@ -120,3 +120,16 @@ export async function getUserWithPasswordHashByUsername(username?: string) {
   `;
   return users.map((user) => camelcaseKeys(user))[0];
 }
+
+export async function insertSession(token: string, userId: number) {
+  const sessions = await sql`
+    INSERT INTO sessions
+    -- column names
+      (token, users_id)
+    VALUES
+      (${token}, ${userId})
+    RETURNING
+      *
+  `;
+  return sessions.map((session) => camelcaseKeys(session))[0];
+}
