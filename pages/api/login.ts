@@ -1,4 +1,6 @@
 import argon2 from 'argon2';
+import { serialize } from 'cookie';
+// eslint-disable-next-line unicorn/prefer-node-protocol
 import crypto from 'crypto';
 import { NextApiRequest, NextApiResponse } from 'next';
 // Since all files in the API folder
@@ -58,21 +60,47 @@ export default async function Login(
     // at one point did log in correctly
     const token = crypto.randomBytes(64).toString('base64');
 
-    // TODO: Save the token to the database with a automatically generated time limit of 24 hours
+    // Save the token to the database with a automatically generated time limit of 24 hours
 
     const session = await insertSession(token, userWithPasswordHash.id);
+    // eg. Heroku
+    const isProduction = process.env.NODE_ENV === 'production';
 
-    // TODO: Save the token in a cookie on the user's machine
+    // Save the token in a cookie on the user's machine
+
     // (cookies get sent automatically to the server every time
     // a user makes a request)
+    // 'sessionToken' = name, token = value
+    // maxAge: whenever it hits maxAge, cookie will be deleted
+    // 60 * 60 * 24 = 24 hours
+    const maxAge = 60 * 60 * 24;
 
+    const cookie = serialize('sessionToken', token, {
+      maxAge: maxAge,
+      expires: new Date(Date.now() + maxAge * 1000),
+      // Important for security
+      // Deny cookie access from frontend JavaScript
+      httpOnly: true,
+
+      // Important for security
+      // Set secure cookies on production
+      secure: isProduction,
+
+      path: '/',
+
+      // https://web.dev/samesite-cookies-explained/
+      // If you set SameSite to Strict, your cookie will only be sent in a first-party context
+      sameSite: 'lax',
+    });
+
+    console.log('cookie', cookie);
     // Destructuring with a rest parameter
     // passwordHash => passwordHash will take it out of the object
     // ...user => anything else that is inside of the object (see util/types.js) is going to go into a new variable called "user"
     const { userPasswordHash, ...user } = userWithPasswordHash;
 
     // now we have a user that doesn't have the passwordHash anymore
-    return res.status(200).json({ user: user });
+    return res.status(200).setHeader('Set-Cookie', cookie).json({ user: user });
   }
 
   res.status(400).json({ errors: [{ message: 'Bad request' }] });
