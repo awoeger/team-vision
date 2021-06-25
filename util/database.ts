@@ -45,7 +45,7 @@ export async function insertUser({
   lastName,
   email,
   username,
-  passwordHash,
+  userPasswordHash,
   roleId,
 }: UserWithPasswordHash) {
   const users = await sql`
@@ -53,7 +53,7 @@ export async function insertUser({
     -- column names
       (user_first_name, user_last_name, username, user_email, user_password_hash, user_role_id)
     VALUES
-      (${firstName}, ${lastName}, ${username}, ${email}, ${passwordHash}, ${roleId})
+      (${firstName}, ${lastName}, ${username}, ${email}, ${userPasswordHash}, ${roleId})
     RETURNING
       id,
       user_first_name,

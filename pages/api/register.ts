@@ -30,9 +30,15 @@ export default async function Register(
     } = req.body;
 
     // Create a hash of the password to save in the database
-    const passwordHash = await argon2.hash(password);
-    console.log('passwordHash', passwordHash);
-    const user = { firstName, lastName, username, email, passwordHash, roleId };
+    const userPasswordHash = await argon2.hash(password);
+    const user = {
+      firstName,
+      lastName,
+      username,
+      email,
+      userPasswordHash,
+      roleId,
+    };
     const userNew = await insertUser(user);
 
     return res.status(200).json({ user: userNew });

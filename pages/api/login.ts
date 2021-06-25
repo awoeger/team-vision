@@ -30,11 +30,14 @@ export default async function Login(
         .status(401)
         .json({ errors: [{ message: 'Username or password did not match' }] });
     }
+    console.log(userWithPasswordHash);
+    console.log(userWithPasswordHash.userPasswordHash);
+    console.log(password);
 
     // Check that the entered plaintext password matches with the
     // password hash stored in the database
     const passwordMatches = await argon2.verify(
-      userWithPasswordHash.passwordHash,
+      userWithPasswordHash.userPasswordHash,
       password,
     );
 
@@ -59,7 +62,7 @@ export default async function Login(
     // Destructuring with a rest parameter
     // passwordHash => passwordHash will take it out of the object
     // ...user => anything else that is inside of the object (see util/types.js) is going to go into a new variable called "user"
-    const { passwordHash, ...user } = userWithPasswordHash;
+    const { userPasswordHash, ...user } = userWithPasswordHash;
 
     // now we have a user that doesn't have the passwordHash anymore
     return res.status(200).json({ user: user });

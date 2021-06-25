@@ -8,7 +8,7 @@ export type User = {
 };
 
 export type UserWithPasswordHash = User & {
-  passwordHash: string;
+  userPasswordHash: string;
 };
 
 export type ApplicationError = { message: string };
