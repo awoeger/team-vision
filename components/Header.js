@@ -11,7 +11,6 @@ const headerContainer = css`
   width: 100%;
   background-color: ${darkBlue};
   position: fixed;
-  /* top: 0; */
   z-index: 1;
 
   > div {
@@ -40,9 +39,9 @@ export default function Header() {
           <a>
             <Image
               alt="Logo Icon"
-              src="/images/logo_blue/logo_blue.png"
+              src="/images/logo_white/teamvision_icon.png"
               width="50px"
-              height="40px"
+              height="50px"
             />
           </a>
         </Link>

@@ -13,7 +13,7 @@ export default async function Users(req: NextApiRequest, res: NextApiResponse) {
     // return res.status(200).json({ users: users });
   } else if (req.method === 'POST') {
     const newUser: UserWithPasswordHash = {
-      id: req.body.id,
+      // id: req.body.id,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       username: req.body.username,

@@ -133,3 +133,14 @@ export async function insertSession(token: string, userId: number) {
   `;
   return sessions.map((session) => camelcaseKeys(session))[0];
 }
+
+export async function deleteExpiredSessions() {
+  const sessions = await sql`
+    DELETE FROM
+     sessions
+    WHERE expiry < NOW()
+    RETURNING *
+  `;
+
+  return sessions.map((session) => camelcaseKeys(session));
+}

@@ -90,7 +90,7 @@ export default function Home() {
           <div css={heroDiv}>
             <Image
               alt="Logo Icon"
-              src="/images/logo_blue/logo_blue.png"
+              src="/images/logo_white/teamvision_icon.png"
               width="110px"
               height="100px"
             />

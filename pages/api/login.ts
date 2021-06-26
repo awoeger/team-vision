@@ -3,10 +3,12 @@ import { serialize } from 'cookie';
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import crypto from 'crypto';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createSerializedSessionCookie } from '../../util/cookies';
 // Since all files in the API folder
 // are server-side only, we can import from
 // the database statically at the top
 import {
+  deleteExpiredSessions,
   getUserWithPasswordHashByUsername,
   insertSession,
 } from '../../util/database';
@@ -55,6 +57,9 @@ export default async function Login(
         .json({ errors: [{ message: 'Username or password did not match' }] });
     }
 
+    // Clean up expired sessions
+    await deleteExpiredSessions();
+
     // Generate token consisting of a long string of letters
     // and number, which will serve as a record that the user
     // at one point did log in correctly
@@ -63,35 +68,8 @@ export default async function Login(
     // Save the token to the database with a automatically generated time limit of 24 hours
 
     const session = await insertSession(token, userWithPasswordHash.id);
-    // eg. Heroku
-    const isProduction = process.env.NODE_ENV === 'production';
 
-    // Save the token in a cookie on the user's machine
-
-    // (cookies get sent automatically to the server every time
-    // a user makes a request)
-    // 'sessionToken' = name, token = value
-    // maxAge: whenever it hits maxAge, cookie will be deleted
-    // 60 * 60 * 24 = 24 hours
-    const maxAge = 60 * 60 * 24;
-
-    const cookie = serialize('sessionToken', token, {
-      maxAge: maxAge,
-      expires: new Date(Date.now() + maxAge * 1000),
-      // Important for security
-      // Deny cookie access from frontend JavaScript
-      httpOnly: true,
-
-      // Important for security
-      // Set secure cookies on production
-      secure: isProduction,
-
-      path: '/',
-
-      // https://web.dev/samesite-cookies-explained/
-      // If you set SameSite to Strict, your cookie will only be sent in a first-party context
-      sameSite: 'lax',
-    });
+    const cookie = createSerializedSessionCookie(session.token);
 
     console.log('cookie', cookie);
     // Destructuring with a rest parameter

@@ -65,6 +65,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     `${process.env.API_BASE_URL}/users-by-username/${context.query.username}`,
   );
 
+  console.log('gssp', context.req.cookies.sessionToken);
+
   const { user } = await response.json();
   console.log('API decoded JSON from response', user);
 
