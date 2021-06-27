@@ -24,8 +24,8 @@ export default async function Register(
       firstName,
       lastName,
       username,
-      email,
       password,
+      email,
       roleId,
     }: {
       firstName: string;
@@ -46,7 +46,10 @@ export default async function Register(
       userPasswordHash,
       roleId,
     };
+
+    // ID is created in insertUser function when we are passing user as an argument
     const userNew = await insertUser(user);
+    console.log('newUser', userNew);
 
     // Clean up expired sessions
     await deleteExpiredSessions();
@@ -58,7 +61,8 @@ export default async function Register(
 
     // Save the token to the database with a automatically generated time limit of 24 hours
 
-    const session = await insertSession(token, user.id);
+    // use userNew, because it has the ID as well, see comment above
+    const session = await insertSession(token, userNew.id);
 
     const cookie = createSerializedSessionCookie(session.token);
 

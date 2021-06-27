@@ -12,7 +12,7 @@ import {
   getUserWithPasswordHashByUsername,
   insertSession,
 } from '../../util/database';
-import { ApplicationError, User, UserWithPasswordHash } from '../../util/types';
+import { ApplicationError, User } from '../../util/types';
 
 export type LoginResponse = { user: User } | { errors: ApplicationError[] };
 
