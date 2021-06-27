@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
-import Link from 'next/link';
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 
 const mainContainer = css`
   background-image: url(/images/background_blue_smoke.PNG);
@@ -25,7 +24,7 @@ export default function RegistrationSuccessful() {
       <Head>
         <title>Registration Successful</title>
       </Head>
-      <Header />
+      <Layout />
       <div css={mainContainer}>
         <h2>
           Congratulations!

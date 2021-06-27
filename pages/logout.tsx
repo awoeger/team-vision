@@ -2,7 +2,7 @@ import cookie from 'cookie';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import React from 'react';
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 import { deleteSessionByToken } from '../util/database';
 import { mainContainer } from './login';
 
@@ -12,7 +12,7 @@ export default function Logout() {
       <Head>
         <title>Logout Successful</title>
       </Head>
-      <Header />
+      <Layout />
       <div css={mainContainer}>
         <h2>You have been successfully logged out.</h2>
       </div>

@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Header from '../components/Header';
+import Layout from '../components/Layout';
 import { getValidSessionByToken } from '../util/database';
 import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { LoginResponse } from './api/login';
@@ -92,7 +92,7 @@ export default function Login() {
 
   return (
     <>
-      <Header />
+      <Layout />
 
       <Head>
         <title>Login</title>

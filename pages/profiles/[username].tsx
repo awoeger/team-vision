@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import Header from '../../components/Header';
+import Layout from '../../components/Layout';
 import { ApplicationError, User } from '../../util/types';
 
 // type Props = {
@@ -32,7 +32,7 @@ export default function SingleUserProfile(props: Props) {
 
   return (
     <>
-      <Header />
+      <Layout />
       <Head>
         <title>
           Profile page for {props.user.firstName} {props.user.lastName}

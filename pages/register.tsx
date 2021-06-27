@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Header from '../components/Header';
+import Layout from '../components/Layout';
 import { getValidSessionByToken } from '../util/database';
 // import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { mainContainer, mainSubContainer } from './login';
@@ -40,11 +41,10 @@ export default function Register() {
 
   return (
     <>
-      <Header />
-
       <Head>
         <title>Register</title>
       </Head>
+      <Layout />
       <div css={mainContainer}>
         <div css={mainSubContainer}>
           <h1>REGISTER</h1>
