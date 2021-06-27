@@ -7,7 +7,10 @@ import { UserWithPasswordHash } from '../../../util/types';
 
 // An API Route needs to define the response
 // that is returned to the user
-export default async function Users(req: NextApiRequest, res: NextApiResponse) {
+export default async function usersHandler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+) {
   if (req.method === 'GET') {
     // const users = await getUsers();
     // return res.status(200).json({ users: users });

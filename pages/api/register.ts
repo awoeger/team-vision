@@ -14,7 +14,7 @@ import {
 
 // An API Route needs to define the response
 // that is returned to the user
-export default async function Register(
+export default async function registerHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {

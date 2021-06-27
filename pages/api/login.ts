@@ -1,5 +1,4 @@
 import argon2 from 'argon2';
-import { serialize } from 'cookie';
 // eslint-disable-next-line unicorn/prefer-node-protocol
 import crypto from 'crypto';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -18,7 +17,7 @@ export type LoginResponse = { user: User } | { errors: ApplicationError[] };
 
 // An API Route needs to define the response
 // that is returned to the user
-export default async function Login(
+export default async function loginHandler(
   req: NextApiRequest,
   res: NextApiResponse<LoginResponse>,
 ) {
