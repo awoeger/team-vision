@@ -2,7 +2,7 @@ import camelcaseKeys from 'camelcase-keys';
 import dotenvSafe from 'dotenv-safe';
 import postgres from 'postgres';
 // import setPostgresDefaultsOnHeroku from '../setPostgresDefaultsOnHeroku';
-import { User, UserWithPasswordHash } from '../util/types';
+import { Session, User, UserWithPasswordHash } from '../util/types';
 
 // setPostgresDefaultsOnHeroku();
 
@@ -121,8 +121,33 @@ export async function getUserWithPasswordHashByUsername(username?: string) {
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
+export async function getValidSessionByToken(token: string) {
+  if (!token) return undefined;
+
+  const sessions = await sql<Session[]>`
+    SELECT
+      *
+    FROM
+      sessions
+    WHERE
+      token = ${token} AND
+      expiry > NOW()
+  `;
+  return sessions.map((session) => camelcaseKeys(session))[0];
+}
+
+export async function getUserByValidSessionToken(token: string) {
+  if (!token) return undefined;
+
+  const session = await getValidSessionByToken(token);
+
+  if (!session) return undefined;
+
+  return await getUserById(session.userId);
+}
+
 export async function insertSession(token: string, userId: number) {
-  const sessions = await sql`
+  const sessions = await sql<Session[]>`
     INSERT INTO sessions
     -- column names
       (token, users_id)
@@ -135,7 +160,7 @@ export async function insertSession(token: string, userId: number) {
 }
 
 export async function deleteExpiredSessions() {
-  const sessions = await sql`
+  const sessions = await sql<Session[]>`
     DELETE FROM
      sessions
     WHERE expiry < NOW()
@@ -143,4 +168,15 @@ export async function deleteExpiredSessions() {
   `;
 
   return sessions.map((session) => camelcaseKeys(session));
+}
+
+export async function deleteSessionByToken(token: string) {
+  const sessions = await sql<Session[]>`
+    DELETE FROM
+      sessions
+    WHERE
+      token = ${token}
+    RETURNING *
+  `;
+  return sessions.map((session) => camelcaseKeys(session))[0];
 }

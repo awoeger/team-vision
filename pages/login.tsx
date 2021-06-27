@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Header from '../components/Header';
+import { getValidSessionByToken } from '../util/database';
 import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { LoginResponse } from './api/login';
 
@@ -167,4 +169,42 @@ export default function Login() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // // Redirect from HTTP to HTTPS on Heroku
+  // if (
+  //   context.req.headers.host &&
+  //   context.req.headers['x-forwarded-proto'] &&
+  //   context.req.headers['x-forwarded-proto'] !== 'https'
+  // ) {
+  //   return {
+  //     redirect: {
+  //       destination: `https://${context.req.headers.host}/login`,
+  //       permanent: true,
+  //     },
+  //   };
+  // }
+
+  // get session Token
+  const sessionToken = context.req.cookies.sessionToken;
+
+  // Pass the session token and check if it is a valid session
+  const session = await getValidSessionByToken(sessionToken);
+
+  if (session) {
+    // Redirect the user when they have a session
+    // token by returning an object with the `redirect` prop
+    // https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
+    return {
+      redirect: {
+        destination: `/users/management/${session.userId}/read`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }
