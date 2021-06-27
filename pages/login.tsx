@@ -123,7 +123,7 @@ export default function Login() {
                 return;
               }
 
-              router.push(`/`);
+              router.push(`/profiles/${json.user.username}`);
             }}
           >
             <div>
@@ -189,16 +189,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // get session Token
   const sessionToken = context.req.cookies.sessionToken;
 
-  // Pass the session token and check if it is a valid session
+  // Pass the session token and check if it is a valid
   const session = await getValidSessionByToken(sessionToken);
 
   if (session) {
-    // Redirect the user when they have a session
+    // if the session is undefined, we allow the person to log in
+    // because they don't have a valid session
+    // but if they DO have a valid session,
+    // we redirect them
     // token by returning an object with the `redirect` prop
     // https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
     return {
       redirect: {
-        destination: `/users/management/${session.userId}/read`,
+        // TODO: Redirect to actual profile page of user
+        destination: `/`,
         permanent: false,
       },
     };

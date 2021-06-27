@@ -31,7 +31,7 @@ const headerContainer = css`
   }
 `;
 
-export default function Header() {
+export default function Header(props) {
   return (
     <div css={headerContainer}>
       <div>
@@ -61,6 +61,7 @@ export default function Header() {
           </a>
         </Link>
       </div>
+      {props.username && `Logged in as ${props.username}`}
       <div>
         <Link href="/login">
           <a>

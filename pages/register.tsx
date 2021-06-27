@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Header from '../components/Header';
+import { getValidSessionByToken } from '../util/database';
 // import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { mainContainer, mainSubContainer } from './login';
 
@@ -161,4 +163,46 @@ export default function Register() {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  // // Redirect from HTTP to HTTPS on Heroku
+  // if (
+  //   context.req.headers.host &&
+  //   context.req.headers['x-forwarded-proto'] &&
+  //   context.req.headers['x-forwarded-proto'] !== 'https'
+  // ) {
+  //   return {
+  //     redirect: {
+  //       destination: `https://${context.req.headers.host}/login`,
+  //       permanent: true,
+  //     },
+  //   };
+  // }
+
+  // get session Token
+  const sessionToken = context.req.cookies.sessionToken;
+
+  // Pass the session token and check if it is a valid
+  const session = await getValidSessionByToken(sessionToken);
+
+  if (session) {
+    // if the session is undefined, we allow the person to log in
+    // because they don't have a valid session
+    // but if they DO have a valid session,
+    // we redirect them
+    // token by returning an object with the `redirect` prop
+    // https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
+    return {
+      redirect: {
+        // TODO: Where do I want to redirect the user if the are already logged in and they go to registration page?
+        destination: `/`,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 }
