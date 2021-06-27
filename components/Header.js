@@ -18,16 +18,13 @@ const headerContainer = css`
     align-items: center;
   }
 
-  span {
+  a {
+    text-decoration: none;
+    color: white;
     text-transform: uppercase;
     font-size: ${largeText};
     font-weight: 600;
     margin-left: 50px;
-  }
-
-  a {
-    text-decoration: none;
-    color: white;
   }
 `;
 
@@ -61,13 +58,17 @@ export default function Header(props) {
           </a>
         </Link>
       </div>
-      {props.username && `Logged in as ${props.username}`}
+      <div>{props.username && `logged in as ${props.username}`} &nbsp;</div>
       <div>
-        <Link href="/login">
-          <a>
-            <span>LOGIN</span>
-          </a>
-        </Link>
+        {props.username ? (
+          <Link href="/logout">
+            <a>Logout</a>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
+        )}
       </div>
     </div>
   );

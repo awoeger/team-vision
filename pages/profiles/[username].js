@@ -6,9 +6,10 @@ import { ApplicationError, User } from '../../util/types';
 // type Props = {
 //   user?: User;
 //   errors?: ApplicationError[];
+//   username: String;
 // };
 
-export default function SingleUserProfile(props: Props) {
+export default function SingleUserProfile(props) {
   // Show message if user not allowed
   // const errors = props.errors;
   // if (errors) {
@@ -20,19 +21,18 @@ export default function SingleUserProfile(props: Props) {
   //   );
   // }
 
-  // // Show message if user does not exist
-  // if (!props.user) {
-  //   return (
-  //       <Head>
-  //         <title>User not found!</title>
-  //       </Head>
-  //       User not found
-  //   );
-  // }
+  // Show message if user does not exist
+  if (!props.user) {
+    return (
+      <Head>
+        <title>User not found!</title>
+      </Head>
+    );
+  }
 
   return (
     <>
-      <Layout />
+      <Layout username={props.username} />
       <Head>
         <title>
           Profile page for {props.user.firstName} {props.user.lastName}
@@ -54,7 +54,7 @@ export default function SingleUserProfile(props: Props) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps(context) {
   // TODO: Verify the user's token (from the cookie) and
   // retrieve the user that matches the token
 

@@ -90,7 +90,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
-      <Component username={username} {...pageProps} />
+      <Component
+        refreshUsername={refreshUsername}
+        username={username}
+        {...pageProps}
+      />
     </>
   );
 }

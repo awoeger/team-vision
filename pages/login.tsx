@@ -84,7 +84,12 @@ const registerDiv = css`
   }
 `;
 
-export default function Login() {
+type Props = {
+  refreshUsername: () => void;
+  username?: string;
+};
+
+export default function Login(props: Props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -92,7 +97,7 @@ export default function Login() {
 
   return (
     <>
-      <Layout />
+      <Layout username={props.username} />
 
       <Head>
         <title>Login</title>
@@ -122,6 +127,8 @@ export default function Login() {
                 setError(json.errors[0].message);
                 return;
               }
+
+              props.refreshUsername();
 
               router.push(`/profiles/${json.user.username}`);
             }}

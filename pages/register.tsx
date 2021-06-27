@@ -9,7 +9,11 @@ import { getValidSessionByToken } from '../util/database';
 // import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { mainContainer, mainSubContainer } from './login';
 
-export default function Register() {
+type Props = {
+  refreshUsername: () => void;
+  username?: string;
+};
+export default function Register(props: Props) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [username, setUsername] = useState('');
@@ -44,7 +48,7 @@ export default function Register() {
       <Head>
         <title>Register</title>
       </Head>
-      <Layout />
+      <Layout username={props.username} />
       <div css={mainContainer}>
         <div css={mainSubContainer}>
           <h1>REGISTER</h1>
@@ -68,6 +72,8 @@ export default function Register() {
               });
 
               const { user: createdUser } = await response.json();
+
+              props.refreshUsername();
 
               router.push(`/registration-successful`);
             }}

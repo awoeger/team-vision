@@ -1,18 +1,24 @@
 import cookie from 'cookie';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/Layout';
 import { deleteSessionByToken } from '../util/database';
 import { mainContainer } from './login';
 
-export default function Logout() {
+type Props = {
+  refreshUsername: () => void;
+  username?: string;
+};
+
+export default function Logout(props: Props) {
+  useEffect(() => props.refreshUsername(), [props]);
   return (
     <>
       <Head>
         <title>Logout Successful</title>
       </Head>
-      <Layout />
+      <Layout username={props.username} />
       <div css={mainContainer}>
         <h2>You have been successfully logged out.</h2>
       </div>

@@ -18,13 +18,17 @@ const mainContainer = css`
   }
 `;
 
-export default function RegistrationSuccessful() {
+type Props = {
+  username: String,
+};
+
+export default function RegistrationSuccessful(props: Props) {
   return (
     <>
       <Head>
         <title>Registration Successful</title>
       </Head>
-      <Layout />
+      <Layout username={props.username} />
       <div css={mainContainer}>
         <h2>
           Congratulations!
