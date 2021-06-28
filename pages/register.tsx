@@ -3,7 +3,6 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import Header from '../components/Header';
 import Layout from '../components/Layout';
 import { getValidSessionByToken } from '../util/database';
 // import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';

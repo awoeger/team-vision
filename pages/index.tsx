@@ -4,13 +4,13 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import ContactForm from '../components/ContactForm';
-import Header from '../components/Header';
 import Layout from '../components/Layout';
 import { normalText } from '../util/sharedStyles';
 
 // Todo: Video as background
 // Todo: About Section Design
 // Todo: Contact Section Design
+// Todo: Update Header for login logout and your profile username is undefined
 
 const heroDiv = css`
   display: flex;

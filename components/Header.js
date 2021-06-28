@@ -3,6 +3,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
+// Todo: Link to the right profile page on YOUR PROFILE LINK
+
 const headerContainer = css`
   display: flex;
   justify-content: space-between;
@@ -29,6 +31,7 @@ const headerContainer = css`
 `;
 
 export default function Header(props) {
+  console.log('props', props);
   return (
     <div css={headerContainer}>
       <div>
@@ -58,8 +61,15 @@ export default function Header(props) {
           </a>
         </Link>
       </div>
-      <div>{props.username && `logged in as ${props.username}`} &nbsp;</div>
       <div>
+        {props.username ? (
+          <Link href="/">
+            <a>{props.username && 'Your Profile'} &nbsp;</a>
+          </Link>
+        ) : (
+          <div />
+        )}
+
         {props.username ? (
           <Link href="/logout">
             <a>Logout</a>

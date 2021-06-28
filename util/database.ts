@@ -86,9 +86,19 @@ export async function getUserById(id?: number) {
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
-export async function getUserByUsername(username?: string) {
+export async function getUserByUsernameAndToken(
+  username?: string,
+  token?: string,
+) {
+  console.log('u', username);
+  console.log('t', token);
+
   // Return undefined if username is falsy
-  if (!username) return undefined;
+  if (!username || !token) return undefined;
+  console.log('here');
+
+  const userFromSession = await getUserByValidSessionToken(token);
+  console.log('session', userFromSession);
 
   const users = await sql<[User]>`
     SELECT
@@ -101,7 +111,8 @@ export async function getUserByUsername(username?: string) {
     FROM
       users
     WHERE
-      username = ${username}
+      username = ${username} AND
+      id = ${userFromSession.id}
   `;
   return users.map((user) => camelcaseKeys(user))[0];
 }
