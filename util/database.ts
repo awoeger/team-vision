@@ -2,7 +2,12 @@ import camelcaseKeys from 'camelcase-keys';
 import dotenvSafe from 'dotenv-safe';
 import postgres from 'postgres';
 // import setPostgresDefaultsOnHeroku from '../setPostgresDefaultsOnHeroku';
-import { Session, User, UserWithPasswordHash } from '../util/types';
+import {
+  ApplicationError,
+  Session,
+  User,
+  UserWithPasswordHash,
+} from '../util/types';
 
 // setPostgresDefaultsOnHeroku();
 
@@ -39,6 +44,58 @@ function connectOneTimeToDatabase() {
 const sql = connectOneTimeToDatabase();
 
 // Perform a first query
+export async function getUsers() {
+  const users = await sql<User[]>`
+    SELECT
+      id,
+      user_first_name,
+      user_last_name,
+      username,
+      user_email,
+      user_role_id
+    FROM
+      users
+  `;
+  return users.map((user) => camelcaseKeys(user));
+}
+
+// TODO: maybe I will need this or similiar function for coach visability
+// Secure version of getUsers which
+// allows ANY authenticated user
+// to view ALL users
+export async function getUsersIfValidSessionToken(token?: string) {
+  // Security: Return "Access denied" error if falsy token passed
+  if (!token) {
+    const errors: ApplicationError[] = [{ message: 'Access denied' }];
+    return errors;
+  }
+
+  const session = await getValidSessionByToken(token);
+
+  // Security: Return "Access denied" token does not
+  // match valid session
+  if (!session) {
+    const errors: ApplicationError[] = [{ message: 'Access denied' }];
+    return errors;
+  }
+
+  // Security: Now this query has been protected
+  // and it will only run in case the user has a
+  // token corresponding to a valid session
+  const users = await sql<User[]>`
+    SELECT
+      id,
+      user_first_name,
+      user_last_name,
+      username,
+      user_email,
+      user_role_id
+    FROM
+      users
+  `;
+
+  return users.map((user) => camelcaseKeys(user));
+}
 
 export async function insertUser({
   firstName,
@@ -90,15 +147,25 @@ export async function getUserByUsernameAndToken(
   username?: string,
   token?: string,
 ) {
-  console.log('u', username);
-  console.log('t', token);
+  // Security: If the user is not logged in, we do not allow
+  // access and return an error from the database function
+  if (!token) {
+    const errors: ApplicationError[] = [{ message: 'Access denied' }];
+    return errors;
+  }
 
   // Return undefined if username is falsy
-  if (!username || !token) return undefined;
-  console.log('here');
+  // (for example, an undefined or '' value for the username)
+  if (!username) return undefined;
 
+  // Security: Retrieve user via the session token
   const userFromSession = await getUserByValidSessionToken(token);
-  console.log('session', userFromSession);
+
+  // If there is either:
+  // - no valid session matching the token
+  // - no user matching the valid session
+  // ...return undefined
+  if (!userFromSession) return undefined;
 
   const users = await sql<[User]>`
     SELECT
@@ -111,10 +178,21 @@ export async function getUserByUsernameAndToken(
     FROM
       users
     WHERE
-      username = ${username} AND
-      id = ${userFromSession.id}
+      username = ${username}
   `;
-  return users.map((user) => camelcaseKeys(user))[0];
+
+  // If we have no user, then return undefined
+  const user = users[0];
+  if (!user) return undefined;
+
+  // Security: Match ids of session user with user
+  // corresponding to requested username
+  if (user.id !== userFromSession.id) {
+    const errors: ApplicationError[] = [{ message: 'Access denied' }];
+    return errors;
+  }
+
+  return camelcaseKeys(user);
 }
 
 export async function getUserWithPasswordHashByUsername(username?: string) {
@@ -154,7 +232,7 @@ export async function getUserByValidSessionToken(token: string) {
 
   if (!session) return undefined;
 
-  return await getUserById(session.userId);
+  return await getUserById(session.usersId);
 }
 
 export async function insertSession(token: string, userId: number) {

@@ -15,7 +15,7 @@ export type Session = {
   id: number;
   token: string;
   expiry: Date;
-  userId: number;
+  usersId: number;
 };
 
 export type ApplicationError = { message: string };
