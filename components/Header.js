@@ -31,7 +31,6 @@ const headerContainer = css`
 `;
 
 export default function Header(props) {
-  console.log('props', props);
   return (
     <div css={headerContainer}>
       <div>

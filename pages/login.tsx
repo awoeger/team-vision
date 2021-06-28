@@ -179,19 +179,19 @@ export default function Login(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  // // Redirect from HTTP to HTTPS on Heroku
-  // if (
-  //   context.req.headers.host &&
-  //   context.req.headers['x-forwarded-proto'] &&
-  //   context.req.headers['x-forwarded-proto'] !== 'https'
-  // ) {
-  //   return {
-  //     redirect: {
-  //       destination: `https://${context.req.headers.host}/login`,
-  //       permanent: true,
-  //     },
-  //   };
-  // }
+  // Redirect from HTTP to HTTPS on Heroku
+  if (
+    context.req.headers.host &&
+    context.req.headers['x-forwarded-proto'] &&
+    context.req.headers['x-forwarded-proto'] !== 'https'
+  ) {
+    return {
+      redirect: {
+        destination: `https://${context.req.headers.host}/login`,
+        permanent: true,
+      },
+    };
+  }
 
   // get session Token
   const sessionToken = context.req.cookies.sessionToken;
