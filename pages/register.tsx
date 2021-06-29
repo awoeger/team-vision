@@ -66,12 +66,12 @@ export default function Register(props: Props) {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                  firstName: firstName,
-                  lastName: lastName,
+                  userFirstName: firstName,
+                  userLastName: lastName,
                   username: username,
                   password: password,
-                  email: email,
-                  roleId: Number(roleId),
+                  userEmail: email,
+                  userRoleId: Number(roleId),
                   csrfToken: props.csrfToken,
                 }),
               });

@@ -98,19 +98,19 @@ export async function getUsersIfValidSessionToken(token?: string) {
 }
 
 export async function insertUser({
-  firstName,
-  lastName,
-  email,
+  userFirstName,
+  userLastName,
+  userEmail,
   username,
   userPasswordHash,
-  roleId,
+  userRoleId,
 }: UserWithPasswordHash) {
   const users = await sql<[User]>`
     INSERT INTO users
     -- column names
       (user_first_name, user_last_name, username, user_email, user_password_hash, user_role_id)
     VALUES
-      (${firstName}, ${lastName}, ${username}, ${email}, ${userPasswordHash}, ${roleId})
+      (${userFirstName}, ${userLastName}, ${username}, ${userEmail}, ${userPasswordHash}, ${userRoleId})
     RETURNING
       id,
       user_first_name,
@@ -173,7 +173,7 @@ export async function getUserByUsernameAndToken(
       user_first_name,
       user_last_name,
       username,
-      user_email
+      user_email,
       user_role_id
     FROM
       users
@@ -211,6 +211,7 @@ export async function getUserWithPasswordHashByUsername(username?: string) {
 }
 
 export async function getValidSessionByToken(token: string) {
+  console.log();
   if (!token) return undefined;
 
   const sessions = await sql<Session[]>`

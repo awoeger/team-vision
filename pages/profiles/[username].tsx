@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
@@ -50,21 +51,24 @@ export default function SingleUserProfile(props: Props) {
       <Layout username={props.user.username} />
       <Head>
         <title>
-          Profile page for {props.user.firstName} {props.user.lastName}
+          Profile page for {props.user.userFirstName} {props.user.userLastName}
         </title>
       </Head>
 
-      <h1>Profile Page</h1>
-
+      <h1 style={{ color: 'blue' }}>Your Profile</h1>
+      <p>Welcome Coach {props.user.userFirstName}</p>
+      {/* TODO: Map over the array of teams that the coach is part of */}
       <div>
-        id: <span>{props.user.id}</span>
+        <h3>Team Name</h3>
+        <p>Sport type</p>
+        <p>Founded at</p>
       </div>
 
-      <div>
-        username: <span>{props.user.username}</span>
-      </div>
-      <div>first_name: {props.user.firstName}</div>
-      <div>last_name: {props.user.lastName}</div>
+      <button>
+        <Link href="/profiles/createNewTeam">
+          <a>Create new team</a>
+        </Link>
+      </button>
     </>
   );
 }

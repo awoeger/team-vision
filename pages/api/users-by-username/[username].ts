@@ -16,6 +16,7 @@ export default async function singleUserHandler(
   // Retrieve username from the query string (the square
   // bracket notation in the filename)
   const username = convertQueryValueString(req.query.username);
+  console.log('username', username);
 
   // Retrieve the session token from the cookie that
   // has been forwarded from the frontend (in
@@ -24,6 +25,7 @@ export default async function singleUserHandler(
 
   // Get either an array of errors OR a user
   const result = await getUserByUsernameAndToken(username, token);
+  console.log('result un, token', result);
 
   // If we have received an array of errors, set the
   // response accordingly

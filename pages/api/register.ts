@@ -30,25 +30,25 @@ export default async function registerHandler(
   if (req.method === 'POST') {
     // Destructure relevant information from the request body
     const {
-      firstName,
-      lastName,
+      userFirstName,
+      userLastName,
       username,
       password,
-      email,
-      roleId,
+      userEmail,
+      userRoleId,
       csrfToken,
     }: {
-      firstName: string;
-      lastName: string;
+      userFirstName: string;
+      userLastName: string;
       username: string;
       password: string;
-      email: string;
-      roleId: number;
+      userEmail: string;
+      userRoleId: number;
       csrfToken: string;
     } = req.body;
 
     const sessionToken = req.cookies.sessionTokenRegister;
-
+    console.log('token', sessionToken);
     const registerSession = await getValidSessionByToken(sessionToken);
 
     if (!registerSession) {
@@ -59,6 +59,8 @@ export default async function registerHandler(
 
     // Security: Check CSRF Token
     const isCsrfTokenValid = tokens.verify(csrfSecret, csrfToken);
+
+    console.log('valid?', isCsrfTokenValid);
 
     if (!isCsrfTokenValid) {
       return res
@@ -71,14 +73,17 @@ export default async function registerHandler(
 
     // Create a hash of the password to save in the database
     const userPasswordHash = await argon2.hash(password);
+    console.log('password', userPasswordHash);
     const user = {
-      firstName,
-      lastName,
+      userFirstName,
+      userLastName,
       username,
-      email,
+      userEmail,
       userPasswordHash,
-      roleId,
+      userRoleId,
     };
+
+    console.log('userÄ', user);
 
     // ID is created in insertUser function when we are passing user as an argument
     const userNew = await insertUser(user);

@@ -17,12 +17,12 @@ export default async function usersHandler(
   } else if (req.method === 'POST') {
     const newUser: UserWithPasswordHash = {
       // id: req.body.id,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+      userFirstName: req.body.userFirstName,
+      userLastName: req.body.userLastName,
       username: req.body.username,
-      email: req.body.email,
+      userEmail: req.body.userEmail,
       userPasswordHash: req.body.password_hash,
-      roleId: req.body.roleId,
+      userRoleId: req.body.userRoleId,
     };
     const user = await insertUser(newUser);
     return res.status(200).json({ user: user });

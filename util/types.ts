@@ -1,10 +1,10 @@
 export type User = {
   id?: number;
-  firstName: string;
-  lastName: string;
+  userFirstName: string;
+  userLastName: string;
   username: string;
-  email: string;
-  roleId: number;
+  userEmail: string;
+  userRoleId: number;
 };
 
 export type UserWithPasswordHash = User & {
