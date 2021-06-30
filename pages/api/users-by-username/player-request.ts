@@ -28,14 +28,14 @@ export default async function playerRequestHandler(
 
     // TODO: Write function for player request
     // Save the team information to the database
-    const teamInfo = await createPlayerRequest(
-      positionOnTeam,
-      playingSince,
-      experienceLevel,
-      message,
-      validSession.usersId,
-    );
+    // const teamInfo = await createPlayerRequest(
+    //   positionOnTeam,
+    //   playingSince,
+    //   experienceLevel,
+    //   message,
+    //   validSession.usersId,
+    // );
 
-    return res.status(200).json({ team: teamInfo });
+    // return res.status(200).json({ team: teamInfo });
   }
 }

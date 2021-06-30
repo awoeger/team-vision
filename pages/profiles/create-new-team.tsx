@@ -84,7 +84,7 @@ export default function CreateNewTeamForm(props: Props) {
           onSubmit={async (event) => {
             event.preventDefault();
             const response = await fetch(
-              `/api/users-by-username/playerRequest`,
+              `/api/users-by-username/create-new-team`,
               {
                 method: 'POST',
                 headers: {

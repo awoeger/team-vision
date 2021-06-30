@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Layout from '../../components/Layout';
 import { getAllTeams } from '../../util/database';
 import { RegisterResponse } from '../api/register';
-import { formContainer } from './createNewTeam';
+import { formContainer } from './create-new-team';
 
 // TODO: Make page invisible for not logged in user
 // TODO: Get request to get all teams to map over them in the team options
@@ -42,7 +42,7 @@ export default function PlayerRequest(props: Props) {
           onSubmit={async (event) => {
             event.preventDefault();
             const response = await fetch(
-              `/api/users-by-username/createNewTeam`,
+              `/api/users-by-username/playerRequest`,
               {
                 method: 'POST',
                 headers: {

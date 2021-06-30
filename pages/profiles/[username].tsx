@@ -86,7 +86,7 @@ export default function SingleUserProfile(props: Props) {
       </div>
 
       <button>
-        <Link href="/profiles/createNewTeam">
+        <Link href="/profiles/create-new-team">
           <a>Create new team</a>
         </Link>
       </button>
