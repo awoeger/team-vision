@@ -6,6 +6,8 @@ import Layout from '../../components/Layout';
 import { darkBlue, largeText, normalText } from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
 
+// TODO: Make page invisible for not logged in user
+
 type Props = {
   username: String;
 };
@@ -82,7 +84,7 @@ export default function CreateNewTeamForm(props: Props) {
           onSubmit={async (event) => {
             event.preventDefault();
             const response = await fetch(
-              `/api/users-by-username/createNewTeam`,
+              `/api/users-by-username/playerRequest`,
               {
                 method: 'POST',
                 headers: {

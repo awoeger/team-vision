@@ -145,6 +145,16 @@ export async function createNewTeam(
   return teams.map((team) => camelcaseKeys(team))[0];
 }
 
+export async function getAllTeams() {
+  const teams = await sql`
+    SELECT
+    *
+    FROM
+      teams
+  `;
+  return teams.map((team) => camelcaseKeys(team));
+}
+
 export async function getTeamsByUserId(userId: number) {
   if (!userId) return undefined;
 

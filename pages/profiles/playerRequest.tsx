@@ -1,7 +1,13 @@
 import { css } from '@emotion/react';
+import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
+import { getAllTeams } from '../../util/database';
+import { RegisterResponse } from '../api/register';
 import { formContainer } from './createNewTeam';
+
+// TODO: Make page invisible for not logged in user
+// TODO: Get request to get all teams to map over them in the team options
 
 type Props = {
   username: String;
@@ -13,7 +19,16 @@ const input = css`
   padding: 5px;
 `;
 
+const textarea = css`
+  margin: 5px 0 20px 0;
+  width: 100%;
+  padding: 5px;
+  line-height: 40px;
+  text-align: left;
+`;
+
 export default function PlayerRequest(props: Props) {
+  const [teamChoice, setTeamChoice] = useState('');
   const [positionOnTeam, setPositionOnTeam] = useState('');
   const [playingSince, setPlayingSince] = useState('');
   const [experienceLevel, setExperienceLevel] = useState('Beginner');
@@ -24,29 +39,30 @@ export default function PlayerRequest(props: Props) {
       <Layout username={props.username} />
       <div css={formContainer}>
         <form
-        // onSubmit={async (event) => {
-        //   event.preventDefault();
-        //   const response = await fetch(
-        //     `/api/users-by-username/createNewTeam`,
-        //     {
-        //       method: 'POST',
-        //       headers: {
-        //         'Content-Type': 'application/json',
-        //       },
-        //       body: JSON.stringify({
-        //         teamName: teamName,
-        //         sportType: sportType,
-        //         foundedAt: foundedAt,
-        //       }),
-        //     },
-        //   );
+          onSubmit={async (event) => {
+            event.preventDefault();
+            const response = await fetch(
+              `/api/users-by-username/createNewTeam`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  positionOnTeam: positionOnTeam,
+                  playingSince: playingSince,
+                  experienceLevel: experienceLevel,
+                  message: message,
+                }),
+              },
+            );
 
-        //   const json = (await response.json()) as RegisterResponse;
-        //   console.log('json', json);
+            const json = (await response.json()) as RegisterResponse;
+            console.log('json', json);
 
-        //   // Todo: Link to single user page
-        //   router.push(`/`);
-        // }}
+            // Todo: Link to single user page
+            router.push(`/`);
+          }}
         >
           <h1>Player request</h1>
           <h2>
@@ -54,6 +70,22 @@ export default function PlayerRequest(props: Props) {
             <br /> As soon as you got accepted, your team will be displayed on
             the profile page.
           </h2>
+
+          <label>
+            Which team would you like to apply for?
+            <select
+              css={input}
+              id="teamId"
+              value={teamChoice}
+              onChange={(event) => {
+                setTeamChoice(event.currentTarget.value);
+              }}
+            >
+              <option value="Beginner">Beginner</option>
+              <option value="Advanced">Advanced</option>
+              <option value="Professional">Profressional</option>
+            </select>
+          </label>
 
           <label>
             What position do you plan on playing?
@@ -78,10 +110,10 @@ export default function PlayerRequest(props: Props) {
           </label>
 
           <label>
-            Role
+            How would you rate your experience level?
             <select
               css={input}
-              id="role"
+              id="experienceLevel"
               value={experienceLevel}
               onChange={(event) => {
                 setExperienceLevel(event.currentTarget.value);
@@ -94,9 +126,9 @@ export default function PlayerRequest(props: Props) {
           </label>
 
           <label>
-            Message to the coach
+            Send your message to the coach.
             <textarea
-              css={input}
+              css={textarea}
               placeholder="Why do you want to join this team?"
               value={message}
               onChange={(event) => {
@@ -110,4 +142,14 @@ export default function PlayerRequest(props: Props) {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const allTeams = await getAllTeams();
+
+  return {
+    props: {
+      allTeams,
+    },
+  };
 }
