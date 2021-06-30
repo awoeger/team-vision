@@ -5,7 +5,9 @@ exports.up = async function up(sql) {
 			team_id INT REFERENCES teams(id) NOT NULL,
 			status_id INT REFERENCES status_types(id) NOT NULL,
 			position_on_team varchar(50),
-			playing_since DATE
+			playing_since varchar(7),
+			experience_level varchar(10),
+			player_message varchar(100)
 		)
 	`;
 };
