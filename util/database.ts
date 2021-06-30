@@ -126,7 +126,7 @@ export async function insertUser({
 export async function createNewTeam(
   teamName: string,
   sportType: string,
-  foundedAt: Date,
+  foundedAt: string,
   usersId: number,
 ) {
   const teams = await sql<[TeamInfo]>`
@@ -143,6 +143,32 @@ export async function createNewTeam(
       coach_user_id
   `;
   return teams.map((team) => camelcaseKeys(team))[0];
+}
+
+export async function getTeamsByUserId(userId: number) {
+  if (!userId) return undefined;
+
+  const teams = await sql`
+    SELECT
+    *
+    FROM
+      teams
+    WHERE
+    coach_user_id = ${userId}
+  `;
+  return teams.map((team) => camelcaseKeys(team));
+}
+
+// TODO: Write DELETE TEAM FUNCTION
+export async function deleteTeam(teamId: number) {
+  const teamInfo = await sql`
+    DELETE FROM
+     teams
+    WHERE
+    teamId = ${teamId}
+    RETURNING *
+  `;
+  return teamInfo.map((team) => camelcaseKeys(team));
 }
 
 export async function getUserById(id?: number) {

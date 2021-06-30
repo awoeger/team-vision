@@ -1,11 +1,73 @@
+import { css } from '@emotion/react';
+// import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
+import { darkBlue, largeText, normalText } from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
 
 type Props = {
   username: String;
 };
+
+export const formContainer = css`
+  padding-top: 230px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid ${darkBlue};
+    box-shadow: 10px 5px 5px ${darkBlue};
+    border-radius: 20px;
+    padding: 30px;
+    width: 40%;
+
+    h1 {
+      color: ${darkBlue};
+      font-size: ${largeText};
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    h2 {
+      color: ${darkBlue};
+      font-size: ${normalText};
+      font-weight: 400;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      color: ${darkBlue};
+      font-weight: 500;
+
+      input {
+        margin: 5px 0 20px 0;
+        width: 100%;
+        padding: 5px;
+      }
+    }
+
+    button {
+      background-image: url(/images/button_background_lightBlue.PNG);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      width: 100%;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+  }
+`;
 
 export default function CreateNewTeamForm(props: Props) {
   const [teamName, setTeamName] = useState('');
@@ -15,7 +77,7 @@ export default function CreateNewTeamForm(props: Props) {
   return (
     <>
       <Layout username={props.username} />
-      <div>
+      <div css={formContainer}>
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -41,7 +103,12 @@ export default function CreateNewTeamForm(props: Props) {
             router.push(`/`);
           }}
         >
-          <h2>Team Information</h2>
+          <h1>Your team</h1>
+          <h2>
+            Tell us your team name and what sport you are planning to play.
+          </h2>
+
+          {/* <Image src="/images/teamIcon.png" width="10%" height="10%" /> */}
 
           <label>
             Team Name
@@ -66,10 +133,9 @@ export default function CreateNewTeamForm(props: Props) {
           </label>
 
           <label>
-            founded at
+            Date of establishment
             <input
-              placeholder="01/1966"
-              type="date"
+              placeholder="mm/yyyy"
               value={foundedAt}
               onChange={(event) => {
                 setFoundedAt(event.currentTarget.value);

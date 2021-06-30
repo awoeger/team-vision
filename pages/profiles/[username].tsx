@@ -3,15 +3,28 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import { getTeamsByUserId } from '../../util/database';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
-// TODO: style the error messages!!!!
+// TODO: Ternary - show either coach or player "page"
+// TODO: Display the teams of the coach or player
+// TODO: Style page
+// TODO: Style the error messages
 
 type Props = {
   user?: User;
   errors?: ApplicationError[];
   username?: String;
+  coachTeams: CoachTeam[];
+};
+
+type CoachTeam = {
+  id: Number;
+  teamName: String;
+  sportType: String;
+  founded: String;
+  coachUserId: Number;
 };
 
 const error = css`
@@ -21,6 +34,7 @@ const error = css`
 `;
 
 export default function SingleUserProfile(props: Props) {
+  console.log('props karl', props);
   // Show message if user not allowed
   const errors = props.errors;
   if (errors) {
@@ -48,20 +62,27 @@ export default function SingleUserProfile(props: Props) {
 
   return (
     <>
-      <Layout username={props.user.username} />
       <Head>
         <title>
           Profile page for {props.user.userFirstName} {props.user.userLastName}
         </title>
       </Head>
-
-      <h1 style={{ color: 'blue' }}>Your Profile</h1>
+      <Layout username={props.user.username} />
+      <h1>Your Profile</h1>
       <p>Welcome Coach {props.user.userFirstName}</p>
-      {/* TODO: Map over the array of teams that the coach is part of */}
+
+      {/* TODO: Map over  */}
       <div>
-        <h3>Team Name</h3>
-        <p>Sport type</p>
-        <p>Founded at</p>
+        {props.coachTeams.map((coachTeam) => {
+          return (
+            <div key={3}>
+              <h3>Team Name: {coachTeam.teamName}</h3>
+              <p>Sport type: {coachTeam.sportType}</p>
+              <p>Founded at: {coachTeam.founded}</p>
+              <button>Go to team</button>
+            </div>
+          );
+        })}
       </div>
 
       <button>
@@ -95,7 +116,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const json = (await response.json()) as SingleUserResponseType;
 
-  console.log('API decoded JSON from response', json);
+  console.log('profile page json', json);
 
   if ('errors' in json) {
     // Better would be to return the status code
@@ -108,10 +129,15 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     context.res.statusCode = 404;
   }
 
+  const coachTeams = await getTeamsByUserId(json.user.id);
+
+  console.log('Joses Team', coachTeams);
+
   // spreading the json, will help us to put either the user OR the errors in the return
   return {
     props: {
       ...json,
+      coachTeams,
     },
   };
 }

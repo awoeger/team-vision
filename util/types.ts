@@ -23,5 +23,5 @@ export type ApplicationError = { message: string };
 export type TeamInfo = {
   teamName: string;
   sportType: string;
-  foundedAt: Date;
+  foundedAt: string;
 };
