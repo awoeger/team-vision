@@ -5,6 +5,7 @@ import postgres from 'postgres';
 import {
   ApplicationError,
   Session,
+  TeamInfo,
   User,
   UserWithPasswordHash,
 } from '../util/types';
@@ -120,6 +121,28 @@ export async function insertUser({
       user_role_id
   `;
   return users.map((user) => camelcaseKeys(user))[0];
+}
+
+export async function createNewTeam(
+  teamName: string,
+  sportType: string,
+  foundedAt: Date,
+  usersId: number,
+) {
+  const teams = await sql<[TeamInfo]>`
+  INSERT INTO teams
+  --column names
+  (team_name, sport_type, founded, coach_user_id)
+  VALUES(
+    ${teamName},  ${sportType}, ${foundedAt}, ${usersId}
+  )
+  RETURNING
+      team_name,
+      sport_type,
+      founded,
+      coach_user_id
+  `;
+  return teams.map((team) => camelcaseKeys(team))[0];
 }
 
 export async function getUserById(id?: number) {

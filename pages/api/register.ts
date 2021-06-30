@@ -48,7 +48,8 @@ export default async function registerHandler(
     } = req.body;
 
     const sessionToken = req.cookies.sessionTokenRegister;
-    console.log('token', sessionToken);
+    console.log('SessionCookietoken', sessionToken);
+
     const registerSession = await getValidSessionByToken(sessionToken);
 
     if (!registerSession) {
@@ -59,8 +60,6 @@ export default async function registerHandler(
 
     // Security: Check CSRF Token
     const isCsrfTokenValid = tokens.verify(csrfSecret, csrfToken);
-
-    console.log('valid?', isCsrfTokenValid);
 
     if (!isCsrfTokenValid) {
       return res
@@ -73,7 +72,6 @@ export default async function registerHandler(
 
     // Create a hash of the password to save in the database
     const userPasswordHash = await argon2.hash(password);
-    console.log('password', userPasswordHash);
     const user = {
       userFirstName,
       userLastName,
@@ -83,11 +81,8 @@ export default async function registerHandler(
       userRoleId,
     };
 
-    console.log('userÄ', user);
-
     // ID is created in insertUser function when we are passing user as an argument
     const userNew = await insertUser(user);
-    console.log('newUser', userNew);
 
     // Clean up expired sessions
     await deleteExpiredSessions();
@@ -98,16 +93,17 @@ export default async function registerHandler(
     const token = crypto.randomBytes(64).toString('base64');
 
     // Save the token to the database with a automatically generated time limit of 24 hours
+    // TODO write if statement with status
+    // if (!Number.isInteger(userNew.id)) {
+    //   return res.status();
+    // }
 
     // use userNew, because it has the ID as well, see comment above
-    const session = await insertSession(token, userNew.id);
+    const session = await insertSession(token, Number(userNew.id));
 
     const cookie = createSerializedSessionCookie(session.token);
-
-    return res
-      .status(200)
-      .setHeader('Set-Cookie', cookie)
-      .json({ user: userNew });
+    res.setHeader('Set-Cookie', cookie);
+    return res.status(200).json({ user: userNew });
   }
 
   res.status(400).json({ errors: [{ message: 'Bad request' }] });

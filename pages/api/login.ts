@@ -66,7 +66,9 @@ export default async function loginHandler(
 
     // Save the token to the database with a automatically generated time limit of 24 hours
 
-    const session = await insertSession(token, userWithPasswordHash.id);
+    // TODO like in register.ts if statement if res.status
+
+    const session = await insertSession(token, Number(userWithPasswordHash.id));
 
     const cookie = createSerializedSessionCookie(session.token);
 
@@ -77,7 +79,8 @@ export default async function loginHandler(
     const { userPasswordHash, ...user } = userWithPasswordHash;
 
     // now we have a user that doesn't have the passwordHash anymore
-    return res.status(200).setHeader('Set-Cookie', cookie).json({ user: user });
+    res.setHeader('Set-Cookie', cookie);
+    return res.status(200).json({ user: user });
   }
 
   res.status(400).json({ errors: [{ message: 'Bad request' }] });
