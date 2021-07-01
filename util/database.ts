@@ -4,6 +4,7 @@ import postgres from 'postgres';
 // import setPostgresDefaultsOnHeroku from '../setPostgresDefaultsOnHeroku';
 import {
   ApplicationError,
+  PlayerRequest,
   Session,
   TeamInfo,
   User,
@@ -145,10 +146,11 @@ export async function createNewTeam(
   return teams.map((team) => camelcaseKeys(team))[0];
 }
 
-export async function getAllTeams() {
+export async function getAllTeamNamesandId() {
   const teams = await sql`
     SELECT
-    *
+    id,
+    team_name
     FROM
       teams
   `;
@@ -179,6 +181,28 @@ export async function deleteTeam(teamId: number) {
     RETURNING *
   `;
   return teamInfo.map((team) => camelcaseKeys(team));
+}
+
+export async function createPlayerRequest(
+  teamChoice: string,
+  positionOnTeam: string,
+  playingSince: string,
+  experienceLevel: string,
+  message: string,
+  usersId: number,
+) {
+  const playerRequest = await sql<[PlayerRequest]>`
+  INSERT INTO team_user
+  --column names
+  (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
+  VALUES(
+    ${usersId},  ${teamChoice}, 3, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
+  )
+  RETURNING
+  -- column names
+    users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message
+  `;
+  return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
 export async function getUserById(id?: number) {

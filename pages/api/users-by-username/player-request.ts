@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getValidSessionByToken } from '../../../util/database';
+import {
+  createPlayerRequest,
+  getValidSessionByToken,
+} from '../../../util/database';
 import { ApplicationError, TeamInfo } from '../../../util/types';
 
 export type CreateTeamResponse =
@@ -15,9 +18,15 @@ export default async function playerRequestHandler(
   if (req.method === 'POST') {
     const validSession = await getValidSessionByToken(req.cookies.sessionToken);
 
-    // Retrieve positionOnTeam, playingSince and experienceLevel, message from the request body from the frontend
+    // Retrieve info from the request body from the frontend
     // Destructure relevant information from the request body
-    const { positionOnTeam, playingSince, experienceLevel, message } = req.body;
+    const {
+      teamChoice,
+      positionOnTeam,
+      playingSince,
+      experienceLevel,
+      message,
+    } = req.body;
 
     // check if userId, etc. is not undefined
     if (!validSession) {
@@ -28,14 +37,15 @@ export default async function playerRequestHandler(
 
     // TODO: Write function for player request
     // Save the team information to the database
-    // const teamInfo = await createPlayerRequest(
-    //   positionOnTeam,
-    //   playingSince,
-    //   experienceLevel,
-    //   message,
-    //   validSession.usersId,
-    // );
+    const playerRequest = await createPlayerRequest(
+      teamChoice,
+      positionOnTeam,
+      playingSince,
+      experienceLevel,
+      message,
+      validSession.usersId,
+    );
 
-    // return res.status(200).json({ team: teamInfo });
+    return res.status(200).json({ playerRequest: playerRequest });
   }
 }

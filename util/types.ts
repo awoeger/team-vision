@@ -25,3 +25,12 @@ export type TeamInfo = {
   sportType: string;
   foundedAt: string;
 };
+
+export type PlayerRequest = {
+  teamChoice: string;
+  positionOnTeam: string;
+  playingSince: string;
+  experienceLevel: string;
+  message: string;
+  usersId: number;
+};

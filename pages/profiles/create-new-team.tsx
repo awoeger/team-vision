@@ -99,7 +99,6 @@ export default function CreateNewTeamForm(props: Props) {
             );
 
             const json = (await response.json()) as RegisterResponse;
-            console.log('json', json);
 
             // Todo: Link to single user page
             router.push(`/`);

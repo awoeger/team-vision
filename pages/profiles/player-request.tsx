@@ -2,15 +2,21 @@ import { css } from '@emotion/react';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
-import { getAllTeams } from '../../util/database';
+import { getAllTeamNamesandId } from '../../util/database';
 import { RegisterResponse } from '../api/register';
 import { formContainer } from './create-new-team';
 
 // TODO: Make page invisible for not logged in user
-// TODO: Get request to get all teams to map over them in the team options
+// TODO: Value for option: Please select
 
 type Props = {
   username: String;
+  allTeamNamesandIdforCoach: TeamNameandIdforCoach[];
+};
+
+type TeamNameandIdforCoach = {
+  id: Number;
+  teamName: String;
 };
 
 const input = css`
@@ -31,7 +37,7 @@ export default function PlayerRequest(props: Props) {
   const [teamChoice, setTeamChoice] = useState('');
   const [positionOnTeam, setPositionOnTeam] = useState('');
   const [playingSince, setPlayingSince] = useState('');
-  const [experienceLevel, setExperienceLevel] = useState('Beginner');
+  const [experienceLevel, setExperienceLevel] = useState('');
   const [message, setMessage] = useState('');
 
   return (
@@ -42,13 +48,14 @@ export default function PlayerRequest(props: Props) {
           onSubmit={async (event) => {
             event.preventDefault();
             const response = await fetch(
-              `/api/users-by-username/playerRequest`,
+              `/api/users-by-username/player-request`,
               {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                  teamChoice: teamChoice,
                   positionOnTeam: positionOnTeam,
                   playingSince: playingSince,
                   experienceLevel: experienceLevel,
@@ -58,7 +65,6 @@ export default function PlayerRequest(props: Props) {
             );
 
             const json = (await response.json()) as RegisterResponse;
-            console.log('json', json);
 
             // Todo: Link to single user page
             router.push(`/`);
@@ -67,23 +73,28 @@ export default function PlayerRequest(props: Props) {
           <h1>Player request</h1>
           <h2>
             You want to be part of a team? Send a request to the coach!
-            <br /> As soon as you got accepted, your team will be displayed on
-            the profile page.
+            <br /> As soon as you get accepted,
+            <br /> your team will be displayed on your profile page.
           </h2>
 
           <label>
             Which team would you like to apply for?
             <select
               css={input}
-              id="teamId"
+              id="teamChoice"
               value={teamChoice}
               onChange={(event) => {
                 setTeamChoice(event.currentTarget.value);
               }}
             >
-              <option value="Beginner">Beginner</option>
-              <option value="Advanced">Advanced</option>
-              <option value="Professional">Profressional</option>
+              <option>Please select</option>
+              {props.allTeamNamesandIdforCoach.map((team) => {
+                return (
+                  <option key={team.id} value={team.id}>
+                    {team.teamName}
+                  </option>
+                );
+              })}
             </select>
           </label>
 
@@ -119,6 +130,7 @@ export default function PlayerRequest(props: Props) {
                 setExperienceLevel(event.currentTarget.value);
               }}
             >
+              <option>Please select</option>
               <option value="Beginner">Beginner</option>
               <option value="Advanced">Advanced</option>
               <option value="Professional">Profressional</option>
@@ -145,11 +157,11 @@ export default function PlayerRequest(props: Props) {
 }
 
 export async function getServerSideProps() {
-  const allTeams = await getAllTeams();
+  const allTeamNamesandIdforCoach = await getAllTeamNamesandId();
 
   return {
     props: {
-      allTeams,
+      allTeamNamesandIdforCoach,
     },
   };
 }

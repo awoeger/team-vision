@@ -128,7 +128,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // not been found in the database)
     context.res.statusCode = 404;
   }
-
+  // TODO: Try out to to delete json
   const coachTeams = await getTeamsByUserId(json.user.id);
 
   console.log('Joses Team', coachTeams);
