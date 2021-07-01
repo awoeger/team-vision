@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
-// Todo: Link to the right profile page on YOUR PROFILE LINK
+// TODO: sticky header on index.js but not the other pages
 
 const headerContainer = css`
   display: flex;
@@ -12,8 +12,8 @@ const headerContainer = css`
   padding: 20px;
   width: 100%;
   background-color: ${darkBlue};
-  position: fixed;
-  z-index: 1;
+  /* position: fixed;
+  z-index: 1; */
 
   > div {
     display: flex;
@@ -31,8 +31,6 @@ const headerContainer = css`
 `;
 
 export default function Header(props) {
-  console.log('header props', props);
-
   return (
     <div css={headerContainer}>
       <div>

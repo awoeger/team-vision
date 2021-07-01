@@ -156,7 +156,7 @@ export async function getAllTeamNamesandId() {
   return teams.map((team) => camelcaseKeys(team));
 }
 
-export async function getTeamsByUserId(userId: number) {
+export async function getCoachTeamsByUserId(userId: number) {
   if (!userId) return undefined;
 
   const teams = await sql`

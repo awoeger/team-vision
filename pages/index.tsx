@@ -10,7 +10,6 @@ import { normalText } from '../util/sharedStyles';
 // Todo: Video as background
 // Todo: About Section Design
 // Todo: Contact Section Design
-// Todo: Update Header for login logout and your profile username is
 
 const heroDiv = css`
   display: flex;

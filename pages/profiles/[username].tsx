@@ -4,9 +4,8 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import {
+  getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
-  getTeamsByUserId,
-  getTeamsByUserIdAndStatusId,
 } from '../../util/database';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
@@ -87,6 +86,7 @@ export default function SingleUserProfile(props: Props) {
       {props.user.userRoleId === 1 ? (
         <div>
           <p>Welcome Coach {props.user.userFirstName}</p>
+          <p>Check out all teams you are coaching!</p>
           <div>
             {props.coachTeams.map((coachTeam) => {
               return (
@@ -94,20 +94,21 @@ export default function SingleUserProfile(props: Props) {
                   <h3>Team Name: {coachTeam.teamName}</h3>
                   <p>Sport type: {coachTeam.sportType}</p>
                   <p>Founded at: {coachTeam.founded}</p>
-                  <button>Go to team</button>
+                  <Link href={`/teams/${coachTeam.teamName}`}>
+                    <a>Go to team</a>
+                  </Link>
                 </div>
               );
             })}
           </div>
-          <button>
-            <Link href="/profiles/create-new-team">
-              <a>Create new team</a>
-            </Link>
-          </button>
+          <Link href="/profiles/create-new-team">
+            <a>Create new team</a>
+          </Link>
         </div>
       ) : (
         <div>
           <p>Welcome Player {props.user.userFirstName}</p>
+          <p>Check out all teams you are a part of!</p>
           <div>
             {props.playerTeams.map((playerTeam) => {
               return (
@@ -115,16 +116,16 @@ export default function SingleUserProfile(props: Props) {
                   <h3>Team Name: {playerTeam.teamName}</h3>
                   <p>Sport type: {playerTeam.sportType}</p>
                   <p>Founded at: {playerTeam.founded}</p>
-                  <button>Go to team</button>
+                  <Link href={`/teams/${playerTeam.teamName}`}>
+                    <a>Go to team</a>
+                  </Link>
                 </div>
               );
             })}
           </div>
-          <button>
-            <Link href="/profiles/player-request">
-              <a>Join a new team</a>
-            </Link>
-          </button>
+          <Link href="/profiles/player-request">
+            <a>Join a new team</a>
+          </Link>
         </div>
       )}
     </>
@@ -166,7 +167,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   }
 
   // Getting all teams the coach has created
-  const coachTeams = await getTeamsByUserId(json.user.id);
+  const coachTeams = await getCoachTeamsByUserId(json.user.id);
 
   // Getting all teams the player got accepted to
   const playerTeams = await getPlayerTeamsByUserId(json.user.id);
