@@ -4,6 +4,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
 import {
+  getPlayerTeamsByUserId,
   getTeamsByUserId,
   getTeamsByUserIdAndStatusId,
 } from '../../util/database';
@@ -168,7 +169,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const coachTeams = await getTeamsByUserId(json.user.id);
 
   // Getting all teams the player got accepted to
-  const playerTeams = await getTeamsByUserIdAndStatusId(json.user.id);
+  const playerTeams = await getPlayerTeamsByUserId(json.user.id);
   console.log('playerTeams', playerTeams);
 
   // spreading the json, will help us to put either the user OR the errors in the return

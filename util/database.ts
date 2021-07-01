@@ -61,7 +61,6 @@ export async function getUsers() {
   return users.map((user) => camelcaseKeys(user));
 }
 
-// TODO: maybe I will need this or similiar function for coach visability
 // Secure version of getUsers which
 // allows ANY authenticated user
 // to view ALL users
@@ -205,21 +204,7 @@ export async function createPlayerRequest(
   return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
-// export async function getStatusIdByUserId(userId: number) {
-//   if (!userId) return undefined;
-
-//   const statusIds = await sql`
-//     SELECT
-//     status_id
-//     FROM
-//       team_user
-//     WHERE
-//     users_id = ${userId}
-//   `;
-//   return statusIds.map((statusId) => camelcaseKeys(statusId));
-// }
-
-export async function getTeamsByUserIdAndStatusId(userId: number) {
+export async function getPlayerTeamsByUserId(userId: number) {
   if (!userId) return undefined;
 
   const teamsOfPlayer = await sql`
