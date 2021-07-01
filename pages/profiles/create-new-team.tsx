@@ -101,7 +101,7 @@ export default function CreateNewTeamForm(props: Props) {
             const json = (await response.json()) as RegisterResponse;
 
             // Todo: Link to single user page
-            router.push(`/`);
+            router.push(`/profiles/${props.username}`);
           }}
         >
           <h1>Your team</h1>

@@ -31,6 +31,8 @@ const headerContainer = css`
 `;
 
 export default function Header(props) {
+  console.log('header props', props);
+
   return (
     <div css={headerContainer}>
       <div>
@@ -62,7 +64,7 @@ export default function Header(props) {
       </div>
       <div>
         {props.username ? (
-          <Link href="/">
+          <Link href={`/profiles/${props.username}`}>
             <a>{props.username && 'Your Profile'} &nbsp;</a>
           </Link>
         ) : (

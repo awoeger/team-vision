@@ -205,6 +205,38 @@ export async function createPlayerRequest(
   return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
+// export async function getStatusIdByUserId(userId: number) {
+//   if (!userId) return undefined;
+
+//   const statusIds = await sql`
+//     SELECT
+//     status_id
+//     FROM
+//       team_user
+//     WHERE
+//     users_id = ${userId}
+//   `;
+//   return statusIds.map((statusId) => camelcaseKeys(statusId));
+// }
+
+export async function getTeamsByUserIdAndStatusId(userId: number) {
+  if (!userId) return undefined;
+
+  const teamsOfPlayer = await sql`
+    SELECT
+    teams.id, teams.team_name, teams.sport_type, teams.founded
+    FROM
+      team_user, teams
+    WHERE
+      team_user.status_id = 1
+    AND
+      team_user.users_id = ${userId}
+    AND
+      team_user.team_id = teams.id
+  `;
+  return teamsOfPlayer.map((team) => camelcaseKeys(team));
+}
+
 export async function getUserById(id?: number) {
   // Return undefined if userId is not parseable
   // to an integer

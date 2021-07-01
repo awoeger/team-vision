@@ -3,7 +3,10 @@ import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import { getTeamsByUserId } from '../../util/database';
+import {
+  getTeamsByUserId,
+  getTeamsByUserIdAndStatusId,
+} from '../../util/database';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
@@ -17,6 +20,7 @@ type Props = {
   errors?: ApplicationError[];
   username?: String;
   coachTeams: CoachTeam[];
+  playerTeams: PlayerTeam[];
 };
 
 type CoachTeam = {
@@ -27,6 +31,13 @@ type CoachTeam = {
   coachUserId: Number;
 };
 
+type PlayerTeam = {
+  id: Number;
+  teamName: String;
+  sportType: String;
+  founded: String;
+};
+
 const error = css`
   display: flex;
   justify-content: center;
@@ -34,7 +45,7 @@ const error = css`
 `;
 
 export default function SingleUserProfile(props: Props) {
-  console.log('props karl', props);
+  console.log('props in profile page', props);
   // Show message if user not allowed
   const errors = props.errors;
   if (errors) {
@@ -67,29 +78,54 @@ export default function SingleUserProfile(props: Props) {
           Profile page for {props.user.userFirstName} {props.user.userLastName}
         </title>
       </Head>
+
       <Layout username={props.user.username} />
+
       <h1>Your Profile</h1>
-      <p>Welcome Coach {props.user.userFirstName}</p>
 
-      {/* TODO: Map over  */}
-      <div>
-        {props.coachTeams.map((coachTeam) => {
-          return (
-            <div key={3}>
-              <h3>Team Name: {coachTeam.teamName}</h3>
-              <p>Sport type: {coachTeam.sportType}</p>
-              <p>Founded at: {coachTeam.founded}</p>
-              <button>Go to team</button>
-            </div>
-          );
-        })}
-      </div>
-
-      <button>
-        <Link href="/profiles/create-new-team">
-          <a>Create new team</a>
-        </Link>
-      </button>
+      {props.user.userRoleId === 1 ? (
+        <div>
+          <p>Welcome Coach {props.user.userFirstName}</p>
+          <div>
+            {props.coachTeams.map((coachTeam) => {
+              return (
+                <div key={coachTeam.id}>
+                  <h3>Team Name: {coachTeam.teamName}</h3>
+                  <p>Sport type: {coachTeam.sportType}</p>
+                  <p>Founded at: {coachTeam.founded}</p>
+                  <button>Go to team</button>
+                </div>
+              );
+            })}
+          </div>
+          <button>
+            <Link href="/profiles/create-new-team">
+              <a>Create new team</a>
+            </Link>
+          </button>
+        </div>
+      ) : (
+        <div>
+          <p>Welcome Player {props.user.userFirstName}</p>
+          <div>
+            {props.playerTeams.map((playerTeam) => {
+              return (
+                <div key={playerTeam.id}>
+                  <h3>Team Name: {playerTeam.teamName}</h3>
+                  <p>Sport type: {playerTeam.sportType}</p>
+                  <p>Founded at: {playerTeam.founded}</p>
+                  <button>Go to team</button>
+                </div>
+              );
+            })}
+          </div>
+          <button>
+            <Link href="/profiles/player-request">
+              <a>Join a new team</a>
+            </Link>
+          </button>
+        </div>
+      )}
     </>
   );
 }
@@ -115,8 +151,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     );
 
   const json = (await response.json()) as SingleUserResponseType;
-
-  console.log('profile page json', json);
+  console.log('json in profile page', json);
 
   if ('errors' in json) {
     // Better would be to return the status code
@@ -128,16 +163,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // not been found in the database)
     context.res.statusCode = 404;
   }
-  // TODO: Try out to to delete json
+
+  // Getting all teams the coach has created
   const coachTeams = await getTeamsByUserId(json.user.id);
 
-  console.log('Joses Team', coachTeams);
+  // Getting all teams the player got accepted to
+  const playerTeams = await getTeamsByUserIdAndStatusId(json.user.id);
+  console.log('playerTeams', playerTeams);
 
   // spreading the json, will help us to put either the user OR the errors in the return
   return {
     props: {
       ...json,
       coachTeams,
+      playerTeams,
     },
   };
 }

@@ -8,6 +8,7 @@ import { formContainer } from './create-new-team';
 
 // TODO: Make page invisible for not logged in user
 // TODO: Value for option: Please select
+// TODO: Link to the right page after filling out the form
 
 type Props = {
   username: String;
@@ -67,7 +68,7 @@ export default function PlayerRequest(props: Props) {
             const json = (await response.json()) as RegisterResponse;
 
             // Todo: Link to single user page
-            router.push(`/`);
+            router.push(`/profiles/${props.username}`);
           }}
         >
           <h1>Player request</h1>
