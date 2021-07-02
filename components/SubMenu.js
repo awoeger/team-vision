@@ -16,8 +16,10 @@ const navBar = css`
   justify-content: start;
   align-items: center;
 
-  svg {
+  button {
     margin-left: 20px;
+    background: none;
+    border: none;
   }
 `;
 
@@ -120,19 +122,19 @@ export default function SubMenu(props) {
             </Link>
           </li>
           <li css={navText}>
-            <IoIcons.IoMdPeople />
+            <AiIcons.AiOutlineCalendar />
             <Link href={`/teams/${props.teamId}/create-new-event`}>
               <a>CREATE EVENT</a>
             </Link>
           </li>
           <li css={navText}>
-            <AiIcons.AiFillAccountBook />
+            <FaIcons.FaRunning />
             <Link href={`/teams/${props.teamId}/exercises`}>
               <a>EXERCISES</a>
             </Link>
           </li>
           <li css={navText}>
-            <IoIcons.IoMdHelpCircle />
+            <IoIcons.IoMdSettings />
             <Link href={`/teams/${props.teamId}/team-settings`}>
               <a>TEAM SETTINGS</a>
             </Link>
