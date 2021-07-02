@@ -38,6 +38,11 @@ const firstSection = css`
 
   h1 {
     color: white;
+    font-size: 5em;
+  }
+
+  h2 {
+    color: white;
   }
 `;
 

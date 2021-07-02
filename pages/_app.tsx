@@ -3,7 +3,7 @@ import { css, Global } from '@emotion/react';
 import { AppProps } from 'next/dist/next-server/lib/router/router';
 import Head from 'next/head';
 import { useCallback, useEffect, useState } from 'react';
-import { darkBlue, normalText } from '../util/sharedStyles';
+import { darkBlue, largeText, normalText } from '../util/sharedStyles';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [username, setUsername] = useState<string>();
@@ -56,17 +56,17 @@ function MyApp({ Component, pageProps }: AppProps) {
             color: ${darkBlue};
           }
           h1 {
-            font-size: 5em;
+            font-size: ${largeText};
             font-weight: 800;
             text-transform: uppercase;
             margin: 0px;
-            color: white;
+            color: ${darkBlue};
           }
           h2 {
             margin: 0px;
             font-weight: 600;
             font-size: 2em;
-            color: white;
+            color: ${darkBlue};
           }
         `}
       />
