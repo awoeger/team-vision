@@ -85,7 +85,7 @@ const navMenuItems = css`
 //   align-items: center;
 // `;
 
-export default function SubMenu() {
+export default function SubMenu(props) {
   const [sideBar, setSideBar] = useState(false);
 
   const showSideBar = () => setSideBar(!sideBar);
@@ -109,31 +109,31 @@ export default function SubMenu() {
           </li> */}
           <li css={navText}>
             <AiIcons.AiFillHome />
-            <Link href="#about">
+            <Link href={`/teams/${props.teamId}`}>
               <a>TEAM BASE</a>
             </Link>
           </li>
           <li css={navText}>
             <IoIcons.IoMdPeople />
-            <Link href="#about">
+            <Link href={`/teams/${props.teamId}/team-members`}>
               <a>TEAM MEMBERS</a>
             </Link>
           </li>
           <li css={navText}>
             <IoIcons.IoMdPeople />
-            <Link href="#about">
+            <Link href={`/teams/${props.teamId}/create-new-event`}>
               <a>CREATE EVENT</a>
             </Link>
           </li>
           <li css={navText}>
             <AiIcons.AiFillAccountBook />
-            <Link href="#about">
+            <Link href={`/teams/${props.teamId}/exercises`}>
               <a>EXERCISES</a>
             </Link>
           </li>
           <li css={navText}>
             <IoIcons.IoMdHelpCircle />
-            <Link href="#about">
+            <Link href={`/teams/${props.teamId}/team-settings`}>
               <a>TEAM SETTINGS</a>
             </Link>
           </li>

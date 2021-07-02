@@ -18,7 +18,7 @@ export default function SingleTeamPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
-      <SubMenu />
+      <SubMenu teamId={props.teamId} />
       <h1>Welcome to Team xy</h1>
       <Link href={`/teams/${props.teamId}/create-new-event`}>
         <a>Create Event</a>
