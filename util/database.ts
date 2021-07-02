@@ -4,6 +4,7 @@ import postgres from 'postgres';
 // import setPostgresDefaultsOnHeroku from '../setPostgresDefaultsOnHeroku';
 import {
   ApplicationError,
+  NewEvent,
   PlayerRequest,
   Session,
   TeamInfo,
@@ -145,6 +146,76 @@ export async function createNewTeam(
   return teams.map((team) => camelcaseKeys(team))[0];
 }
 
+export async function createPlayerRequest(
+  teamChoice: string,
+  positionOnTeam: string,
+  playingSince: string,
+  experienceLevel: string,
+  message: string,
+  usersId: number,
+) {
+  const playerRequest = await sql<[PlayerRequest]>`
+  INSERT INTO team_user
+  --column names
+  (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
+  VALUES(
+    ${usersId},  ${teamChoice}, 1, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
+  )
+  RETURNING
+  -- column names
+    users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message
+  `;
+  return playerRequest.map((request) => camelcaseKeys(request))[0];
+}
+
+// TODO: Check out the date and time types
+export async function createNewEvent(
+  eventType: string,
+  teamId: number,
+  startDate: Date,
+  endDate: Date,
+  meetingTime: string,
+  startTime: string,
+  endTime: string,
+  eventLocation: string,
+  eventDescription: string,
+) {
+  const newEvent = await sql<[NewEvent]>`
+  INSERT INTO events
+  --column names
+  (event_type_id, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description)
+  VALUES(
+    ${eventType},  ${teamId}, ${startDate}, ${endDate}, ${meetingTime}, ${startTime}, ${endTime}, ${eventLocation}, ${eventDescription}
+  )
+  RETURNING
+  -- column names
+    event_type_id, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description
+  `;
+  return newEvent.map((event) => camelcaseKeys(event));
+}
+
+export async function getEventTypes() {
+  const eventTypes = await sql`
+    SELECT
+    id,
+    title
+    FROM
+      event_types
+  `;
+  return eventTypes.map((types) => camelcaseKeys(types));
+}
+
+export async function getTeamAndId() {
+  const eventTypes = await sql`
+    SELECT
+    id,
+    title
+    FROM
+      event_types
+  `;
+  return eventTypes.map((types) => camelcaseKeys(types));
+}
+
 export async function getAllTeamNamesandId() {
   const teams = await sql`
     SELECT
@@ -180,28 +251,6 @@ export async function deleteTeam(teamId: number) {
     RETURNING *
   `;
   return teamInfo.map((team) => camelcaseKeys(team));
-}
-
-export async function createPlayerRequest(
-  teamChoice: string,
-  positionOnTeam: string,
-  playingSince: string,
-  experienceLevel: string,
-  message: string,
-  usersId: number,
-) {
-  const playerRequest = await sql<[PlayerRequest]>`
-  INSERT INTO team_user
-  --column names
-  (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
-  VALUES(
-    ${usersId},  ${teamChoice}, 3, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
-  )
-  RETURNING
-  -- column names
-    users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message
-  `;
-  return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
 export async function getPlayerTeamsByUserId(userId: number) {

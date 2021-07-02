@@ -34,3 +34,15 @@ export type PlayerRequest = {
   message: string;
   usersId: number;
 };
+
+export type NewEvent = {
+  eventType: string;
+  teamId: number;
+  startDate: Date;
+  endDate: Date;
+  meetingTime: string;
+  startTime: string;
+  endTime: string;
+  eventLocation: string;
+  eventDescription: string;
+};

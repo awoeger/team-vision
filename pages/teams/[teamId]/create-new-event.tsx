@@ -1,11 +1,18 @@
 import { css } from '@emotion/react';
 import router from 'next/router';
 import { useState } from 'react';
-import Layout from '../../components/Layout';
-import { RegisterResponse } from '../api/register';
+import Layout from '../../../components/Layout';
+import { getEventTypes } from '../../../util/database';
+import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
+  eventTypeNames: EventTypeName[];
+};
+
+type EventTypeName = {
+  id: Number;
+  title: string;
 };
 
 export default function CreateEvent(props: Props) {
@@ -66,9 +73,13 @@ export default function CreateEvent(props: Props) {
               }}
             >
               <option>Please select</option>
-              <option value="1"> Training</option>
-              <option value="2">Tournament</option>
-              <option value="3">Social</option>
+              {props.eventTypeNames.map((event) => {
+                return (
+                  <option key={event.id} value={event.id}>
+                    {event.title}
+                  </option>
+                );
+              })}
             </select>
           </label>
 
@@ -162,11 +173,11 @@ export default function CreateEvent(props: Props) {
 }
 
 export async function getServerSideProps() {
-  const allTeamNamesandIdforCoach = await getAllTeamNamesandId();
+  const eventTypeNames = await getEventTypes();
 
   return {
     props: {
-      allTeamNamesandIdforCoach,
+      eventTypeNames,
     },
   };
 }

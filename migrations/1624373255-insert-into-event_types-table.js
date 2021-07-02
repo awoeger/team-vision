@@ -1,7 +1,7 @@
 const eventTypes = [
-  { title: 'training' },
-  { title: 'tournament' },
-  { title: 'social' },
+  { title: 'Training' },
+  { title: 'Tournament' },
+  { title: 'Social' },
 ];
 
 exports.up = async function up(sql) {

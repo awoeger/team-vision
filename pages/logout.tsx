@@ -1,5 +1,5 @@
 import cookie from 'cookie';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import React, { useEffect } from 'react';
 import Layout from '../components/Layout';

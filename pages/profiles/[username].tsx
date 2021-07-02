@@ -94,7 +94,8 @@ export default function SingleUserProfile(props: Props) {
                   <h3>Team Name: {coachTeam.teamName}</h3>
                   <p>Sport type: {coachTeam.sportType}</p>
                   <p>Founded at: {coachTeam.founded}</p>
-                  <Link href={`/teams/${coachTeam.teamName}`}>
+                  <Link href={`/teams/${coachTeam.id}`}>
+                    {/* Link href={`/teams/${coachTeam.teamName}-${coachTeam.id}`} */}
                     <a>Go to team</a>
                   </Link>
                 </div>
@@ -116,7 +117,7 @@ export default function SingleUserProfile(props: Props) {
                   <h3>Team Name: {playerTeam.teamName}</h3>
                   <p>Sport type: {playerTeam.sportType}</p>
                   <p>Founded at: {playerTeam.founded}</p>
-                  <Link href={`/teams/${playerTeam.teamName}`}>
+                  <Link href={`/teams/${playerTeam.id}`}>
                     <a>Go to team</a>
                   </Link>
                 </div>

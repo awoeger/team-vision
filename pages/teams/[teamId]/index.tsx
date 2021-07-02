@@ -1,9 +1,12 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import Layout from '../../components/Layout';
+import Layout from '../../../components/Layout';
+import SubMenu from '../../../components/SubMenu';
 
 type Props = {
   username: String;
+  teamId: Number;
 };
 
 export default function SingleTeamPage(props: Props) {
@@ -15,10 +18,21 @@ export default function SingleTeamPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
+      <SubMenu />
       <h1>Welcome to Team xy</h1>
-      <Link href="/teams/create-new-event">
+      <Link href={`/teams/${props.teamId}/create-new-event`}>
         <a>Create Event</a>
       </Link>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const teamId = context.query.teamId;
+
+  return {
+    props: {
+      teamId,
+    },
+  };
 }

@@ -1,0 +1,144 @@
+import { css } from '@emotion/react';
+import Link from 'next/link';
+import { useState } from 'react';
+import { IconContext } from 'react-icons';
+import * as AiIcons from 'react-icons/ai';
+import * as FaIcons from 'react-icons/fa';
+import * as IoIcons from 'react-icons/io';
+import { lightBlue } from '../util/sharedStyles';
+
+const navBar = css`
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  svg {
+    margin-left: 20px;
+  }
+`;
+
+const menuBars = css`
+  margin-left: 2rem;
+  font-size: 2rem;
+  background: ${lightBlue};
+`;
+
+const navMenu = css`
+  background: ${lightBlue};
+  width: 300px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  /* top: 0;
+  left: -100%; */
+  transition: 850ms;
+`;
+
+const navMenuActive = css`
+  left: 0;
+  transition: 350ms;
+`;
+
+const navText = css`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 8px 0px 8px 30px;
+  list-style: none;
+  height: 60px;
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    word-spacing: 3px;
+    font-size: 18px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+
+    a:hover {
+      background-color: blue;
+    }
+  }
+`;
+
+const navMenuItems = css`
+  width: 100%;
+  padding-left: 0;
+`;
+
+// const navBarToggles = css`
+//   background-color: ${lightBlue};
+//   width: 100%;
+//   height: 80px;
+//   display: flex;
+//   justify-content: start;
+//   align-items: center;
+// `;
+
+export default function SubMenu() {
+  const [sideBar, setSideBar] = useState(false);
+
+  const showSideBar = () => setSideBar(!sideBar);
+
+  return (
+    <IconContext.Provider value={{ color: 'white' }}>
+      <div css={navBar}>
+        <button>
+          <FaIcons.FaBars onClick={showSideBar} />
+        </button>
+      </div>
+
+      <nav css={sideBar ? navMenuActive : navMenu}>
+        <ul css={navMenuItems}>
+          {/* <li css={navBarToggles}>
+            <Link href="#about" css={menuBars}>
+              <a>
+                <AiIcons.AiOutlineClose onClick={showSideBar} />
+              </a>
+            </Link>
+          </li> */}
+          <li css={navText}>
+            <AiIcons.AiFillHome />
+            <Link href="#about">
+              <a>TEAM BASE</a>
+            </Link>
+          </li>
+          <li css={navText}>
+            <IoIcons.IoMdPeople />
+            <Link href="#about">
+              <a>TEAM MEMBERS</a>
+            </Link>
+          </li>
+          <li css={navText}>
+            <IoIcons.IoMdPeople />
+            <Link href="#about">
+              <a>CREATE EVENT</a>
+            </Link>
+          </li>
+          <li css={navText}>
+            <AiIcons.AiFillAccountBook />
+            <Link href="#about">
+              <a>EXERCISES</a>
+            </Link>
+          </li>
+          <li css={navText}>
+            <IoIcons.IoMdHelpCircle />
+            <Link href="#about">
+              <a>TEAM SETTINGS</a>
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    </IconContext.Provider>
+  );
+}

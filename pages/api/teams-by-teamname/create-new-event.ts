@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { createNewTeam, getValidSessionByToken } from '../../../util/database';
+import {
+  createNewEvent,
+  createNewTeam,
+  getValidSessionByToken,
+} from '../../../util/database';
 import { ApplicationError, TeamInfo } from '../../../util/types';
 
 export type CreateTeamResponse =
@@ -15,10 +19,18 @@ export default async function createNewEventHandler(
   if (req.method === 'POST') {
     const validSession = await getValidSessionByToken(req.cookies.sessionToken);
 
-    // Retrieve teamName, sportType and foundedAt from the request body from the frontend
-
+    // Retrieve variables from the request body from the frontend
     // Destructure relevant information from the request body
-    const { teamName, sportType, foundedAt } = req.body;
+    const {
+      eventType,
+      startDate,
+      endDate,
+      meetingTime,
+      startTime,
+      endTime,
+      eventLocation,
+      eventDescription,
+    } = req.body;
 
     // check if userId, etc. is not undefined
     if (!validSession) {
@@ -28,13 +40,18 @@ export default async function createNewEventHandler(
     }
 
     // Save the team information to the database
-    const teamInfo = await createNewTeam(
-      teamName,
-      sportType,
-      foundedAt,
-      validSession.usersId,
+    const newEvent = await createNewEvent(
+      eventType,
+      // teamId = 1,
+      startDate,
+      endDate,
+      meetingTime,
+      startTime,
+      endTime,
+      eventLocation,
+      eventDescription,
     );
 
-    return res.status(200).json({ team: teamInfo });
+    return res.status(200).json({ event: newEvent });
   }
 }
