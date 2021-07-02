@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
@@ -7,6 +8,7 @@ import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
+  teamId: Number;
   eventTypeNames: EventTypeName[];
 };
 
@@ -16,6 +18,7 @@ type EventTypeName = {
 };
 
 export default function CreateEvent(props: Props) {
+  console.log('props', props);
   const [eventType, setEventType] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
@@ -41,6 +44,7 @@ export default function CreateEvent(props: Props) {
                 },
                 body: JSON.stringify({
                   eventType: eventType,
+                  teamId: props.teamId,
                   startDate: startDate,
                   endDate: endDate,
                   meetingTime: meetingTime,
@@ -55,7 +59,7 @@ export default function CreateEvent(props: Props) {
             const json = (await response.json()) as RegisterResponse;
 
             // Todo: Link to single team page
-            router.push(`/`);
+            router.push(`/teams/${props.teamId}`);
           }}
         >
           <h1>Create an event</h1>
@@ -172,12 +176,16 @@ export default function CreateEvent(props: Props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  console.log('context.query createnewEvent', context.query);
   const eventTypeNames = await getEventTypes();
+
+  const teamId = context.query.teamId;
 
   return {
     props: {
       eventTypeNames,
+      teamId,
     },
   };
 }

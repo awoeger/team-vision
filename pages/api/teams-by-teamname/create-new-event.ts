@@ -23,6 +23,7 @@ export default async function createNewEventHandler(
     // Destructure relevant information from the request body
     const {
       eventType,
+      teamId,
       startDate,
       endDate,
       meetingTime,
@@ -42,7 +43,7 @@ export default async function createNewEventHandler(
     // Save the team information to the database
     const newEvent = await createNewEvent(
       eventType,
-      // teamId = 1,
+      teamId,
       startDate,
       endDate,
       meetingTime,

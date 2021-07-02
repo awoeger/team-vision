@@ -10,8 +10,6 @@ import {
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
-// TODO: Ternary - show either coach or player "page"
-// TODO: Display the teams of the coach or player
 // TODO: Style page
 // TODO: Style the error messages
 
