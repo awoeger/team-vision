@@ -31,6 +31,7 @@ const menuBars = css`
 
 const navMenu = css`
   background: ${lightBlue};
+  color: red;
   width: 300px;
   height: 100vh;
   display: flex;

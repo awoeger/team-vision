@@ -271,6 +271,26 @@ export async function getPlayerTeamsByUserId(userId: number) {
   return teamsOfPlayer.map((team) => camelcaseKeys(team));
 }
 
+export async function getAllTeamMembersOfTeam(teamId: Number) {
+  // if (!teamId) return undefined;
+
+  const teamMembers = await sql`
+    SELECT
+    team_user.position_on_team,
+
+    teams.team_name, teams.sport_type, teams.founded
+    FROM
+      team_user, teams
+    WHERE
+      team_user.status_id = 1
+    AND
+      team_user.users_id = ${userId}
+    AND
+      team_user.team_id = teams.id
+  `;
+  return teamsOfPlayer.map((team) => camelcaseKeys(team));
+}
+
 export async function getUserById(id?: number) {
   // Return undefined if userId is not parseable
   // to an integer
