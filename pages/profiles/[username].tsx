@@ -56,7 +56,7 @@ const mainContainer = css`
 `;
 
 const mainFirstSubContainer = css`
-  height: 90vh;
+  height: 100vh;
   width: 25%;
   padding: 30px;
   display: flex;
