@@ -205,6 +205,20 @@ export async function getEventTypes() {
   return eventTypes.map((types) => camelcaseKeys(types));
 }
 
+export async function getEvents() {
+  const eventInfo = await sql`
+    SELECT
+    id,
+    event_type_id,
+    team_id,
+    start_day TO_CHAR('dd.mm.yyyy') as date_string,
+
+    FROM
+      events
+  `;
+  return eventInfo.map((event) => camelcaseKeys(event));
+}
+
 export async function getTeamAndId() {
   const eventTypes = await sql`
     SELECT
@@ -259,26 +273,6 @@ export async function getPlayerTeamsByUserId(userId: number) {
   const teamsOfPlayer = await sql`
     SELECT
     teams.id, teams.team_name, teams.sport_type, teams.founded
-    FROM
-      team_user, teams
-    WHERE
-      team_user.status_id = 1
-    AND
-      team_user.users_id = ${userId}
-    AND
-      team_user.team_id = teams.id
-  `;
-  return teamsOfPlayer.map((team) => camelcaseKeys(team));
-}
-
-export async function getAllTeamMembersOfTeam(teamId: Number) {
-  // if (!teamId) return undefined;
-
-  const teamMembers = await sql`
-    SELECT
-    team_user.position_on_team,
-
-    teams.team_name, teams.sport_type, teams.founded
     FROM
       team_user, teams
     WHERE

@@ -122,8 +122,7 @@ export default function CreateEvent(props: Props) {
           <label>
             Meeting Time
             <input
-              type="time"
-              placeholder="xx:xx"
+              placeholder="hh:mm"
               value={meetingTime}
               onChange={(event) => {
                 setMeetingTime(event.currentTarget.value);
@@ -134,8 +133,7 @@ export default function CreateEvent(props: Props) {
           <label>
             Start Time
             <input
-              type="time"
-              placeholder="xx:xx"
+              placeholder="hh:mm"
               value={startTime}
               onChange={(event) => {
                 setStartTime(event.currentTarget.value);
@@ -146,8 +144,7 @@ export default function CreateEvent(props: Props) {
           <label>
             End Time
             <input
-              type="time"
-              placeholder="xx:xx"
+              placeholder="hh:mm"
               value={endTime}
               onChange={(event) => {
                 setEndTime(event.currentTarget.value);

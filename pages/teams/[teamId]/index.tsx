@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
+import { getEvents } from '../../../util/database';
 
 type Props = {
   username: String;
@@ -29,6 +30,9 @@ export default function SingleTeamPage(props: Props) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const teamId = context.query.teamId;
+
+  const events = await getEvents();
+  console.log(events);
 
   return {
     props: {

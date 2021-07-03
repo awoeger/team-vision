@@ -1,9 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import {
-  createNewEvent,
-  createNewTeam,
-  getValidSessionByToken,
-} from '../../../util/database';
+import { createNewEvent, getValidSessionByToken } from '../../../util/database';
 import { ApplicationError, TeamInfo } from '../../../util/types';
 
 export type CreateTeamResponse =

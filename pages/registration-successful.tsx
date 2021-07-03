@@ -13,6 +13,10 @@ const mainContainer = css`
   align-items: center;
   text-align: center;
 
+  h2 {
+    color: white;
+  }
+
   a {
     color: white;
   }

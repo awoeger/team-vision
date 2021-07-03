@@ -5,16 +5,18 @@ import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
-import { lightBlue } from '../util/sharedStyles';
+import { darkBlue, lightBlue, lightPink } from '../util/sharedStyles';
 
 const navBar = css`
-  background-image: url('/images/button_background_lightBlue.PNG');
+  /* background-image: url('/images/button_background_lightBlue.PNG');
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   height: 80px;
   display: flex;
   justify-content: start;
   align-items: center;
+  width: 100px;
+  background-color: ${lightPink};
 
   button {
     margin-left: 20px;
@@ -30,8 +32,7 @@ const menuBars = css`
 `;
 
 const navMenu = css`
-  background: ${lightBlue};
-  color: red;
+  background: ${lightPink};
   width: 300px;
   height: 100vh;
   display: flex;
@@ -57,7 +58,7 @@ const navText = css`
 
   a {
     text-decoration: none;
-    color: white;
+    color: ${darkBlue};
     font-weight: 500;
     word-spacing: 3px;
     font-size: 18px;
@@ -94,7 +95,7 @@ export default function SubMenu(props) {
   const showSideBar = () => setSideBar(!sideBar);
 
   return (
-    <IconContext.Provider value={{ color: 'white' }}>
+    <IconContext.Provider value={{ color: '#1d2a48' }}>
       <div css={navBar}>
         <button>
           <FaIcons.FaBars onClick={showSideBar} />

@@ -1,3 +1,4 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';

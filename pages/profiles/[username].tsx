@@ -72,7 +72,13 @@ const mainFirstSubContainer = css`
   h2 {
     font-size: ${largeText};
     margin-top: 60px;
-    margin-bottom: 20px;
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: ${largeText};
+    margin-bottom: 40px;
+    font-weight: 600;
   }
 
   p {
@@ -91,8 +97,10 @@ const mainSecondSubContainer = css`
   text-align: center;
 
   h2 {
-    margin-top: 70px;
-    margin-bottom: 30px;
+    margin-left: 100px;
+    margin-right: 100px;
+    padding: 10px 0;
+    color: ${darkBlue};
   }
 `;
 
@@ -116,6 +124,26 @@ const gridContainer = css`
     text-transform: uppercase;
     margin-bottom: 0;
     font-size: ${largeText};
+  }
+`;
+
+const button = css`
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px 15px;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-bottom: 50px;
+  margin-top: 70px;
+
+  a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
   }
 `;
 
@@ -206,9 +234,10 @@ export default function SingleUserProfile(props: Props) {
               }}
               size={100}
             />
-            <h2>
-              Welcome Coach {props.user.userFirstName} {props.user.userLastName}
-            </h2>
+            <h2>Welcome Coach</h2>
+            <h3>
+              {props.user.userFirstName} {props.user.userLastName}
+            </h3>
             <p>
               <span>Username:</span> {props.user.username}
             </p>
@@ -217,10 +246,13 @@ export default function SingleUserProfile(props: Props) {
             </p>
           </div>
           <div css={mainSecondSubContainer}>
-            <h2>Check out all teams you are coaching!</h2>
-            <Link href="/profiles/create-new-team">
-              <a>Create new team</a>
-            </Link>
+            <div css={button}>
+              <Link href="/profiles/create-new-team">
+                <a>Create new team</a>
+              </Link>
+            </div>
+            <h2>YOUR TEAMS</h2>
+
             <div css={gridContainer}>
               {props.coachTeams.map((coachTeam) => {
                 return (
@@ -275,10 +307,10 @@ export default function SingleUserProfile(props: Props) {
               }}
               size={100}
             />
-            <h2>
-              Welcome Player {props.user.userFirstName}{' '}
-              {props.user.userLastName}
-            </h2>
+            <h2>Welcome Player</h2>
+            <h3>
+              {props.user.userFirstName} {props.user.userLastName}
+            </h3>
             <p>
               <span>Username:</span> {props.user.username}
             </p>
@@ -288,10 +320,13 @@ export default function SingleUserProfile(props: Props) {
           </div>
 
           <div css={mainSecondSubContainer}>
-            <h2>Check out all teams you are playing for!</h2>
-            <Link href="/profiles/player-request">
-              <a>Join a new team</a>
-            </Link>
+            <div css={button}>
+              <Link href="/profiles/player-request">
+                <a>Join a new team</a>
+              </Link>
+            </div>
+            <h2>YOUR TEAMS</h2>
+
             <div css={gridContainer}>
               {props.playerTeams.map((playerTeam) => {
                 return (

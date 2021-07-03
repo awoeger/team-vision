@@ -6,9 +6,9 @@ exports.up = async function up(sql) {
 			team_id INT REFERENCES teams(id) NOT NULL,
 			start_day DATE NOT NULL,
 			end_day DATE NOT NULL,
-			start_time TIME NOT NULL,
-			end_time TIME NOT NULL,
-			meeting_time TIME NOT NULL,
+			start_time  varchar (10) NOT NULL,
+			end_time varchar (10) NOT NULL,
+			meeting_time varchar (10) NOT NULL,
 			event_location varchar (100),
 			event_description varchar(300)
 		)
