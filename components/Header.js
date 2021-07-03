@@ -26,8 +26,11 @@ const headerContainer = css`
     text-transform: uppercase;
     font-size: ${largeText};
     font-weight: 600;
-    margin-left: 50px;
   }
+`;
+
+const link = css`
+  margin-left: 50px;
 `;
 
 export default function Header(props) {
@@ -45,17 +48,17 @@ export default function Header(props) {
           </a>
         </Link>
         <Link href="/#about">
-          <a>
+          <a css={link}>
             <span>About</span>
           </a>
         </Link>
         <Link href="/#guide">
-          <a>
+          <a css={link}>
             <span>Guide</span>
           </a>
         </Link>
         <Link href="/#contact">
-          <a>
+          <a css={link}>
             <span>Contact</span>
           </a>
         </Link>
@@ -63,7 +66,7 @@ export default function Header(props) {
       <div>
         {props.username ? (
           <Link href={`/profiles/${props.username}`}>
-            <a>{props.username && 'Your Profile'} &nbsp;</a>
+            <a css={link}>{props.username && 'Your Profile'} &nbsp;</a>
           </Link>
         ) : (
           <div />
@@ -71,11 +74,11 @@ export default function Header(props) {
 
         {props.username ? (
           <Link href="/logout">
-            <a>Logout</a>
+            <a css={link}>Logout</a>
           </Link>
         ) : (
           <Link href="/login">
-            <a>Login</a>
+            <a css={link}>Login</a>
           </Link>
         )}
       </div>
