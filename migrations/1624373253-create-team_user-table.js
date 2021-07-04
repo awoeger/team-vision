@@ -6,7 +6,7 @@ exports.up = async function up(sql) {
 			status_id INT REFERENCES status_types(id) ON DELETE CASCADE NOT NULL,
 			position_on_team varchar(50),
 			playing_since varchar(7),
-			experience_level varchar(10),
+			experience_level varchar(15),
 			player_message varchar(100)
 		)
 	`;

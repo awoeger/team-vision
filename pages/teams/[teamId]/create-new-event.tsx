@@ -5,18 +5,11 @@ import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getEventTypes } from '../../../util/database';
 import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
   teamId: Number;
-  eventTypeNames: EventTypeName[];
-};
-
-type EventTypeName = {
-  id: Number;
-  title: string;
 };
 
 export default function CreateEvent(props: Props) {
@@ -85,13 +78,9 @@ export default function CreateEvent(props: Props) {
               }}
             >
               <option>Please select</option>
-              {props.eventTypeNames.map((event) => {
-                return (
-                  <option key={event.id} value={event.id}>
-                    {event.title}
-                  </option>
-                );
-              })}
+              <option value="Training">Training</option>
+              <option value="Tournament">Tournament</option>
+              <option value="Social">Social</option>
             </select>
           </label>
 
@@ -182,14 +171,10 @@ export default function CreateEvent(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log('context.query createnewEvent', context.query);
-  const eventTypeNames = await getEventTypes();
-
   const teamId = context.query.teamId;
 
   return {
     props: {
-      eventTypeNames,
       teamId,
     },
   };

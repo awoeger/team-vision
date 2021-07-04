@@ -30,7 +30,7 @@ export const mainFirstSubContainer = css`
   background: ${lightPink};
 
   h1 {
-    font-size: 2em;
+    font-size: 1.5em;
     margin: 40px 0 40px 0;
   }
 

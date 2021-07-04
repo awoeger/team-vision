@@ -183,37 +183,37 @@ export async function createNewEvent(
   const newEvent = await sql<[NewEvent]>`
   INSERT INTO events
   --column names
-  (event_type_id, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description)
+  (event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description)
   VALUES(
     ${eventType},  ${teamId}, ${startDate}, ${endDate}, ${meetingTime}, ${startTime}, ${endTime}, ${eventLocation}, ${eventDescription}
   )
   RETURNING
   -- column names
-    event_type_id, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description
+    event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description
   `;
   return newEvent.map((event) => camelcaseKeys(event));
 }
 
-export async function getEventTypes() {
-  const eventTypes = await sql`
+export async function getEvents(teamId: number) {
+  const eventInfo = await sql`
     SELECT
     id,
-    title
+    event_type,
+    team_id,
+    TO_CHAR(start_day, 'DD.MM.YYYY') start_day,
+    TO_CHAR(end_day, 'DD.MM.YYYY') end_day,
+    start_time,
+    end_time,
+    meeting_time,
+    event_location,
+    event_description
     FROM
-      event_types
+      events
+    WHERE
+    team_id = ${teamId}
   `;
-  return eventTypes.map((types) => camelcaseKeys(types));
+  return eventInfo.map((event) => camelcaseKeys(event));
 }
-
-// TODO GET EVENTS
-// export async function getEvents() {
-//   const eventInfo = await sql`
-//     SELECT
-//     to_char(start_day, 'DD.MM.YYYY') as start_day FROM events
-//     to_char(end_day, 'DD.MM.YYYY') AS end_day FROM events
-//   `;
-//   return eventInfo.map((event) => camelcaseKeys(event));
-// }
 
 export async function getTeamAndId() {
   const eventTypes = await sql`
@@ -268,7 +268,10 @@ export async function getPlayerTeamsByUserId(userId: number) {
 
   const teamsOfPlayer = await sql`
     SELECT
-    teams.id, teams.team_name, teams.sport_type, teams.founded
+    teams.id,
+    teams.team_name,
+    teams.sport_type,
+    teams.founded
     FROM
       team_user, teams
     WHERE

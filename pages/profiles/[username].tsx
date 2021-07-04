@@ -57,11 +57,12 @@ const mainSecondSubContainer = css`
   text-align: center;
 
   h2 {
-    margin: 70px 100px 20px 100px;
+    margin: 60px 100px 20px 100px;
     padding: 10px 0;
     background: ${darkBlue};
     color: white;
     border-radius: 20px;
+    font-size: 1.5em;
   }
 `;
 

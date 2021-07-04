@@ -8,6 +8,20 @@ import { getEvents } from '../../../util/database';
 type Props = {
   username: String;
   teamId: Number;
+  events: Event[];
+};
+
+type Event = {
+  id: number;
+  eventType: string;
+  teamId: number;
+  startDay: string;
+  endDay: string;
+  startTime: string;
+  endTime: string;
+  meetingTime: string;
+  eventLocation: string;
+  eventDescription: string;
 };
 
 export default function SingleTeamPage(props: Props) {
@@ -24,19 +38,38 @@ export default function SingleTeamPage(props: Props) {
       <Link href={`/teams/${props.teamId}/create-new-event`}>
         <a>Create Event</a>
       </Link>
+
+      {props.events.map((event) => {
+        return (
+          <div key={event.id}>
+            <h2>{event.eventTypeId}</h2>
+            <p>{event.startDay}</p>
+            <p>{event.meetingTime}</p>
+            <p>{event.startTime}</p>
+            <p>{event.endTime}</p>
+            <p>{event.eventLocation}</p>
+            <p>{event.eventDescription}</p>
+            {/* <Link>
+              <a>See guest list</a>
+            </Link> */}
+          </div>
+        );
+      })}
     </>
   );
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const teamId = context.query.teamId;
+  const teamIdString = context.query.teamId;
+  const teamId = Number(teamIdString);
 
-  // const events = await getEvents();
-  // console.log(events);
+  const events = await getEvents(teamId);
+  console.log(events);
 
   return {
     props: {
       teamId,
+      events,
     },
   };
 }

@@ -7,8 +7,6 @@ import { RegisterResponse } from '../api/register';
 import { formContainer } from './create-new-team';
 
 // TODO: Make page invisible for not logged in user
-// TODO: Value for option: Please select
-// TODO: Link to the right page after filling out the form
 
 type Props = {
   username: String;

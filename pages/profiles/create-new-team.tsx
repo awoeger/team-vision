@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-// import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
@@ -108,8 +107,6 @@ export default function CreateNewTeamForm(props: Props) {
           <h2>
             Tell us your team name and what sport you are planning to play.
           </h2>
-
-          {/* <Image src="/images/teamIcon.png" width="10%" height="10%" /> */}
 
           <label>
             Team Name
