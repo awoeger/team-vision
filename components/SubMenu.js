@@ -34,7 +34,7 @@ const menuBars = css`
 const navMenu = css`
   background: ${lightPink};
   width: 300px;
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   justify-content: center;
   position: fixed;

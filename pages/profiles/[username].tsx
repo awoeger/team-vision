@@ -2,20 +2,16 @@ import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as MdIcons from 'react-icons/md';
+import CoachProfile from '../../components/CoachProfile';
 import Layout from '../../components/Layout';
+import PlayerProfile from '../../components/PlayerProfile';
 import {
   getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
 } from '../../util/database';
-import {
-  darkBlue,
-  largeText,
-  lightPink,
-  normalText,
-} from '../../util/sharedStyles';
+import { darkBlue, largeText, normalText } from '../../util/sharedStyles';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
@@ -55,60 +51,25 @@ const mainContainer = css`
   display: flex;
 `;
 
-const mainFirstSubContainer = css`
-  height: 100vh;
-  width: 25%;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: ${lightPink};
-
-  h1 {
-    font-size: 2em;
-    margin: 40px 0 40px 0;
-  }
-
-  h2 {
-    font-size: ${largeText};
-    margin-top: 60px;
-    font-weight: 600;
-  }
-
-  h3 {
-    font-size: ${largeText};
-    margin-bottom: 40px;
-    font-weight: 600;
-  }
-
-  p {
-    font-size: ${largeText};
-    margin: 10px 0;
-
-    span {
-      font-weight: 600;
-    }
-  }
-`;
-
 const mainSecondSubContainer = css`
   height: 90vh;
   width: 100%;
   text-align: center;
 
   h2 {
-    margin-left: 100px;
-    margin-right: 100px;
+    margin: 70px 100px 20px 100px;
     padding: 10px 0;
-    color: ${darkBlue};
+    background: ${darkBlue};
+    color: white;
+    border-radius: 20px;
   }
 `;
 
 const gridContainer = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 50px 100px;
+  grid-template-rows: 1fr;
+  gap: 20px 100px;
   justify-items: stretch;
   margin-left: 100px;
   margin-right: 100px;
@@ -127,26 +88,6 @@ const gridContainer = css`
   }
 `;
 
-const button = css`
-  background-image: url('/images/button_background_lightBlue.PNG');
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 10px 15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-left: 100px;
-  margin-right: 100px;
-  margin-bottom: 50px;
-  margin-top: 70px;
-
-  a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-  }
-`;
-
 const teamInfoBox = css`
   background: white;
   border: 1px solid ${darkBlue};
@@ -159,12 +100,13 @@ const teamInfoBox = css`
   div {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     margin-left: 20px;
   }
 
   p {
     font-size: ${normalText};
+    margin: 0;
 
     span {
       font-weight: 500;
@@ -223,34 +165,8 @@ export default function SingleUserProfile(props: Props) {
 
       {props.user.userRoleId === 1 ? (
         <div css={mainContainer}>
-          <div css={mainFirstSubContainer}>
-            <h1>Your Profile</h1>
-            <GiIcons.GiWhistle
-              style={{
-                color: 'white',
-                background: '#1d2a48',
-                borderRadius: '200px',
-                padding: '20px',
-              }}
-              size={100}
-            />
-            <h2>Welcome Coach</h2>
-            <h3>
-              {props.user.userFirstName} {props.user.userLastName}
-            </h3>
-            <p>
-              <span>Username:</span> {props.user.username}
-            </p>
-            <p>
-              <span>Email:</span> {props.user.userEmail}
-            </p>
-          </div>
+          <CoachProfile user={props.user} />
           <div css={mainSecondSubContainer}>
-            <div css={button}>
-              <Link href="/profiles/create-new-team">
-                <a>Create new team</a>
-              </Link>
-            </div>
             <h2>YOUR TEAMS</h2>
 
             <div css={gridContainer}>
@@ -283,7 +199,6 @@ export default function SingleUserProfile(props: Props) {
                       </div>
                       <div>
                         <Link href={`/teams/${coachTeam.id}`}>
-                          {/* Link href={`/teams/${coachTeam.teamName}-${coachTeam.id}`} */}
                           <a>Go to team</a>
                         </Link>
                       </div>
@@ -296,35 +211,8 @@ export default function SingleUserProfile(props: Props) {
         </div>
       ) : (
         <div css={mainContainer}>
-          <div css={mainFirstSubContainer}>
-            <h1>Your Profile</h1>
-            <FaIcons.FaRunning
-              style={{
-                color: 'white',
-                background: '#1d2a48',
-                borderRadius: '200px',
-                padding: '20px',
-              }}
-              size={100}
-            />
-            <h2>Welcome Player</h2>
-            <h3>
-              {props.user.userFirstName} {props.user.userLastName}
-            </h3>
-            <p>
-              <span>Username:</span> {props.user.username}
-            </p>
-            <p>
-              <span>Email:</span> {props.user.userEmail}
-            </p>
-          </div>
-
+          <PlayerProfile user={props.user} />
           <div css={mainSecondSubContainer}>
-            <div css={button}>
-              <Link href="/profiles/player-request">
-                <a>Join a new team</a>
-              </Link>
-            </div>
             <h2>YOUR TEAMS</h2>
 
             <div css={gridContainer}>
@@ -366,9 +254,6 @@ export default function SingleUserProfile(props: Props) {
               })}
             </div>
           </div>
-          {/* <Link href="/profiles/player-request">
-            <a>Join a new team</a>
-          </Link> */}
         </div>
       )}
     </>

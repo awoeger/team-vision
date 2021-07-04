@@ -205,19 +205,15 @@ export async function getEventTypes() {
   return eventTypes.map((types) => camelcaseKeys(types));
 }
 
-export async function getEvents() {
-  const eventInfo = await sql`
-    SELECT
-    id,
-    event_type_id,
-    team_id,
-    start_day TO_CHAR('dd.mm.yyyy') as date_string,
-
-    FROM
-      events
-  `;
-  return eventInfo.map((event) => camelcaseKeys(event));
-}
+// TODO GET EVENTS
+// export async function getEvents() {
+//   const eventInfo = await sql`
+//     SELECT
+//     to_char(start_day, 'DD.MM.YYYY') as start_day FROM events
+//     to_char(end_day, 'DD.MM.YYYY') AS end_day FROM events
+//   `;
+//   return eventInfo.map((event) => camelcaseKeys(event));
+// }
 
 export async function getTeamAndId() {
   const eventTypes = await sql`

@@ -19,7 +19,7 @@ export default function SingleTeamPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
-      <SubMenu teamId={props.teamId} />
+      {/* <SubMenu teamId={props.teamId} /> */}
       <h1>Welcome to Team xy</h1>
       <Link href={`/teams/${props.teamId}/create-new-event`}>
         <a>Create Event</a>
@@ -31,8 +31,8 @@ export default function SingleTeamPage(props: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const teamId = context.query.teamId;
 
-  const events = await getEvents();
-  console.log(events);
+  // const events = await getEvents();
+  // console.log(events);
 
   return {
     props: {
