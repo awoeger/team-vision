@@ -168,7 +168,6 @@ export async function createPlayerRequest(
   return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
-// TODO: Check out the date and time types
 export async function createNewEvent(
   eventType: string,
   teamId: number,
@@ -192,6 +191,17 @@ export async function createNewEvent(
     event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description
   `;
   return newEvent.map((event) => camelcaseKeys(event));
+}
+
+// TODO: CREATE DELETE EVENT FUNCTION
+export async function deleteEvent(eventId: number) {
+  const events = await sql`
+    DELETE FROM
+     events
+    WHERE
+    id = ${eventId}
+  `;
+  return events.map((event) => camelcaseKeys(event));
 }
 
 export async function getEvents(teamId: number) {
@@ -234,7 +244,7 @@ export async function getTeamNameById(teamId: number) {
       teams
     WHERE
     id = ${teamId}
-  `;
+    `;
   return teamName.map((name) => camelcaseKeys(name));
 }
 
@@ -248,6 +258,24 @@ export async function getAllTeamNamesandId() {
   `;
   return teams.map((team) => camelcaseKeys(team));
 }
+
+// Todo: Display all team members
+export async function getAllTeamMembersInfoandRequests(teamId: number) {
+  if (!teamId) return undefined;
+
+  const playerInfo = await sql`
+    SELECT
+    u.user_first_name, u.user_last_name, t.status_id, t.position_on_team, t.playing_since, t.experience_level, t.player_message
+    FROM
+    users as u,
+    team_user as t
+    WHERE t.users_id = u.id
+    AND t.team_id = ${teamId};
+  `;
+  return playerInfo.map((info) => camelcaseKeys(info));
+}
+
+// Select u.user_first_name, u.user_last_name, e.status_id, e.position_on_team, e.playing_since, e.experience_level, e.player_message FROM users as u, team_user as e WHERE e.users_id = u.id AND e.team_id = 3;
 
 export async function getCoachTeamsByUserId(userId: number) {
   if (!userId) return undefined;
@@ -270,7 +298,6 @@ export async function deleteTeam(teamId: number) {
      teams
     WHERE
     teamId = ${teamId}
-    RETURNING *
   `;
   return teamInfo.map((team) => camelcaseKeys(team));
 }

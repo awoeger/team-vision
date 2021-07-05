@@ -66,22 +66,20 @@ const eventsMainContainer = css`
   justify-content: center;
   margin-top: 70px;
   margin-bottom: 50px;
+  width: 70%;
 `;
 
 const eventsContainer = css`
   width: 60%;
 
-  h1,
-  h2 {
+  h1 {
     text-align: center;
     margin-bottom: 30px;
     font-size: ${largeText};
     text-transform: uppercase;
     font-weight: 600;
-  }
-
-  h1 {
-    margin-bottom: 5px;
+    margin-bottom: 30px;
+    word-spacing: 2px;
   }
 
   > div {
@@ -131,14 +129,12 @@ const eventBody = css`
   justify-content: space-evenly;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  padding: 20px;
 `;
 
 const eventDate = css`
   display: flex;
   align-items: center;
-  border-bottom: 2px solid ${lightBlue};
-  border-right: 2px solid ${lightBlue};
-  padding-right: 20px;
 
   h3 {
     padding-left: 10px;
@@ -148,7 +144,6 @@ const eventDate = css`
 const eventSubBody = css`
   display: flex;
   align-items: center;
-  border-right: 2px solid ${lightBlue};
   padding-right: 20px;
 
   p {
@@ -161,8 +156,14 @@ const eventSubBody = css`
   }
 `;
 
+const eventInfos = css`
+  max-width: 40%;
+`;
+
 const eventMessage = css`
-  width: 50%;
+  max-width: 60%;
+  border-left: 2px solid ${lightBlue};
+  padding-left: 20px;
 
   div {
     display: flex;
@@ -208,9 +209,9 @@ export default function SingleTeamPage(props: Props) {
         ) : (
           <div css={eventsMainContainer}>
             <div css={eventsContainer}>
-              <h1>Welcome to Team </h1>
-              <h2>{props.teamName[0].teamName}</h2>
+              <h1>Welcome to the {props.teamName[0].teamName}</h1>
               <div>
+                {console.log(props.events)}
                 {props.events.map((event) => {
                   return (
                     <div key={event.id}>
@@ -233,7 +234,7 @@ export default function SingleTeamPage(props: Props) {
                       </div>
 
                       <div css={eventBody}>
-                        <div>
+                        <div css={eventInfos}>
                           <div css={eventDate}>
                             <AiIcons.AiOutlineCalendar size={30} />
                             <h3>{event.startDay}</h3>

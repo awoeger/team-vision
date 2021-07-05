@@ -1,14 +1,37 @@
+import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
+import { darkBlue, lightGrey } from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
   teamId: Number;
 };
 
+const mainContainer = css`
+  width: 100%;
+  display: flex;
+`;
+
+const subMenu = css`
+  width: 25%;
+  position: static;
+  display: flex;
+  justify-content: flex-start;
+  background: ${lightGrey};
+  padding: 20px;
+  border-right: 2px solid ${darkBlue};
+`;
+
+const teamMembersContainer = css`
+  width: 100%;
+  display: flex;
+`;
+
 export default function TeamMembers(props: Props) {
+  console.log('props members', props);
   return (
     <>
       <Head>
@@ -17,10 +40,34 @@ export default function TeamMembers(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
-      <SubMenu teamId={props.teamId} />
-      <div>
-        <h1>Team Members</h1>
+      <div css={mainContainer}>
+        <div css={subMenu}>
+          <SubMenu teamId={props.teamId} />
+        </div>
+        <div css={teamMembersContainer}>
+          <h1>Team Members</h1>
+        </div>
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const teamId = context.query.teamId;
+
+  const response = await fetch(
+    `${process.env.API_BASE_URL}/teams-by-team-id/${teamId}`,
+    {
+      method: 'GET',
+    },
+  );
+
+  const json = await response.json();
+
+  return {
+    props: {
+      teamId,
+      ...json,
+    },
+  };
 }

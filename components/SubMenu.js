@@ -6,6 +6,8 @@ import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
+// TODO Pass RoleId to every page that has submenu to hide create new Team
+
 const navMenuActive = css`
   display: flex;
   justify-content: center;

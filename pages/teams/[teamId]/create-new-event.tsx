@@ -141,7 +141,7 @@ export default function CreateEvent(props: Props) {
             onSubmit={async (event) => {
               event.preventDefault();
               const response = await fetch(
-                `/api/teams-by-teamname/create-new-event`,
+                `/api/teams-by-team-id/create-new-event`,
                 {
                   method: 'POST',
                   headers: {
