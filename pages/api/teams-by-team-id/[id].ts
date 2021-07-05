@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getAllTeamMembersInfoandRequests } from '../../../util/database';
+import {
+  getAllAcceptedMembers,
+  getAllAwaitingMembers,
+} from '../../../util/database';
 
 export default async function TeamMembers(
   req: NextApiRequest,
@@ -7,12 +10,12 @@ export default async function TeamMembers(
 ) {
   console.log(req.query);
 
-  const allMembers = await getAllTeamMembersInfoandRequests(
-    Number(req.query.id),
-  );
-  console.log('allMembers', allMembers);
+  const acceptedMembers = await getAllAcceptedMembers(Number(req.query.id));
+
+  const awaitingMembers = await getAllAwaitingMembers(Number(req.query.id));
 
   return res.status(200).json({
-    allMembers: allMembers,
+    acceptedMembers: acceptedMembers,
+    awaitingMembers: awaitingMembers,
   });
 }

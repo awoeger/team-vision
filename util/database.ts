@@ -159,13 +159,25 @@ export async function createPlayerRequest(
   --column names
   (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
   VALUES(
-    ${usersId},  ${teamChoice}, 1, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
+    ${usersId},  ${teamChoice}, 3, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
   )
   RETURNING
   -- column names
     users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message
   `;
   return playerRequest.map((request) => camelcaseKeys(request))[0];
+}
+
+export async function updatePlayerRequest(id: number) {
+  const acceptedStatus = await sql`
+    UPDATE team_user
+    SET status_id = 1
+    WHERE id = ${id}
+  RETURNING
+  -- column names
+    status_id
+  `;
+  return acceptedStatus.map((status) => camelcaseKeys(status))[0];
 }
 
 export async function createNewEvent(
@@ -259,23 +271,37 @@ export async function getAllTeamNamesandId() {
   return teams.map((team) => camelcaseKeys(team));
 }
 
-// Todo: Display all team members
-export async function getAllTeamMembersInfoandRequests(teamId: number) {
+export async function getAllAcceptedMembers(teamId: number) {
   if (!teamId) return undefined;
 
-  const playerInfo = await sql`
+  const acceptedPlayers = await sql`
     SELECT
-    u.user_first_name, u.user_last_name, t.status_id, t.position_on_team, t.playing_since, t.experience_level, t.player_message
+    u.user_first_name, u.user_last_name, t.id, t.status_id, t.position_on_team, t.playing_since, t.experience_level, t.player_message
     FROM
     users as u,
     team_user as t
     WHERE t.users_id = u.id
+    AND t.status_id = 1
     AND t.team_id = ${teamId};
   `;
-  return playerInfo.map((info) => camelcaseKeys(info));
+  return acceptedPlayers.map((player) => camelcaseKeys(player));
 }
 
-// Select u.user_first_name, u.user_last_name, e.status_id, e.position_on_team, e.playing_since, e.experience_level, e.player_message FROM users as u, team_user as e WHERE e.users_id = u.id AND e.team_id = 3;
+export async function getAllAwaitingMembers(teamId: number) {
+  if (!teamId) return undefined;
+
+  const acceptedPlayers = await sql`
+    SELECT
+    u.user_first_name, u.user_last_name, t.id, t.status_id, t.position_on_team, t.playing_since, t.experience_level, t.player_message
+    FROM
+    users as u,
+    team_user as t
+    WHERE t.users_id = u.id
+    AND t.status_id = 3
+    AND t.team_id = ${teamId};
+  `;
+  return acceptedPlayers.map((player) => camelcaseKeys(player));
+}
 
 export async function getCoachTeamsByUserId(userId: number) {
   if (!userId) return undefined;
