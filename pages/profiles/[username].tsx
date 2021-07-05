@@ -282,7 +282,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     );
 
   const json = (await response.json()) as SingleUserResponseType;
-  console.log('json in profile page', json);
 
   if ('errors' in json) {
     // Better would be to return the status code

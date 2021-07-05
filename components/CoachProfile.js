@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import * as GiIcons from 'react-icons/gi';
-import { lightPink, normalText } from '../util/sharedStyles';
+import { darkBlue, lightGrey, normalText } from '../util/sharedStyles';
 
 export const button = css`
   background-image: url('/images/button_background_lightBlue.PNG');
@@ -21,13 +21,14 @@ export const button = css`
 `;
 
 export const mainFirstSubContainer = css`
-  height: 100vh;
+  position: static;
   width: 25%;
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: ${lightPink};
+  background: ${lightGrey};
+  border-right: 2px solid ${darkBlue};
 
   h1 {
     font-size: 1.5em;

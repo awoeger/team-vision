@@ -185,7 +185,7 @@ export async function createNewEvent(
   --column names
   (event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description)
   VALUES(
-    ${eventType},  ${teamId}, ${startDate}, ${endDate}, ${meetingTime}, ${startTime}, ${endTime}, ${eventLocation}, ${eventDescription}
+    ${eventType},  ${teamId}, ${startDate}, ${endDate}, ${startTime}, ${endTime},  ${meetingTime}, ${eventLocation}, ${eventDescription}
   )
   RETURNING
   -- column names
@@ -224,6 +224,18 @@ export async function getTeamAndId() {
       event_types
   `;
   return eventTypes.map((types) => camelcaseKeys(types));
+}
+
+export async function getTeamNameById(teamId: number) {
+  const teamName = await sql`
+    SELECT
+    team_name
+    FROM
+      teams
+    WHERE
+    id = ${teamId}
+  `;
+  return teamName.map((name) => camelcaseKeys(name));
 }
 
 export async function getAllTeamNamesandId() {

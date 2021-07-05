@@ -1,51 +1,14 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
-import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
-import { darkBlue, lightBlue, lightPink } from '../util/sharedStyles';
-
-const navBar = css`
-  /* background-image: url('/images/button_background_lightBlue.PNG');
-  background-repeat: no-repeat;
-  background-size: cover; */
-  height: 80px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  width: 100px;
-  background-color: ${lightPink};
-
-  button {
-    margin-left: 20px;
-    background: none;
-    border: none;
-  }
-`;
-
-const menuBars = css`
-  margin-left: 2rem;
-  font-size: 2rem;
-  background: ${lightBlue};
-`;
-
-const navMenu = css`
-  background: ${lightPink};
-  width: 300px;
-  /* height: 100vh; */
-  display: flex;
-  justify-content: center;
-  position: fixed;
-  /* top: 0;
-  left: -100%; */
-  transition: 850ms;
-`;
+import { darkBlue, largeText } from '../util/sharedStyles';
 
 const navMenuActive = css`
-  left: 0;
-  transition: 350ms;
+  display: flex;
+  justify-content: center;
 `;
 
 const navText = css`
@@ -59,6 +22,7 @@ const navText = css`
   a {
     text-decoration: none;
     color: ${darkBlue};
+    font-size: ${largeText};
     font-weight: 500;
     word-spacing: 3px;
     font-size: 18px;
@@ -68,10 +32,6 @@ const navText = css`
     align-items: center;
     padding: 0 16px;
     border-radius: 4px;
-
-    a:hover {
-      background-color: blue;
-    }
   }
 `;
 
@@ -80,37 +40,11 @@ const navMenuItems = css`
   padding-left: 0;
 `;
 
-// const navBarToggles = css`
-//   background-color: ${lightBlue};
-//   width: 100%;
-//   height: 80px;
-//   display: flex;
-//   justify-content: start;
-//   align-items: center;
-// `;
-
 export default function SubMenu(props) {
-  const [sideBar, setSideBar] = useState(false);
-
-  const showSideBar = () => setSideBar(!sideBar);
-
   return (
     <IconContext.Provider value={{ color: '#1d2a48' }}>
-      <div css={navBar}>
-        <button>
-          <FaIcons.FaBars onClick={showSideBar} />
-        </button>
-      </div>
-
-      <nav css={sideBar ? navMenuActive : navMenu}>
+      <nav css={navMenuActive}>
         <ul css={navMenuItems}>
-          {/* <li css={navBarToggles}>
-            <Link href="#about" css={menuBars}>
-              <a>
-                <AiIcons.AiOutlineClose onClick={showSideBar} />
-              </a>
-            </Link>
-          </li> */}
           <li css={navText}>
             <AiIcons.AiFillHome />
             <Link href={`/teams/${props.teamId}`}>

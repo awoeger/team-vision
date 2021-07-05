@@ -1,12 +1,30 @@
+import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import * as AiIcons from 'react-icons/ai';
+import * as BiIcons from 'react-icons/bi';
+import * as FaIcons from 'react-icons/fa';
+import * as GiIcons from 'react-icons/gi';
+import * as GrIcons from 'react-icons/gr';
+// import * as AiIcons from 'react-icons/ai';
+// import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getEvents } from '../../../util/database';
+// import SubMenu from '../../../components/SubMenu';
+import { getEvents, getTeamNameById } from '../../../util/database';
+import {
+  darkBlue,
+  largeText,
+  lightBlue,
+  lightGrey,
+} from '../../../util/sharedStyles';
+
+// TODO: Create a filter for event types
 
 type Props = {
   username: String;
+  teamName: TeamName[];
   teamId: Number;
   events: Event[];
 };
@@ -24,7 +42,152 @@ type Event = {
   eventDescription: string;
 };
 
+type TeamName = {
+  teamName: string;
+};
+
+const mainContainer = css`
+  width: 100%;
+  display: flex;
+`;
+
+const subMenu = css`
+  width: 25%;
+  position: static;
+  background: ${lightGrey};
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  border-right: 2px solid ${darkBlue};
+`;
+
+const eventsMainContainer = css`
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
+  margin-bottom: 50px;
+`;
+
+const eventsContainer = css`
+  width: 60%;
+
+  h1,
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: ${largeText};
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  h1 {
+    margin-bottom: 5px;
+  }
+
+  > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    gap: 50px 100px;
+    justify-items: stretch;
+  }
+`;
+
+const eventHeader = css`
+  display: flex;
+  align-items: center;
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: space-between;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 15px 20px;
+
+  div {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    h2 {
+      color: white;
+      font-size: ${largeText};
+      margin-left: 10px;
+      text-transform: uppercase;
+      margin: 0 0 0 20px;
+    }
+  }
+
+  a {
+    color: ${darkBlue};
+    font-weight: 500;
+    word-spacing: 2px;
+  }
+`;
+
+const eventBody = css`
+  border: 2px solid ${lightBlue};
+  display: flex;
+  justify-content: space-evenly;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+`;
+
+const eventDate = css`
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid ${lightBlue};
+  border-right: 2px solid ${lightBlue};
+  padding-right: 20px;
+
+  h3 {
+    padding-left: 10px;
+  }
+`;
+
+const eventSubBody = css`
+  display: flex;
+  align-items: center;
+  border-right: 2px solid ${lightBlue};
+  padding-right: 20px;
+
+  p {
+    margin-left: 10px;
+
+    span {
+      font-weight: 500;
+      margin-right: 5px;
+    }
+  }
+`;
+
+const eventMessage = css`
+  width: 50%;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  h3 {
+    padding-left: 10px;
+  }
+`;
+
+const noEventsContainer = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  h2 {
+    font-size: ${largeText};
+    font-weight: 600;
+  }
+`;
+
 export default function SingleTeamPage(props: Props) {
+  console.log('eventprops', props);
   return (
     <>
       <Head>
@@ -34,27 +197,97 @@ export default function SingleTeamPage(props: Props) {
       </Head>
       <Layout username={props.username} />
       {/* <SubMenu teamId={props.teamId} /> */}
-      <h1>Welcome to Team xy</h1>
-      <Link href={`/teams/${props.teamId}/create-new-event`}>
-        <a>Create Event</a>
-      </Link>
-
-      {props.events.map((event) => {
-        return (
-          <div key={event.id}>
-            <h2>{event.eventTypeId}</h2>
-            <p>{event.startDay}</p>
-            <p>{event.meetingTime}</p>
-            <p>{event.startTime}</p>
-            <p>{event.endTime}</p>
-            <p>{event.eventLocation}</p>
-            <p>{event.eventDescription}</p>
-            {/* <Link>
-              <a>See guest list</a>
-            </Link> */}
+      <div css={mainContainer}>
+        <div css={subMenu}>
+          <SubMenu teamId={props.teamId} />
+        </div>
+        {props.events.length === 0 ? (
+          <div css={noEventsContainer}>
+            <h2>There are no events scheduled for this team yet.</h2>
           </div>
-        );
-      })}
+        ) : (
+          <div css={eventsMainContainer}>
+            <div css={eventsContainer}>
+              <h1>Welcome to Team </h1>
+              <h2>{props.teamName[0].teamName}</h2>
+              <div>
+                {props.events.map((event) => {
+                  return (
+                    <div key={event.id}>
+                      <div css={eventHeader}>
+                        <div>
+                          {event.eventType === 'Training' ? (
+                            <BiIcons.BiDumbbell size={30} />
+                          ) : undefined}
+                          {event.eventType === 'Tournament' ? (
+                            <FaIcons.FaTrophy size={30} />
+                          ) : undefined}
+                          {event.eventType === 'Social' ? (
+                            <GiIcons.GiPartyPopper size={30} />
+                          ) : undefined}
+                          <h2>{event.eventType}</h2>
+                        </div>
+                        <Link href="/">
+                          <a>See event details</a>
+                        </Link>
+                      </div>
+
+                      <div css={eventBody}>
+                        <div>
+                          <div css={eventDate}>
+                            <AiIcons.AiOutlineCalendar size={30} />
+                            <h3>{event.startDay}</h3>
+                          </div>
+
+                          <div css={eventSubBody}>
+                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <p>
+                              <span>MEETING: </span>
+                              {event.meetingTime}
+                            </p>
+                          </div>
+
+                          <div css={eventSubBody}>
+                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <p>
+                              <span>START:</span>
+                              {event.startTime}
+                            </p>
+                          </div>
+
+                          <div css={eventSubBody}>
+                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <p>
+                              <span>END:</span>
+                              {event.endTime}
+                            </p>
+                          </div>
+
+                          <div css={eventSubBody}>
+                            <GrIcons.GrLocation size={30} />
+                            <p>
+                              <span>LOCATION:</span>
+                              {event.eventLocation}
+                            </p>
+                          </div>
+                        </div>
+
+                        <div css={eventMessage}>
+                          <div>
+                            <BiIcons.BiMessageDetail size={30} />
+                            <h3>Message from your coach</h3>
+                          </div>
+                          <p>{event.eventDescription}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </>
   );
 }
@@ -62,13 +295,13 @@ export default function SingleTeamPage(props: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const teamIdString = context.query.teamId;
   const teamId = Number(teamIdString);
-
   const events = await getEvents(teamId);
-  console.log(events);
+  const teamName = await getTeamNameById(teamId);
 
   return {
     props: {
       teamId,
+      teamName,
       events,
     },
   };

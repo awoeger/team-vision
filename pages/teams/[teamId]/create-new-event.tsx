@@ -5,12 +5,113 @@ import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
+import {
+  darkBlue,
+  largeText,
+  lightGrey,
+  normalText,
+} from '../../../util/sharedStyles';
 import { RegisterResponse } from '../../api/register';
+
+// TODO: Make two input fields closer together (start date and end date)
 
 type Props = {
   username: String;
   teamId: Number;
 };
+
+const mainContainer = css`
+  width: 100%;
+  display: flex;
+`;
+
+const subMenu = css`
+  width: 25%;
+  position: static;
+  display: flex;
+  justify-content: flex-start;
+  background: ${lightGrey};
+  padding: 20px;
+  border-right: 2px solid ${darkBlue};
+`;
+
+const formContainer = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid ${darkBlue};
+    box-shadow: 10px 5px 5px ${darkBlue};
+    border-radius: 20px;
+    padding: 30px;
+    width: 55%;
+
+    h1 {
+      color: ${darkBlue};
+      font-size: ${largeText};
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    h2 {
+      color: ${darkBlue};
+      font-size: ${normalText};
+      font-weight: 400;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      color: ${darkBlue};
+      font-weight: 500;
+
+      input {
+        margin: 5px 0 20px 0;
+        width: 100%;
+        padding: 5px;
+      }
+    }
+
+    button {
+      background-image: url(/images/button_background_lightBlue.PNG);
+      background-repeat: no-repeat;
+      background-size: cover;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 10px 20px;
+      width: 100%;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    select {
+      padding: 5px 0;
+      margin: 5px 0 20px 0;
+    }
+
+    textarea {
+      margin: 5px 0 20px 0;
+      width: 100%;
+      padding: 5px;
+      line-height: 40px;
+      text-align: left;
+    }
+  }
+`;
+
+const neighborInputs = css`
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default function CreateEvent(props: Props) {
   console.log('props', props);
@@ -31,140 +132,146 @@ export default function CreateEvent(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
-      <SubMenu teamId={props.teamId} />
-      <div>
-        <form
-          onSubmit={async (event) => {
-            event.preventDefault();
-            const response = await fetch(
-              `/api/teams-by-teamname/create-new-event`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
+      <div css={mainContainer}>
+        <div css={subMenu}>
+          <SubMenu teamId={props.teamId} />
+        </div>
+        <div css={formContainer}>
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              const response = await fetch(
+                `/api/teams-by-teamname/create-new-event`,
+                {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    eventType: eventType,
+                    teamId: props.teamId,
+                    startDate: startDate,
+                    endDate: endDate,
+                    meetingTime: meetingTime,
+                    startTime: startTime,
+                    endTime: endTime,
+                    eventLocation: eventLocation,
+                    eventDescription: eventDescription,
+                  }),
                 },
-                body: JSON.stringify({
-                  eventType: eventType,
-                  teamId: props.teamId,
-                  startDate: startDate,
-                  endDate: endDate,
-                  meetingTime: meetingTime,
-                  startTime: startTime,
-                  endTime: endTime,
-                  eventLocation: eventLocation,
-                  eventDescription: eventDescription,
-                }),
-              },
-            );
+              );
 
-            const json = (await response.json()) as RegisterResponse;
+              const json = (await response.json()) as RegisterResponse;
 
-            // Todo: Link to single team page
-            router.push(`/teams/${props.teamId}`);
-          }}
-        >
-          <h1>Create an event</h1>
-          <h2>
-            Tell your players all important infos for the upcoming events.
-          </h2>
+              // Todo: Link to single team page
+              router.push(`/teams/${props.teamId}`);
+            }}
+          >
+            <h1>Create an event</h1>
+            <h2>and tell your players all important infos for it.</h2>
 
-          <label>
-            Event Type
-            <select
-              id="eventType"
-              value={eventType}
-              onChange={(event) => {
-                setEventType(event.currentTarget.value);
-              }}
-            >
-              <option>Please select</option>
-              <option value="Training">Training</option>
-              <option value="Tournament">Tournament</option>
-              <option value="Social">Social</option>
-            </select>
-          </label>
+            <label>
+              Event Type
+              <select
+                id="eventType"
+                value={eventType}
+                onChange={(event) => {
+                  setEventType(event.currentTarget.value);
+                }}
+              >
+                <option>Please select</option>
+                <option value="Training">Training</option>
+                <option value="Tournament">Tournament</option>
+                <option value="Social">Social</option>
+              </select>
+            </label>
 
-          <label>
-            Start Date
-            <input
-              type="date"
-              placeholder="dd/mm/yyyy"
-              value={startDate}
-              onChange={(event) => {
-                setStartDate(event.currentTarget.value);
-              }}
-            />
-          </label>
+            <div css={neighborInputs}>
+              <label>
+                Start Date
+                <input
+                  type="date"
+                  placeholder="dd/mm/yyyy"
+                  value={startDate}
+                  onChange={(event) => {
+                    setStartDate(event.currentTarget.value);
+                  }}
+                />
+              </label>
 
-          <label>
-            End Date
-            <input
-              type="date"
-              placeholder="dd/mm/yyyy"
-              value={endDate}
-              onChange={(event) => {
-                setEndDate(event.currentTarget.value);
-              }}
-            />
-          </label>
+              <label>
+                End Date
+                <input
+                  type="date"
+                  placeholder="dd/mm/yyyy"
+                  value={endDate}
+                  onChange={(event) => {
+                    setEndDate(event.currentTarget.value);
+                  }}
+                />
+              </label>
+            </div>
 
-          <label>
-            Meeting Time
-            <input
-              placeholder="hh:mm"
-              value={meetingTime}
-              onChange={(event) => {
-                setMeetingTime(event.currentTarget.value);
-              }}
-            />
-          </label>
+            <div css={neighborInputs}>
+              <label>
+                Meeting Time
+                <input
+                  placeholder="hh:mm"
+                  value={meetingTime}
+                  onChange={(event) => {
+                    setMeetingTime(event.currentTarget.value);
+                  }}
+                />
+              </label>
 
-          <label>
-            Start Time
-            <input
-              placeholder="hh:mm"
-              value={startTime}
-              onChange={(event) => {
-                setStartTime(event.currentTarget.value);
-              }}
-            />
-          </label>
+              <label>
+                Start Time
+                <input
+                  placeholder="hh:mm"
+                  value={startTime}
+                  onChange={(event) => {
+                    setStartTime(event.currentTarget.value);
+                  }}
+                />
+              </label>
 
-          <label>
-            End Time
-            <input
-              placeholder="hh:mm"
-              value={endTime}
-              onChange={(event) => {
-                setEndTime(event.currentTarget.value);
-              }}
-            />
-          </label>
+              <label>
+                End Time
+                <input
+                  placeholder="hh:mm"
+                  value={endTime}
+                  onChange={(event) => {
+                    setEndTime(event.currentTarget.value);
+                  }}
+                />
+              </label>
+            </div>
 
-          <label>
-            Event Location
-            <input
-              placeholder="ASKÖ Sportzentrum, 1020 Wien"
-              value={eventLocation}
-              onChange={(event) => {
-                setEventLocation(event.currentTarget.value);
-              }}
-            />
-          </label>
+            <label>
+              Event Location
+              <input
+                placeholder="ASKÖ Sportzentrum, 1020 Wien"
+                value={eventLocation}
+                onChange={(event) => {
+                  setEventLocation(event.currentTarget.value);
+                }}
+              />
+            </label>
 
-          <label>
-            Description
-            <textarea
-              placeholder="Please bring cleats and a mouthguard"
-              value={eventDescription}
-              onChange={(event) => {
-                setEventDescription(event.currentTarget.value);
-              }}
-            />
-          </label>
+            <label>
+              Description
+              <textarea
+                placeholder="Please bring cleats and a mouthguard"
+                value={eventDescription}
+                onChange={(event) => {
+                  setEventDescription(event.currentTarget.value);
+                }}
+              />
+            </label>
 
-          <button type="submit">CREATE EVENT</button>
-        </form>
+            <button type="submit">CREATE EVENT</button>
+          </form>
+        </div>
       </div>
     </>
   );
