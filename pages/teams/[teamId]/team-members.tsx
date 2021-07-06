@@ -4,7 +4,13 @@ import Head from 'next/head';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { updatePlayerRequest } from '../../../util/database';
-import { darkBlue, lightGrey } from '../../../util/sharedStyles';
+import {
+  darkBlue,
+  largeText,
+  lightBlue,
+  lightGrey,
+} from '../../../util/sharedStyles';
+import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
@@ -43,9 +49,24 @@ const teamMembersContainer = css`
   width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+  h2,
+  h1 {
+    font-size: ${largeText};
+    margin-top: 20px;
+  }
 
   table {
     text-align: center;
+    width: 90%;
+    margin: 20px 0 40px 0;
+
+    th {
+      background: ${lightBlue};
+      color: white;
+      padding: 10px;
+    }
   }
 `;
 
@@ -111,13 +132,28 @@ export default function TeamMembers(props: Props) {
                   <td>{member.positionOnTeam}</td>
                   <td>{member.playerMessage}</td>
                   {/* TODO: onclick change number, in .ts file make POST request, onclick --> See body{.....} */}
-                  {/* <td>
+                  <td>
                     {(member.statusId = 3) ? (
                       <div>
                         <button
-                          onClick={(event) =>
-                            updatePlayerRequest(props.awaitingMembers.id)
-                          }
+                          onClick={async (event) => {
+                            event.preventDefault();
+                            const response = await fetch(
+                              `/api/teams-by-team-id/team-members`,
+                              {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  id: member.id,
+                                }),
+                              },
+                            );
+
+                            // const json = {await response.json();
+                            // }
+                          }}
                         >
                           Accept
                         </button>
@@ -126,7 +162,7 @@ export default function TeamMembers(props: Props) {
                     ) : (
                       'Accepted'
                     )}{' '}
-                  </td> */}
+                  </td>
                 </tr>
               );
             })}

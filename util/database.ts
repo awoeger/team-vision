@@ -180,6 +180,14 @@ export async function updatePlayerRequest(id: number) {
   return acceptedStatus.map((status) => camelcaseKeys(status))[0];
 }
 
+export async function deletePlayerRequest(id: number) {
+  const deletedStatus = await sql`
+    DELETE FROM team_user
+    WHERE id = ${id}
+  `;
+  return deletedStatus.map((status) => camelcaseKeys(status)[0]);
+}
+
 export async function createNewEvent(
   eventType: string,
   teamId: number,
