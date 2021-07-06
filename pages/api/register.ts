@@ -48,7 +48,6 @@ export default async function registerHandler(
     } = req.body;
 
     const sessionToken = req.cookies.sessionTokenRegister;
-    console.log('SessionCookietoken', sessionToken);
 
     const registerSession = await getValidSessionByToken(sessionToken);
 

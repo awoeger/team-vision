@@ -124,11 +124,11 @@ const eventHeader = css`
 `;
 
 const eventBody = css`
-  border: 2px solid ${lightBlue};
+  border-left: 2px solid ${lightBlue};
+  border-right: 2px solid ${lightBlue};
   display: flex;
   justify-content: space-evenly;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+
   padding: 20px;
 `;
 
@@ -157,11 +157,11 @@ const eventSubBody = css`
 `;
 
 const eventInfos = css`
-  max-width: 40%;
+  max-width: 50%;
 `;
 
 const eventMessage = css`
-  max-width: 60%;
+  max-width: 50%;
   border-left: 2px solid ${lightBlue};
   padding-left: 20px;
 
@@ -187,8 +187,22 @@ const noEventsContainer = css`
   }
 `;
 
+const eventFooter = css`
+  border: 2px solid ${lightBlue};
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px 30px;
+
+  button {
+    padding: 10px;
+    cursor: pointer;
+  }
+`;
+
 export default function SingleTeamPage(props: Props) {
-  console.log('eventprops', props);
   return (
     <>
       <Head>
@@ -211,7 +225,6 @@ export default function SingleTeamPage(props: Props) {
             <div css={eventsContainer}>
               <h1>Welcome to the {props.teamName[0].teamName}</h1>
               <div>
-                {console.log(props.events)}
                 {props.events.map((event) => {
                   return (
                     <div key={event.id}>
@@ -228,7 +241,7 @@ export default function SingleTeamPage(props: Props) {
                           ) : undefined}
                           <h2>{event.eventType}</h2>
                         </div>
-                        <Link href="/">
+                        <Link href={`/teams/${props.teamId}/${event.id}`}>
                           <a>See event details</a>
                         </Link>
                       </div>
@@ -280,6 +293,18 @@ export default function SingleTeamPage(props: Props) {
                           </div>
                           <p>{event.eventDescription}</p>
                         </div>
+                      </div>
+
+                      <div css={eventFooter}>
+                        <button>
+                          <FaIcons.FaThumbsUp size={20} />
+                        </button>
+                        <button>
+                          <FaIcons.FaQuestion size={20} />
+                        </button>
+                        <button>
+                          <FaIcons.FaThumbsDown size={20} />
+                        </button>
                       </div>
                     </div>
                   );

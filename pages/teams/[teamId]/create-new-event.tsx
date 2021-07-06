@@ -114,7 +114,6 @@ const neighborInputs = css`
 `;
 
 export default function CreateEvent(props: Props) {
-  console.log('props', props);
   const [eventType, setEventType] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');

@@ -37,9 +37,6 @@ export default async function loginHandler(
         .status(401)
         .json({ errors: [{ message: 'Username or password did not match' }] });
     }
-    console.log(userWithPasswordHash);
-    console.log(userWithPasswordHash.userPasswordHash);
-    console.log(password);
 
     // Check that the entered plaintext password matches with the
     // password hash stored in the database
@@ -72,7 +69,6 @@ export default async function loginHandler(
 
     const cookie = createSerializedSessionCookie(session.token);
 
-    console.log('cookie', cookie);
     // Destructuring with a rest parameter
     // passwordHash => passwordHash will take it out of the object
     // ...user => anything else that is inside of the object (see util/types.js) is going to go into a new variable called "user"

@@ -235,8 +235,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     crypto.randomBytes(64).toString('base64'),
   );
 
-  console.log('shortLivedSession token', shortLivedSession.token);
-
   // Set new cookie for the short-lived session
   // This cookie is only for the registration, it will expire after 5 minutes
   const cookie = createSerializedRegisterSessionTokenCookie(
@@ -248,12 +246,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // secret for the CSRF token
   const csrfSecret = generateCsrfSecretByToken(shortLivedSession.token);
 
-  console.log('csrfSecret', csrfSecret);
-
   // Create CSRF token
   const csrfToken = tokens.create(csrfSecret);
-
-  console.log('csrfToken', csrfToken);
 
   return {
     props: {

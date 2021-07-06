@@ -128,7 +128,6 @@ const teamInfoBox = css`
 `;
 
 export default function SingleUserProfile(props: Props) {
-  console.log('props in profile page', props);
   // Show message if user not allowed
   const errors = props.errors;
   if (errors) {
@@ -299,7 +298,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // Getting all teams the player got accepted to
   const playerTeams = await getPlayerTeamsByUserId(json.user.id);
-  console.log('playerTeams', playerTeams);
 
   // spreading the json, will help us to put either the user OR the errors in the return
   return {

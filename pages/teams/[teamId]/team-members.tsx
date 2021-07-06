@@ -51,8 +51,11 @@ const teamMembersContainer = css`
   flex-direction: column;
   align-items: center;
 
-  h2,
   h1 {
+    margin: 40px 0;
+  }
+
+  h2 {
     font-size: ${largeText};
     margin-top: 20px;
   }
@@ -71,7 +74,6 @@ const teamMembersContainer = css`
 `;
 
 export default function TeamMembers(props: Props) {
-  console.log('props members', props);
   return (
     <>
       <Head>
@@ -157,7 +159,28 @@ export default function TeamMembers(props: Props) {
                         >
                           Accept
                         </button>
-                        <button>Decline</button>
+                        <button
+                          onClick={async (event) => {
+                            event.preventDefault();
+                            const response = await fetch(
+                              `/api/teams-by-team-id/team-members`,
+                              {
+                                method: 'DELETE',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  id: member.id,
+                                }),
+                              },
+                            );
+
+                            // const json = {await response.json();
+                            // }
+                          }}
+                        >
+                          Decline
+                        </button>
                       </div>
                     ) : (
                       'Accepted'

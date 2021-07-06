@@ -245,6 +245,27 @@ export async function getEvents(teamId: number) {
   return eventInfo.map((event) => camelcaseKeys(event));
 }
 
+export async function getEventByEventId(eventId: number) {
+  const event = await sql`
+  SELECT
+    id,
+    event_type,
+    team_id,
+    TO_CHAR(start_day, 'DD.MM.YYYY') start_day,
+    TO_CHAR(end_day, 'DD.MM.YYYY') end_day,
+    start_time,
+    end_time,
+    meeting_time,
+    event_location,
+    event_description
+    FROM
+      events
+    WHERE
+    id = ${eventId}
+  `;
+  return event.map((e) => camelcaseKeys(e));
+}
+
 export async function getTeamAndId() {
   const eventTypes = await sql`
     SELECT
@@ -446,7 +467,6 @@ export async function getUserWithPasswordHashByUsername(username?: string) {
 }
 
 export async function getValidSessionByToken(token: string) {
-  console.log();
   if (!token) return undefined;
 
   const sessions = await sql<Session[]>`
