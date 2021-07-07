@@ -208,7 +208,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // https://nextjs.org/docs/basic-features/data-fetching#getserversideprops-server-side-rendering
     return {
       redirect: {
-        // TODO: Redirect to actual profile page of user
         destination: `/`,
         permanent: false,
       },

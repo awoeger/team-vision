@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getAllMembers } from '../../../util/database';
+import { getUserByValidSessionToken } from '../../../util/database';
 import {
   darkBlue,
   largeText,
@@ -16,8 +16,7 @@ type Props = {
   username: String;
   teamId: Number;
   allMembers: Member[];
-  // acceptedMembers: Member[];
-  // awaitingMembers: Member[];
+  userRoleId: Number;
 };
 
 type Member = {
@@ -95,7 +94,7 @@ export default function TeamMembers(props: Props) {
       <Layout username={props.username} />
       <div css={mainContainer}>
         <div css={subMenu}>
-          <SubMenu teamId={props.teamId} />
+          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
         </div>
         <div css={teamMembersContainer}>
           <h1>Team Members</h1>
@@ -302,12 +301,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   );
 
   const json = await response.json();
-  console.log('json', json);
+
+  const sessionToken = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId;
 
   return {
     props: {
       teamId,
       ...json,
+      userRoleId,
     },
   };
 }

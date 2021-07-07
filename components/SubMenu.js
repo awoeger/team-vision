@@ -6,8 +6,6 @@ import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
-// TODO Pass RoleId to every page that has submenu to hide create new Team
-
 const navMenuActive = css`
   display: flex;
   justify-content: center;
@@ -43,6 +41,7 @@ const navMenuItems = css`
 `;
 
 export default function SubMenu(props) {
+  console.log('submenu props', props);
   return (
     <IconContext.Provider value={{ color: '#1d2a48' }}>
       <nav css={navMenuActive}>
@@ -53,18 +52,24 @@ export default function SubMenu(props) {
               <a>TEAM BASE</a>
             </Link>
           </li>
-          <li css={navText}>
-            <IoIcons.IoMdPeople />
-            <Link href={`/teams/${props.teamId}/team-members`}>
-              <a>TEAM MEMBERS</a>
-            </Link>
-          </li>
-          <li css={navText}>
-            <AiIcons.AiOutlineCalendar />
-            <Link href={`/teams/${props.teamId}/create-new-event`}>
-              <a>CREATE EVENT</a>
-            </Link>
-          </li>
+          {props.userRoleId === 1 ? (
+            <>
+              <li css={navText}>
+                <IoIcons.IoMdPeople />
+                <Link href={`/teams/${props.teamId}/team-members`}>
+                  <a>TEAM MEMBERS</a>
+                </Link>
+              </li>
+
+              <li css={navText}>
+                <AiIcons.AiOutlineCalendar />
+                <Link href={`/teams/${props.teamId}/create-new-event`}>
+                  <a>CREATE EVENT</a>
+                </Link>
+              </li>
+            </>
+          ) : undefined}
+
           <li css={navText}>
             <FaIcons.FaRunning />
             <Link href={`/teams/${props.teamId}/exercises`}>

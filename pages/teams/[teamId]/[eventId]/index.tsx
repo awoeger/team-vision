@@ -47,18 +47,13 @@ export default function SingleEventPage(props: Props) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const teamIdString = context.query.teamId;
-  const teamId = Number(teamIdString);
-  const eventIdString = context.query.eventId;
-  const eventId = Number(eventIdString);
-
-  const event = await getEventByEventId(eventId);
+export async function getServerSideProps(context: GetServerSidePropsContext)
 
   return {
     props: {
       event: event,
       teamId: teamId,
+
     },
   };
 }

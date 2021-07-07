@@ -5,6 +5,7 @@ import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
+import { getUserByValidSessionToken } from '../../../util/database';
 import {
   darkBlue,
   largeText,
@@ -18,6 +19,7 @@ import { RegisterResponse } from '../../api/register';
 type Props = {
   username: String;
   teamId: Number;
+  userRoleId: Number;
 };
 
 const mainContainer = css`
@@ -133,7 +135,7 @@ export default function CreateEvent(props: Props) {
       <Layout username={props.username} />
       <div css={mainContainer}>
         <div css={subMenu}>
-          <SubMenu teamId={props.teamId} />
+          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
         </div>
         <div css={formContainer}>
           <form
@@ -162,7 +164,6 @@ export default function CreateEvent(props: Props) {
 
               const json = (await response.json()) as RegisterResponse;
 
-              // Todo: Link to single team page
               router.push(`/teams/${props.teamId}`);
             }}
           >
@@ -279,9 +280,14 @@ export default function CreateEvent(props: Props) {
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const teamId = context.query.teamId;
 
+  const sessionToken = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId;
+
   return {
     props: {
       teamId,
+      userRoleId,
     },
   };
 }

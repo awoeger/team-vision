@@ -7,12 +7,13 @@ import * as BiIcons from 'react-icons/bi';
 import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as GrIcons from 'react-icons/gr';
-// import * as AiIcons from 'react-icons/ai';
-// import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-// import SubMenu from '../../../components/SubMenu';
-import { getEvents, getTeamNameById } from '../../../util/database';
+import {
+  getEvents,
+  getTeamNameById,
+  getUserByValidSessionToken,
+} from '../../../util/database';
 import {
   darkBlue,
   largeText,
@@ -27,6 +28,7 @@ type Props = {
   teamName: TeamName[];
   teamId: Number;
   events: Event[];
+  userRoleId: Number;
 };
 
 type Event = {
@@ -214,7 +216,7 @@ export default function SingleTeamPage(props: Props) {
       {/* <SubMenu teamId={props.teamId} /> */}
       <div css={mainContainer}>
         <div css={subMenu}>
-          <SubMenu teamId={props.teamId} />
+          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
         </div>
         {props.events.length === 0 ? (
           <div css={noEventsContainer}>
@@ -324,11 +326,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const events = await getEvents(teamId);
   const teamName = await getTeamNameById(teamId);
 
+  const sessionToken = context.req.cookies.sessionToken;
+
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId;
+
   return {
     props: {
       teamId,
       teamName,
       events,
+      userRoleId,
     },
   };
 }

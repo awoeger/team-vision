@@ -169,7 +169,6 @@ export async function createPlayerRequest(
 }
 
 export async function updatePlayerRequest(id: number) {
-  console.log('id update Player', id);
   const acceptedStatus = await sql`
     UPDATE team_user
     SET status_id = 1
@@ -190,7 +189,6 @@ export async function deletePlayerRequest(id: number) {
     RETURNING
     id
   `;
-  console.log('deletedStatus', deletedStatus);
   return deletedStatus.map((status) => camelcaseKeys(status)[0]);
 }
 
@@ -248,6 +246,8 @@ export async function getEvents(teamId: number) {
       events
     WHERE
     team_id = ${teamId}
+
+
   `;
   return eventInfo.map((event) => camelcaseKeys(event));
 }
@@ -380,13 +380,14 @@ export async function getUserById(id?: number) {
       user_first_name,
       user_last_name,
       username,
-      user_email
+      user_email,
       user_role_id
     FROM
       users
     WHERE
       id = ${id}
   `;
+
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
