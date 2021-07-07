@@ -11,7 +11,13 @@ import {
   getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
 } from '../../util/database';
-import { darkBlue, largeText, normalText } from '../../util/sharedStyles';
+import {
+  button,
+  darkBlue,
+  largeText,
+  link,
+  normalText,
+} from '../../util/sharedStyles';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
@@ -114,17 +120,6 @@ const teamInfoBox = css`
       margin-left: 10px;
     }
   }
-
-  a {
-    background-image: url('/images/button_background_lightBlue.PNG');
-    background-size: cover;
-    background-repeat: no-repeat;
-    color: white;
-    padding: 5px 15px;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
 `;
 
 export default function SingleUserProfile(props: Props) {
@@ -199,7 +194,7 @@ export default function SingleUserProfile(props: Props) {
                       </div>
                       <div>
                         <Link href={`/teams/${coachTeam.id}`}>
-                          <a>Go to team</a>
+                          <a css={link}>Go to team</a>
                         </Link>
                       </div>
                     </div>
@@ -245,7 +240,7 @@ export default function SingleUserProfile(props: Props) {
                       </div>
                       <div>
                         <Link href={`/teams/${playerTeam.id}`}>
-                          <a>Go to team</a>
+                          <a css={link}>Go to team</a>
                         </Link>
                       </div>
                     </div>

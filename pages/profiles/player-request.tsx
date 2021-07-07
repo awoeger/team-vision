@@ -3,6 +3,7 @@ import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
 import { getAllTeamNamesandId } from '../../util/database';
+import { button } from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
 import { formContainer } from './create-new-team';
 
@@ -148,7 +149,9 @@ export default function PlayerRequest(props: Props) {
             />
           </label>
 
-          <button type="submit">SEND REQUEST</button>
+          <button css={button} type="submit">
+            SEND REQUEST
+          </button>
         </form>
       </div>
     </>

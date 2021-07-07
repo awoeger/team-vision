@@ -1,24 +1,7 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import * as GiIcons from 'react-icons/gi';
-import { darkBlue, lightGrey, normalText } from '../util/sharedStyles';
-
-export const button = css`
-  background-image: url('/images/button_background_lightBlue.PNG');
-  background-size: cover;
-  background-repeat: no-repeat;
-  padding: 10px 15px;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-weight: 500;
-  margin-top: 20px;
-
-  a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-  }
-`;
+import { darkBlue, lightGrey, link, normalText } from '../util/sharedStyles';
 
 export const mainFirstSubContainer = css`
   position: static;
@@ -57,6 +40,10 @@ export const mainFirstSubContainer = css`
   }
 `;
 
+const buttonDiv = css`
+  margin-top: 20px;
+`;
+
 export default function CoachProfile(props) {
   return (
     <div css={mainFirstSubContainer}>
@@ -80,9 +67,9 @@ export default function CoachProfile(props) {
       <p>
         <span>Email:</span> {props.user.userEmail}
       </p>
-      <div css={button}>
+      <div css={buttonDiv}>
         <Link href="/profiles/create-new-team">
-          <a>Create new team</a>
+          <a css={link}>Create new team</a>
         </Link>
       </div>
     </div>

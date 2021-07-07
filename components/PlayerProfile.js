@@ -1,6 +1,12 @@
+import { css } from '@emotion/react';
 import Link from 'next/link';
 import * as FaIcons from 'react-icons/fa';
-import { button, mainFirstSubContainer } from './CoachProfile';
+import { link } from '../util/sharedStyles';
+import { mainFirstSubContainer } from './CoachProfile';
+
+const buttonDiv = css`
+  margin-top: 20px;
+`;
 
 export default function PlayerProfile(props) {
   return (
@@ -25,9 +31,9 @@ export default function PlayerProfile(props) {
       <p>
         <span>Email:</span> {props.user.userEmail}
       </p>
-      <div css={button}>
+      <div css={buttonDiv}>
         <Link href="/profiles/player-request">
-          <a>Join a new team</a>
+          <a css={link}>Join a new team</a>
         </Link>
       </div>
     </div>

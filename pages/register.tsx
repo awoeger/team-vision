@@ -7,6 +7,7 @@ import { useState } from 'react';
 import Layout from '../components/Layout';
 import { generateCsrfSecretByToken } from '../util/auth';
 import { getValidSessionByToken } from '../util/database';
+import { button } from '../util/sharedStyles';
 import { RegisterResponse } from './api/register';
 // import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { mainContainer, mainSubContainer } from './login';
@@ -44,8 +45,6 @@ export default function Register(props: Props) {
       margin: 5px 0 20px 0;
     }
   `;
-
-  const registerButton = css``;
 
   return (
     <>
@@ -173,7 +172,7 @@ export default function Register(props: Props) {
               </label>
             </div>
 
-            <button css={registerButton}>CREATE ACCOUNT</button>
+            <button css={button}>CREATE ACCOUNT</button>
 
             <div style={{ color: 'red' }}>{error}</div>
           </form>

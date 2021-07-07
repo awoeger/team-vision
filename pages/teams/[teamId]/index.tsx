@@ -21,6 +21,7 @@ import {
   largeText,
   lightBlue,
   lightGrey,
+  link,
 } from '../../../util/sharedStyles';
 
 // TODO: Create a filter for event types
@@ -206,7 +207,7 @@ const eventFooter = css`
   align-items: center;
   justify-content: space-around;
   padding: 10px 30px;
-
+  /*
   a {
     color: white;
     font-weight: 500;
@@ -217,7 +218,7 @@ const eventFooter = css`
     background-repeat: no-repeat;
     padding: 10px 10px;
     text-transform: uppercase;
-  }
+  } */
 `;
 
 export default function SingleTeamPage(props: Props) {
@@ -231,11 +232,11 @@ export default function SingleTeamPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
-      {/* <SubMenu teamId={props.teamId} /> */}
       <div css={mainContainer}>
         <div css={subMenu}>
           <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
         </div>
+
         {props.events.length === 0 ? (
           <div css={noEventsContainer}>
             <h2>There are no events scheduled for this team yet.</h2>
@@ -312,7 +313,13 @@ export default function SingleTeamPage(props: Props) {
                         <div css={eventInfos}>
                           <div css={eventDate}>
                             <AiIcons.AiOutlineCalendar size={30} />
-                            <h3>{event.startDay}</h3>
+                            {event.startDay === event.endDay ? (
+                              <h3>{event.startDay}</h3>
+                            ) : (
+                              <h3>
+                                {event.startDay} - {event.endDay}
+                              </h3>
+                            )}
                           </div>
 
                           <div css={eventSubBody}>
@@ -357,17 +364,10 @@ export default function SingleTeamPage(props: Props) {
                         </div>
                       </div>
 
-                      {props.userRoleId === 1 ? (
+                      {props.userRoleId === 2 ? (
                         <div css={eventFooter}>
                           <p>Total attendees: 18</p>
-                          <Link href={`/teams/${props.teamId}/${event.id}`}>
-                            <a>See event details</a>
-                          </Link>
-                        </div>
-                      ) : (
-                        <div css={eventFooter}>
-                          <p>Total attendees: 18</p>
-                          <button>
+                          {/* <button>
                             <FaIcons.FaThumbsUp size={20} />
                           </button>
                           <button>
@@ -375,7 +375,17 @@ export default function SingleTeamPage(props: Props) {
                           </button>
                           <button>
                             <FaIcons.FaThumbsDown size={20} />
-                          </button>
+                          </button> */}
+                          <Link href={`/teams/${props.teamId}/${event.id}`}>
+                            <a css={link}>SEE EVENT DETAILS</a>
+                          </Link>
+                        </div>
+                      ) : (
+                        <div css={eventFooter}>
+                          <p>Total attendees: 18</p>
+                          <Link href={`/teams/${props.teamId}/${event.id}`}>
+                            <a css={link}>See event details</a>
+                          </Link>
                         </div>
                       )}
                     </div>

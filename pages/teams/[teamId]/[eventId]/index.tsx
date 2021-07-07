@@ -4,11 +4,29 @@ import Head from 'next/head';
 import Layout from '../../../../components/Layout';
 import SubMenu from '../../../../components/SubMenu';
 import { getEventByEventId } from '../../../../util/database';
-import { darkBlue, lightGrey } from '../../../../util/sharedStyles';
+import {
+  darkBlue,
+  largeText,
+  lightBlue,
+  lightGrey,
+} from '../../../../util/sharedStyles';
 
 type Props = {
   username: String;
-  teamId: Number;
+  event: Event[];
+};
+
+type Event = {
+  id: number;
+  eventType: string;
+  teamId: number;
+  startDay: string;
+  endDay: string;
+  startTime: string;
+  endTime: string;
+  meetingTime: string;
+  eventLocation: string;
+  eventDescription: string;
 };
 
 const mainContainer = css`
@@ -26,9 +44,40 @@ const subMenu = css`
   border-right: 2px solid ${darkBlue};
 `;
 
-const eventContainer = css``;
+const eventContainer = css`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  div {
+    display: flex;
+
+    h1 {
+      margin: 40px 0;
+    }
+
+    h2 {
+      font-size: ${largeText};
+      margin-top: 20px;
+    }
+  }
+
+  table {
+    text-align: center;
+    width: 90%;
+    margin: 20px 0 40px 0;
+
+    th {
+      background: ${lightBlue};
+      color: white;
+      padding: 10px;
+    }
+  }
+`;
 
 export default function SingleEventPage(props: Props) {
+  console.log('props', props);
   return (
     <>
       <Head>
@@ -39,21 +88,101 @@ export default function SingleEventPage(props: Props) {
       <Layout username={props.username} />
       <div css={mainContainer}>
         <div css={subMenu}>
-          <SubMenu teamId={props.teamId} />
+          <SubMenu teamId={props.event.teamId} />
         </div>
-        <div css={eventContainer}></div>
+        <div css={eventContainer}>
+          <div>
+            <h1>{props.event.eventType}</h1>
+            <h2>{props.event.startDay}</h2>
+            {/* {event.startDay === event.endDay ? (
+                 <h3>{event.startDay}</h3>
+                ) : (
+               <h3>
+               {event.startDay} - {event.endDay}
+                </h3>
+              )} */}
+
+            <h3>Start Time</h3>
+            <h3>End Time</h3>
+            <h3>Location</h3>
+            <h3>Message from Coach</h3>
+          </div>
+
+          <h2>Attending Players</h2>
+          <table>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Edit Status</th>
+            </tr>
+            {/* {members
+              .filter((member) => member.response === 'Attending')
+              .map((member) => {
+                return (
+                  <tr key={member.id}>
+                    <td>{member.userFirstName}</td>
+                    <td>{member.userLastName}</td>
+                    <td>
+                      <button>Delete</button>
+                    </td>
+                  </tr>
+                );
+              })} */}
+          </table>
+          <h2>Awaiting Players</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {members
+                .filter((member) => member.response === 'Awaiting')
+                .map((member) => {
+                  return (
+                    <tr key={member.id}>
+                      <td>{member.userFirstName}</td>
+                      <td>{member.userLastName}</td>
+                      <td>
+                        <div>
+                          <button>Accept</button>
+                          <button>Decline</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })} */}
+            </tbody>
+          </table>
+        </div>
       </div>
     </>
   );
 }
 
-// export async function getServerSideProps(context: GetServerSidePropsContext)
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const eventId = context.query.eventId;
+  console.log('eventId', eventId);
 
-//   return {
-//     props: {
-//       event: event,
-//       teamId: teamId,
+  const event = await getEventByEventId(Number(eventId));
 
-//     },
-//   };
-// }
+  console.log('event', event);
+
+  // const response = await fetch(
+  //   `${process.env.API_BASE_URL}/teams-by-team-id/${teamId}`,
+  //   {
+  //     method: 'GET',
+  //   },
+  // );
+
+  // const json = await response.json();
+
+  return {
+    props: {
+      event,
+    },
+  };
+}

@@ -9,6 +9,7 @@ import {
   Session,
   TeamInfo,
   User,
+  UserInEvent,
   UserWithPasswordHash,
 } from '../util/types';
 
@@ -122,6 +123,25 @@ export async function insertUser({
       user_role_id
   `;
   return users.map((user) => camelcaseKeys(user))[0];
+}
+
+export async function insertUserToEvent({
+  usersId,
+  eventId,
+  response,
+}: UserInEvent) {
+  const usersInEvent = await sql`
+    INSERT INTO event_user
+    -- column names
+      (users_id, event_id, response)
+    VALUES
+      (${usersId}, ${eventId}, ${response})
+    RETURNING
+    users_id,
+    event_id,
+    response
+  `;
+  return usersInEvent.map((user) => camelcaseKeys(user))[0];
 }
 
 export async function createNewTeam(

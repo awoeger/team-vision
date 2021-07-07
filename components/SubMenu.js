@@ -27,7 +27,7 @@ const navText = css`
     word-spacing: 3px;
     font-size: 18px;
     width: 95%;
-    height: 100%;
+    min-height: 100%;
     display: flex;
     align-items: center;
     padding: 0 16px;

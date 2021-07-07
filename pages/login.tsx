@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { getValidSessionByToken } from '../util/database';
-import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
+import { button, darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { LoginResponse } from './api/login';
 
 // TODO: focus-visible on input fields
@@ -44,19 +44,6 @@ export const mainContainer = css`
           border: 2px solid ${lightBlue};
         }
       }
-    }
-
-    button {
-      background-image: url(/images/button_background_lightBlue.PNG);
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: white;
-      font-weight: bold;
-      border: none;
-      padding: 10px 20px;
-      width: 100%;
-      margin-bottom: 20px;
-      cursor: pointer;
     }
   }
 `;
@@ -160,7 +147,7 @@ export default function Login(props: Props) {
               </label>
             </div>
 
-            <button>LOGIN</button>
+            <button css={button}>LOGIN</button>
             <div style={{ color: 'red' }}>{error}</div>
             <div />
             <div css={registerDiv}>

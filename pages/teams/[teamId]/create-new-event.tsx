@@ -7,6 +7,7 @@ import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { getUserByValidSessionToken } from '../../../util/database';
 import {
+  button,
   darkBlue,
   largeText,
   lightGrey,
@@ -80,19 +81,6 @@ const formContainer = css`
         width: 100%;
         padding: 5px;
       }
-    }
-
-    button {
-      background-image: url(/images/button_background_lightBlue.PNG);
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: white;
-      font-weight: bold;
-      border: none;
-      padding: 10px 20px;
-      width: 100%;
-      margin-bottom: 20px;
-      cursor: pointer;
     }
 
     select {
@@ -269,7 +257,9 @@ export default function CreateEvent(props: Props) {
               />
             </label>
 
-            <button type="submit">CREATE EVENT</button>
+            <button css={button} type="submit">
+              CREATE EVENT
+            </button>
           </form>
         </div>
       </div>

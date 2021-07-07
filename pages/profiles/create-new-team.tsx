@@ -3,7 +3,12 @@ import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
-import { darkBlue, largeText, normalText } from '../../util/sharedStyles';
+import {
+  button,
+  darkBlue,
+  largeText,
+  normalText,
+} from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
 
 // TODO: Make page invisible for not logged in user
@@ -57,19 +62,6 @@ export const formContainer = css`
         width: 100%;
         padding: 5px;
       }
-    }
-
-    button {
-      background-image: url(/images/button_background_lightBlue.PNG);
-      background-repeat: no-repeat;
-      background-size: cover;
-      color: white;
-      font-weight: bold;
-      border: none;
-      padding: 10px 20px;
-      width: 100%;
-      margin-bottom: 20px;
-      cursor: pointer;
     }
   }
 `;
@@ -144,7 +136,9 @@ export default function CreateNewTeamForm(props: Props) {
             />
           </label>
 
-          <button type="submit">CREATE NEW TEAM</button>
+          <button css={button} type="submit">
+            CREATE NEW TEAM
+          </button>
         </form>
         {/* <Image
           alt="Logo Icon"

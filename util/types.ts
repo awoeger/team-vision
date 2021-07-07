@@ -11,6 +11,12 @@ export type UserWithPasswordHash = User & {
   userPasswordHash: string;
 };
 
+export type UserInEvent = {
+  usersId: number;
+  eventId: number;
+  response: string;
+};
+
 export type Session = {
   id: number;
   token: string;
