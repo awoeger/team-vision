@@ -47,13 +47,13 @@ export default function SingleEventPage(props: Props) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext)
+// export async function getServerSideProps(context: GetServerSidePropsContext)
 
-  return {
-    props: {
-      event: event,
-      teamId: teamId,
+//   return {
+//     props: {
+//       event: event,
+//       teamId: teamId,
 
-    },
-  };
-}
+//     },
+//   };
+// }

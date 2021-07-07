@@ -48,13 +48,7 @@ export default async function TeamMembers(
 
   const allMembers = await getAllMembers(Number(req.query.id));
 
-  // const acceptedMembers = await getAllAcceptedMembers(Number(req.query.id));
-
-  // const awaitingMembers = await getAllAwaitingMembers(Number(req.query.id));
-
   return res.status(200).json({
-    // acceptedMembers: acceptedMembers,
-    // awaitingMembers: awaitingMembers,
     allMembers: allMembers,
   });
 }

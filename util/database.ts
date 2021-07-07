@@ -246,8 +246,8 @@ export async function getEvents(teamId: number) {
       events
     WHERE
     team_id = ${teamId}
-
-
+    AND
+    end_day > NOW()
   `;
   return eventInfo.map((event) => camelcaseKeys(event));
 }

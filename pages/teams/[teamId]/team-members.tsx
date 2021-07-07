@@ -123,6 +123,7 @@ export default function TeamMembers(props: Props) {
                     <button
                       onClick={async (event) => {
                         event.preventDefault();
+
                         const response = await fetch(
                           `/api/teams-by-team-id/team-members`,
                           {

@@ -2,8 +2,10 @@ import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
 import * as AiIcons from 'react-icons/ai';
 import * as BiIcons from 'react-icons/bi';
+import * as BsIcons from 'react-icons/bs';
 import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as GrIcons from 'react-icons/gr';
@@ -46,6 +48,10 @@ type Event = {
 
 type TeamName = {
   teamName: string;
+};
+
+type DeleteEventRequest = {
+  id: Number;
 };
 
 const mainContainer = css`
@@ -118,10 +124,13 @@ const eventHeader = css`
     }
   }
 
-  a {
-    color: ${darkBlue};
-    font-weight: 500;
-    word-spacing: 2px;
+  button {
+    padding: 10px;
+    color: #ca2121;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 90%;
+    border: none;
+    cursor: pointer;
   }
 `;
 
@@ -196,15 +205,24 @@ const eventFooter = css`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 20px 30px;
+  padding: 10px 30px;
 
-  button {
-    padding: 10px;
-    cursor: pointer;
+  a {
+    color: white;
+    font-weight: 500;
+    word-spacing: 2px;
+    text-decoration: none;
+    background-image: url('/images/button_background_lightBlue.PNG');
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 10px 10px;
+    text-transform: uppercase;
   }
 `;
 
 export default function SingleTeamPage(props: Props) {
+  const [allEvents, setAllEvents] = useState(props.events);
+
   return (
     <>
       <Head>
@@ -227,7 +245,7 @@ export default function SingleTeamPage(props: Props) {
             <div css={eventsContainer}>
               <h1>Welcome to the {props.teamName[0].teamName}</h1>
               <div>
-                {props.events.map((event) => {
+                {allEvents.map((event) => {
                   return (
                     <div key={event.id}>
                       <div css={eventHeader}>
@@ -243,9 +261,51 @@ export default function SingleTeamPage(props: Props) {
                           ) : undefined}
                           <h2>{event.eventType}</h2>
                         </div>
-                        <Link href={`/teams/${props.teamId}/${event.id}`}>
-                          <a>See event details</a>
-                        </Link>
+                        {props.userRoleId === 1 ? (
+                          <button
+                            onClick={async (singleEvent) => {
+                              singleEvent.preventDefault();
+
+                              const response = await fetch(
+                                `/api/teams-by-team-id/events`,
+                                {
+                                  method: 'DELETE',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({
+                                    id: event.id,
+                                  }),
+                                },
+                              );
+
+                              const json =
+                                (await response.json()) as DeleteEventRequest;
+
+                              const deleteEvent = () => {
+                                // create a copy of the allEvents array
+                                const newEventArray = [...allEvents];
+                                // find the event.id that has been clicked on
+                                const deletedEvent = newEventArray.find(
+                                  (e) => e.id === event.id,
+                                );
+                                // get the index of the event in the copy of the array
+                                const deletedEventIndex =
+                                  newEventArray.indexOf(deletedEvent);
+                                // splice the index out of the array
+                                if (deletedEvent) {
+                                  newEventArray.splice(deletedEventIndex, 1);
+                                }
+
+                                return newEventArray;
+                              };
+                              // set the state to the result of the function
+                              setAllEvents(deleteEvent());
+                            }}
+                          >
+                            <BsIcons.BsTrashFill size={20} />
+                          </button>
+                        ) : undefined}
                       </div>
 
                       <div css={eventBody}>
@@ -297,17 +357,27 @@ export default function SingleTeamPage(props: Props) {
                         </div>
                       </div>
 
-                      <div css={eventFooter}>
-                        <button>
-                          <FaIcons.FaThumbsUp size={20} />
-                        </button>
-                        <button>
-                          <FaIcons.FaQuestion size={20} />
-                        </button>
-                        <button>
-                          <FaIcons.FaThumbsDown size={20} />
-                        </button>
-                      </div>
+                      {props.userRoleId === 1 ? (
+                        <div css={eventFooter}>
+                          <p>Total attendees: 18</p>
+                          <Link href={`/teams/${props.teamId}/${event.id}`}>
+                            <a>See event details</a>
+                          </Link>
+                        </div>
+                      ) : (
+                        <div css={eventFooter}>
+                          <p>Total attendees: 18</p>
+                          <button>
+                            <FaIcons.FaThumbsUp size={20} />
+                          </button>
+                          <button>
+                            <FaIcons.FaQuestion size={20} />
+                          </button>
+                          <button>
+                            <FaIcons.FaThumbsDown size={20} />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
