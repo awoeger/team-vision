@@ -1,22 +1,23 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { updatePlayerRequest } from '../../../util/database';
+import { getAllMembers } from '../../../util/database';
 import {
   darkBlue,
   largeText,
   lightBlue,
   lightGrey,
 } from '../../../util/sharedStyles';
-import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
   teamId: Number;
-  acceptedMembers: Member[];
-  awaitingMembers: Member[];
+  allMembers: Member[];
+  // acceptedMembers: Member[];
+  // awaitingMembers: Member[];
 };
 
 type Member = {
@@ -28,6 +29,14 @@ type Member = {
   statusId: Number | String;
   userFirstName: String;
   userLastName: String;
+};
+
+export type UpdateRequestResponse = {
+  statusId: number;
+};
+
+export type DeclinedPlayerRequestResponse = {
+  id: number;
 };
 
 const mainContainer = css`
@@ -74,6 +83,8 @@ const teamMembersContainer = css`
 `;
 
 export default function TeamMembers(props: Props) {
+  const [members, setMembers] = useState(props.allMembers);
+
   return (
     <>
       <Head>
@@ -97,98 +108,182 @@ export default function TeamMembers(props: Props) {
               <th>Experience level</th>
               <th>Position on the team</th>
               <th>Message to the coach</th>
-              <th>Status</th>
+              <th>Delete</th>
             </tr>
-            {props.acceptedMembers.map((member) => {
-              return (
-                <tr key={member.id}>
-                  <td>{member.userFirstName}</td>
-                  <td>{member.userLastName}</td>
-                  <td>{member.playingSince}</td>
-                  <td>{member.experienceLevel}</td>
-                  <td>{member.positionOnTeam}</td>
-                  <td>{member.playerMessage}</td>
-                  <td>{(member.statusId = 1 ? 'Accepted' : 'undefined')}</td>
-                </tr>
-              );
-            })}
+            {members
+              .filter((member) => member.statusId === 1)
+              .map((member) => {
+                return (
+                  <tr key={member.id}>
+                    <td>{member.userFirstName}</td>
+                    <td>{member.userLastName}</td>
+                    <td>{member.playingSince}</td>
+                    <td>{member.experienceLevel}</td>
+                    <td>{member.positionOnTeam}</td>
+                    <td>{member.playerMessage}</td>
+                    <button
+                      onClick={async (event) => {
+                        event.preventDefault();
+                        const response = await fetch(
+                          `/api/teams-by-team-id/team-members`,
+                          {
+                            method: 'DELETE',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              id: member.id,
+                            }),
+                          },
+                        );
+
+                        const json =
+                          (await response.json()) as DeclinedPlayerRequestResponse;
+
+                        // Delete Member on the frontend on decline button click
+                        const declineMember = () => {
+                          // create a copy of the allmembers array
+                          const newMemberArray = [...members];
+                          // find the person.id that has been clicked on
+                          const deletedMember = newMemberArray.find(
+                            (m) => m.id === member.id,
+                          );
+                          // get the index of the person in the copy of the array
+                          const deletedMemberIndex =
+                            newMemberArray.indexOf(deletedMember);
+                          // splice the index out of the array
+                          if (deletedMember) {
+                            newMemberArray.splice(deletedMemberIndex, 1);
+                          }
+
+                          return newMemberArray;
+                        };
+                        // set the state to the result of the function
+                        setMembers(declineMember());
+                      }}
+                    >
+                      Delete
+                    </button>
+                  </tr>
+                );
+              })}
           </table>
           <h2>Awaiting Players</h2>
           <table>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Playing since</th>
-              <th>Experience level</th>
-              <th>Position on the team</th>
-              <th>Message to the coach</th>
-              <th>Status</th>
-            </tr>
-            {props.awaitingMembers.map((member) => {
-              return (
-                <tr key={member.id}>
-                  <td>{member.userFirstName}</td>
-                  <td>{member.userLastName}</td>
-                  <td>{member.playingSince}</td>
-                  <td>{member.experienceLevel}</td>
-                  <td>{member.positionOnTeam}</td>
-                  <td>{member.playerMessage}</td>
-                  {/* TODO: onclick change number, in .ts file make POST request, onclick --> See body{.....} */}
-                  <td>
-                    {(member.statusId = 3) ? (
-                      <div>
-                        <button
-                          onClick={async (event) => {
-                            event.preventDefault();
-                            const response = await fetch(
-                              `/api/teams-by-team-id/team-members`,
-                              {
-                                method: 'POST',
-                                headers: {
-                                  'Content-Type': 'application/json',
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Playing since</th>
+                <th>Experience level</th>
+                <th>Position on the team</th>
+                <th>Message to the coach</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {members
+                .filter((member) => member.statusId === 3)
+                .map((member) => {
+                  return (
+                    <tr key={member.id}>
+                      <td>{member.userFirstName}</td>
+                      <td>{member.userLastName}</td>
+                      <td>{member.playingSince}</td>
+                      <td>{member.experienceLevel}</td>
+                      <td>{member.positionOnTeam}</td>
+                      <td>{member.playerMessage}</td>
+                      <td>
+                        <div>
+                          <button
+                            onClick={async (event) => {
+                              event.preventDefault();
+                              const response = await fetch(
+                                `/api/teams-by-team-id/team-members`,
+                                {
+                                  method: 'POST',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({
+                                    id: member.id,
+                                  }),
                                 },
-                                body: JSON.stringify({
-                                  id: member.id,
-                                }),
-                              },
-                            );
+                              );
 
-                            // const json = {await response.json();
-                            // }
-                          }}
-                        >
-                          Accept
-                        </button>
-                        <button
-                          onClick={async (event) => {
-                            event.preventDefault();
-                            const response = await fetch(
-                              `/api/teams-by-team-id/team-members`,
-                              {
-                                method: 'DELETE',
-                                headers: {
-                                  'Content-Type': 'application/json',
+                              const json =
+                                (await response.json()) as UpdateRequestResponse;
+                              console.log('json', json);
+
+                              const acceptMember = () => {
+                                // create a copy of the allmembers array
+                                const newMemberArray = [...members];
+                                // find the person.id that has been clicked on
+                                const acceptedMember = newMemberArray.find(
+                                  (m) => m.id === member.id,
+                                );
+                                // Change the status number to accepted
+                                if (acceptedMember) {
+                                  acceptedMember.statusId = 1;
+                                }
+
+                                return newMemberArray;
+                              };
+                              // set the state to the result of the function
+                              setMembers(acceptMember());
+                            }}
+                          >
+                            Accept
+                          </button>
+                          <button
+                            onClick={async (event) => {
+                              event.preventDefault();
+                              const response = await fetch(
+                                `/api/teams-by-team-id/team-members`,
+                                {
+                                  method: 'DELETE',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
+                                  body: JSON.stringify({
+                                    id: member.id,
+                                  }),
                                 },
-                                body: JSON.stringify({
-                                  id: member.id,
-                                }),
-                              },
-                            );
+                              );
 
-                            // const json = {await response.json();
-                            // }
-                          }}
-                        >
-                          Decline
-                        </button>
-                      </div>
-                    ) : (
-                      'Accepted'
-                    )}{' '}
-                  </td>
-                </tr>
-              );
-            })}
+                              const json =
+                                (await response.json()) as DeclinedPlayerRequestResponse;
+
+                              // Delete Member on the frontend on decline button click
+                              const declineMember = () => {
+                                // create a copy of the allmembers array
+                                const newMemberArray = [...members];
+                                // find the person.id that has been clicked on
+                                const deletedMember = newMemberArray.find(
+                                  (m) => m.id === member.id,
+                                );
+                                // get the index of the person in the copy of the array
+                                const deletedMemberIndex =
+                                  newMemberArray.indexOf(deletedMember);
+                                // splice the index out of the array
+                                if (deletedMember) {
+                                  newMemberArray.splice(deletedMemberIndex, 1);
+                                }
+
+                                return newMemberArray;
+                              };
+                              // set the state to the result of the function
+                              setMembers(declineMember());
+                            }}
+                          >
+                            Decline
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
           </table>
         </div>
       </div>
@@ -207,6 +302,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   );
 
   const json = await response.json();
+  console.log('json', json);
 
   return {
     props: {

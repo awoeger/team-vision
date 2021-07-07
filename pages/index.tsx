@@ -12,7 +12,6 @@ import Layout from '../components/Layout';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
 // Todo: Video as background
-// Todo: Contact Section Design
 
 const heroDiv = css`
   display: flex;
@@ -73,6 +72,8 @@ const aboutSubSection = css`
     color: white;
     padding: 30px 0 20px 20px;
     margin-left: 20px;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
   > div {
@@ -120,6 +121,8 @@ const headersForFunctionalites = css`
   h5 {
     margin-left: 20px;
     font-size: 20px;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 `;
 
@@ -134,8 +137,12 @@ const textBoxforFunctionalities = css`
 
 const guideSection = css`
   h3 {
-    font-size: ${largeText};
-    margin: 30px 0 0 20px 40px;
+    text-transform: uppercase;
+    font-size: 2em;
+    padding: 30px 0 20px 20px;
+    margin-left: 20px;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
   h4 {
@@ -150,23 +157,23 @@ const contactSection = css`
   background-size: cover;
   background-repeat: no-repeat;
   display: flex;
-  height: 100vh;
+  height: 50vh;
   margin-top: 100px;
 
   h3 {
+    text-transform: uppercase;
     color: white;
-    margin-top: 50px;
+    font-size: 2em;
+    padding: 30px 0 20px 20px;
+    margin-left: 20px;
   }
-`;
-
-const contactInfoHeader = css`
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
 `;
 
 const contactInformation = css`
   padding-left: 30px;
+  display: flex;
+  /* flex-direction: column; */
+  width: 50%;
 
   div {
     margin-left: 10px;
@@ -176,6 +183,8 @@ const contactInformation = css`
     color: white;
     font-size: ${largeText};
     margin-left: 20px;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
   p {
@@ -183,6 +192,12 @@ const contactInformation = css`
     font-size: 18px;
     margin-left: 30px;
   }
+`;
+
+const contactInfoHeader = css`
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
 `;
 
 type Props = {
@@ -358,34 +373,36 @@ export default function Home(props: Props) {
         </section>
 
         <section css={contactSection} id="contact">
-          {/* <div>
-            <ContactForm />
-          </div> */}
           <div css={contactInformation}>
-            <h3>Contact information</h3>
             <div>
-              <div css={contactInfoHeader}>
-                <AiIcons.AiFillHome style={{ color: 'white' }} size={30} />
-                <h5>Address</h5>
-              </div>
-              <p>Team Vision GmbH</p>
-              <p>Schönerweg 45</p>
-              <p>1020 Vienna</p>
-              <p>Austria</p>
+              <h3>Contact information</h3>
             </div>
+
             <div>
-              <div css={contactInfoHeader}>
-                <AiIcons.AiFillMail style={{ color: 'white' }} size={30} />
-                <h5>Email</h5>
+              <div>
+                <div css={contactInfoHeader}>
+                  <AiIcons.AiFillHome style={{ color: 'white' }} size={30} />
+                  <h5>Address</h5>
+                </div>
+                <p>Team Vision GmbH</p>
+                <p>Schönerweg 45</p>
+                <p>1020 Vienna</p>
+                <p>Austria</p>
               </div>
-              <p>team@vision.com</p>
-            </div>
-            <div>
-              <div css={contactInfoHeader}>
-                <AiIcons.AiFillPhone style={{ color: 'white' }} size={30} />
-                <h5>Phone</h5>
+              <div>
+                <div css={contactInfoHeader}>
+                  <AiIcons.AiFillMail style={{ color: 'white' }} size={30} />
+                  <h5>Email</h5>
+                </div>
+                <p>team@vision.com</p>
               </div>
-              <p>0664/ 555 55 44 33</p>
+              <div>
+                <div css={contactInfoHeader}>
+                  <AiIcons.AiFillPhone style={{ color: 'white' }} size={30} />
+                  <h5>Phone</h5>
+                </div>
+                <p>0664/ 555 55 44 33</p>
+              </div>
             </div>
           </div>
         </section>

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
@@ -16,6 +17,9 @@ export const formContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  /* background-image: url(/images/low-poly-background.PNG);
+  background-size: cover;
+  background-repeat: no-repeat; */
 
   form {
     display: flex;
@@ -142,6 +146,12 @@ export default function CreateNewTeamForm(props: Props) {
 
           <button type="submit">CREATE NEW TEAM</button>
         </form>
+        {/* <Image
+          alt="Logo Icon"
+          src="/images/basketball-player.PNG"
+          width="500px"
+          height="800px"
+        /> */}
       </div>
     </>
   );

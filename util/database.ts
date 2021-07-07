@@ -169,14 +169,17 @@ export async function createPlayerRequest(
 }
 
 export async function updatePlayerRequest(id: number) {
+  console.log('id update Player', id);
   const acceptedStatus = await sql`
     UPDATE team_user
     SET status_id = 1
     WHERE id = ${id}
   RETURNING
   -- column names
+  -- This is what we map over in the next line
     status_id
   `;
+
   return acceptedStatus.map((status) => camelcaseKeys(status))[0];
 }
 
@@ -184,7 +187,10 @@ export async function deletePlayerRequest(id: number) {
   const deletedStatus = await sql`
     DELETE FROM team_user
     WHERE id = ${id}
+    RETURNING
+    id
   `;
+  console.log('deletedStatus', deletedStatus);
   return deletedStatus.map((status) => camelcaseKeys(status)[0]);
 }
 
@@ -213,15 +219,16 @@ export async function createNewEvent(
   return newEvent.map((event) => camelcaseKeys(event));
 }
 
-// TODO: CREATE DELETE EVENT FUNCTION
 export async function deleteEvent(eventId: number) {
-  const events = await sql`
+  const deletedEvent = await sql`
     DELETE FROM
      events
     WHERE
     id = ${eventId}
+    RETURNING
+    id
   `;
-  return events.map((event) => camelcaseKeys(event));
+  return deletedEvent.map((event) => camelcaseKeys(event));
 }
 
 export async function getEvents(teamId: number) {
@@ -300,7 +307,7 @@ export async function getAllTeamNamesandId() {
   return teams.map((team) => camelcaseKeys(team));
 }
 
-export async function getAllAcceptedMembers(teamId: number) {
+export async function getAllMembers(teamId: number) {
   if (!teamId) return undefined;
 
   const acceptedPlayers = await sql`
@@ -310,23 +317,6 @@ export async function getAllAcceptedMembers(teamId: number) {
     users as u,
     team_user as t
     WHERE t.users_id = u.id
-    AND t.status_id = 1
-    AND t.team_id = ${teamId};
-  `;
-  return acceptedPlayers.map((player) => camelcaseKeys(player));
-}
-
-export async function getAllAwaitingMembers(teamId: number) {
-  if (!teamId) return undefined;
-
-  const acceptedPlayers = await sql`
-    SELECT
-    u.user_first_name, u.user_last_name, t.id, t.status_id, t.position_on_team, t.playing_since, t.experience_level, t.player_message
-    FROM
-    users as u,
-    team_user as t
-    WHERE t.users_id = u.id
-    AND t.status_id = 3
     AND t.team_id = ${teamId};
   `;
   return acceptedPlayers.map((player) => camelcaseKeys(player));
@@ -346,13 +336,14 @@ export async function getCoachTeamsByUserId(userId: number) {
   return teams.map((team) => camelcaseKeys(team));
 }
 
-// TODO: Write DELETE TEAM FUNCTION
 export async function deleteTeam(teamId: number) {
   const teamInfo = await sql`
     DELETE FROM
      teams
     WHERE
-    teamId = ${teamId}
+    id = ${teamId}
+    RETURNING
+    id
   `;
   return teamInfo.map((team) => camelcaseKeys(team));
 }
