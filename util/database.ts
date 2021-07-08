@@ -125,11 +125,11 @@ export async function insertUser({
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
-export async function insertUserToEvent({
-  usersId,
-  eventId,
-  response,
-}: UserInEvent) {
+export async function insertUserToEvent(
+  usersId: number,
+  eventId: number,
+  response: string,
+) {
   const usersInEvent = await sql`
     INSERT INTO event_user
     -- column names
@@ -142,6 +142,21 @@ export async function insertUserToEvent({
     response
   `;
   return usersInEvent.map((user) => camelcaseKeys(user))[0];
+}
+
+export async function getAllResponsesForEvent(eventId: number) {
+  const eventInfo = await sql`
+    SELECT
+    eu.users_id, u.user_first_name, u.user_last_name, eu.response
+    FROM
+      event_user as eu,
+      users as u
+    WHERE
+      event_id = ${eventId}
+    AND
+      users_id = u.id
+  `;
+  return eventInfo.map((event) => camelcaseKeys(event));
 }
 
 export async function createNewTeam(

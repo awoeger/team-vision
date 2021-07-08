@@ -35,7 +35,6 @@ export default async function playerRequestHandler(
         .json({ errors: [{ message: 'No valid session.' }] });
     }
 
-    // TODO: Write function for player request
     // Save the team information to the database
     const playerRequest = await createPlayerRequest(
       teamChoice,
