@@ -1,9 +1,15 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
+import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../../components/Layout';
 import SubMenu from '../../../../components/SubMenu';
-import { getEventByEventId } from '../../../../util/database';
+import {
+  getAllMembersNamesByTeamId,
+  getEventByEventId,
+  getUserByValidSessionToken,
+} from '../../../../util/database';
 import {
   darkBlue,
   largeText,
@@ -14,6 +20,14 @@ import {
 type Props = {
   username: String;
   event: Event[];
+  userRoleId: Number;
+  allMembers: Member[];
+};
+
+type Member = {
+  id: Number;
+  userFirstName: String;
+  userLastName: String;
 };
 
 type Event = {
@@ -27,6 +41,12 @@ type Event = {
   meetingTime: string;
   eventLocation: string;
   eventDescription: string;
+};
+
+type UpdateEventResponse = {
+  usersId: Number;
+  eventId: Number;
+  response: String;
 };
 
 const mainContainer = css`
@@ -77,7 +97,9 @@ const eventContainer = css`
 `;
 
 export default function SingleEventPage(props: Props) {
+  const [allPlayers, setAllPlayers] = useState(props.allMembers);
   console.log('props', props);
+
   return (
     <>
       <Head>
@@ -88,12 +110,15 @@ export default function SingleEventPage(props: Props) {
       <Layout username={props.username} />
       <div css={mainContainer}>
         <div css={subMenu}>
-          <SubMenu teamId={props.event.teamId} />
+          <SubMenu
+            userRoleId={props.userRoleId}
+            teamId={props.event[0].teamId}
+          />
         </div>
         <div css={eventContainer}>
           <div>
-            <h1>{props.event.eventType}</h1>
-            <h2>{props.event.startDay}</h2>
+            <h1>{props.event[0].eventType}</h1>
+            <h2>{props.event[0].startDay}</h2>
             {/* {event.startDay === event.endDay ? (
                  <h3>{event.startDay}</h3>
                 ) : (
@@ -102,20 +127,25 @@ export default function SingleEventPage(props: Props) {
                 </h3>
               )} */}
 
-            <h3>Start Time</h3>
-            <h3>End Time</h3>
-            <h3>Location</h3>
-            <h3>Message from Coach</h3>
+            <h3>{props.event[0].endDay}</h3>
+            <h3>{props.event[0].meetingTime}</h3>
+            <h3>{props.event[0].startTime}</h3>
+            <h3>{props.event[0].endDay}</h3>
+            <h3>{props.event[0].eventLocation}</h3>
+            {/* <h3>{props.event[0].eventDescription}</h3> */}
           </div>
 
           <h2>Attending Players</h2>
           <table>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Edit Status</th>
-            </tr>
-            {/* {members
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {members
               .filter((member) => member.response === 'Attending')
               .map((member) => {
                 return (
@@ -128,14 +158,16 @@ export default function SingleEventPage(props: Props) {
                   </tr>
                 );
               })} */}
+            </tbody>
           </table>
-          <h2>Awaiting Players</h2>
+
+          <h2>Possibly attending Players</h2>
           <table>
             <thead>
               <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Edit Status</th>
+                <th>Edit Response</th>
               </tr>
             </thead>
             <tbody>
@@ -157,6 +189,109 @@ export default function SingleEventPage(props: Props) {
                 })} */}
             </tbody>
           </table>
+
+          <h2>Non attending Players</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* {members
+                .filter((member) => member.response === 'Awaiting')
+                .map((member) => {
+                  return (
+                    <tr key={member.id}>
+                      <td>{member.userFirstName}</td>
+                      <td>{member.userLastName}</td>
+                      <td>
+                        <div>
+                          <button>Accept</button>
+                          <button>Decline</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })} */}
+            </tbody>
+          </table>
+
+          <h2>Awaiting Players</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allPlayers.map((player) => {
+                return (
+                  <tr key={player.id}>
+                    <td>{player.userFirstName}</td>
+                    <td>{player.userLastName}</td>
+                    <td>
+                      <div>
+                        <button
+                          onClick={async (event) => {
+                            event.preventDefault();
+
+                            const response = await fetch(
+                              `/api/teams-by-team-id/single-event`,
+                              {
+                                method: 'POST',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  usersId: player.id,
+                                  eventId: props.event[0].id,
+                                  response: 'Attending',
+                                }),
+                              },
+                            );
+
+                            const json =
+                              (await response.json()) as UpdateEventResponse;
+                            console.log('json', json);
+
+                            //   const acceptMember = () => {
+                            //     // create a copy of the allmembers array
+                            //     const newMemberArray = [...members];
+                            //     // find the person.id that has been clicked on
+                            //     const acceptedMember = newMemberArray.find(
+                            //       (m) => m.id === member.id,
+                            //     );
+                            //     // Change the status number to accepted
+                            //     if (acceptedMember) {
+                            //       acceptedMember.statusId = 1;
+                            //     }
+
+                            //     return newMemberArray;
+                            //   };
+                            //   // set the state to the result of the function
+                            //   setMembers(acceptMember());
+                          }}
+                        >
+                          <FaIcons.FaThumbsUp size={20} />
+                        </button>
+                        <button>
+                          <FaIcons.FaQuestion size={20} />
+                        </button>
+                        <button>
+                          <FaIcons.FaThumbsDown size={20} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
         </div>
       </div>
     </>
@@ -165,24 +300,22 @@ export default function SingleEventPage(props: Props) {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const eventId = context.query.eventId;
-  console.log('eventId', eventId);
-
   const event = await getEventByEventId(Number(eventId));
 
-  console.log('event', event);
+  // get UserRole Id which parts of the app the user is allowed to see
+  const sessionToken = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId;
 
-  // const response = await fetch(
-  //   `${process.env.API_BASE_URL}/teams-by-team-id/${teamId}`,
-  //   {
-  //     method: 'GET',
-  //   },
-  // );
-
-  // const json = await response.json();
+  // get all members of team
+  const teamId = context.query.teamId;
+  const allMembers = await getAllMembersNamesByTeamId(Number(teamId));
 
   return {
     props: {
       event,
+      userRoleId,
+      allMembers,
     },
   };
 }

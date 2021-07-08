@@ -207,18 +207,6 @@ const eventFooter = css`
   align-items: center;
   justify-content: space-around;
   padding: 10px 30px;
-  /*
-  a {
-    color: white;
-    font-weight: 500;
-    word-spacing: 2px;
-    text-decoration: none;
-    background-image: url('/images/button_background_lightBlue.PNG');
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 10px 10px;
-    text-transform: uppercase;
-  } */
 `;
 
 export default function SingleTeamPage(props: Props) {
@@ -367,15 +355,7 @@ export default function SingleTeamPage(props: Props) {
                       {props.userRoleId === 2 ? (
                         <div css={eventFooter}>
                           <p>Total attendees: 18</p>
-                          {/* <button>
-                            <FaIcons.FaThumbsUp size={20} />
-                          </button>
-                          <button>
-                            <FaIcons.FaQuestion size={20} />
-                          </button>
-                          <button>
-                            <FaIcons.FaThumbsDown size={20} />
-                          </button> */}
+
                           <Link href={`/teams/${props.teamId}/${event.id}`}>
                             <a css={link}>SEE EVENT DETAILS</a>
                           </Link>

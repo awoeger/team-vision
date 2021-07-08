@@ -342,6 +342,22 @@ export async function getAllMembers(teamId: number) {
   return acceptedPlayers.map((player) => camelcaseKeys(player));
 }
 
+export async function getAllMembersNamesByTeamId(teamId: number) {
+  if (!teamId) return undefined;
+
+  const acceptedPlayers = await sql`
+    SELECT
+    u.id, u.user_first_name, u.user_last_name
+    FROM
+    users as u,
+    team_user as t
+    WHERE t.users_id = u.id
+    AND t.status_id = 1
+    AND t.team_id = ${teamId};
+  `;
+  return acceptedPlayers.map((player) => camelcaseKeys(player));
+}
+
 export async function getCoachTeamsByUserId(userId: number) {
   if (!userId) return undefined;
 
