@@ -18,13 +18,9 @@ type Props = {
 };
 
 export const formContainer = css`
-  padding-top: 230px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  /* background-image: url(/images/low-poly-background.PNG);
-  background-size: cover;
-  background-repeat: no-repeat; */
+  padding-left: 100px;
 
   form {
     display: flex;
@@ -61,9 +57,16 @@ export const formContainer = css`
         margin: 5px 0 20px 0;
         width: 100%;
         padding: 5px;
+        font-size: ${normalText};
       }
     }
   }
+`;
+
+const imageContainer = css`
+  display: flex;
+  justify-content: center;
+  padding-left: 50px;
 `;
 
 export default function CreateNewTeamForm(props: Props) {
@@ -140,12 +143,14 @@ export default function CreateNewTeamForm(props: Props) {
             CREATE NEW TEAM
           </button>
         </form>
-        {/* <Image
-          alt="Logo Icon"
-          src="/images/basketball-player.PNG"
-          width="500px"
-          height="800px"
-        /> */}
+        <div css={imageContainer}>
+          <Image
+            alt="Logo Icon"
+            src="/images/rugby-players.png"
+            width="750px"
+            height="750px"
+          />
+        </div>
       </div>
     </>
   );

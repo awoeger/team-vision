@@ -18,6 +18,7 @@ export const button = css`
   background-size: cover;
   color: white;
   font-weight: bold;
+  font-size: ${normalText};
   border: none;
   padding: 10px 20px;
   width: 100%;
