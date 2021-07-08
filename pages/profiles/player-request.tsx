@@ -1,11 +1,16 @@
 import { css } from '@emotion/react';
+import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
 import { getAllTeamNamesandId } from '../../util/database';
-import { button } from '../../util/sharedStyles';
+import {
+  button,
+  darkBlue,
+  largeText,
+  normalText,
+} from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
-import { formContainer } from './create-new-team';
 
 // TODO: Make page invisible for not logged in user
 
@@ -19,18 +24,67 @@ type TeamNameandIdforCoach = {
   teamName: String;
 };
 
-const input = css`
-  margin: 5px 0 20px 0;
-  width: 100%;
-  padding: 5px;
+export const formContainer = css`
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid ${darkBlue};
+    box-shadow: 10px 5px 5px ${darkBlue};
+    border-radius: 15px;
+    padding: 30px;
+    width: 40%;
+
+    h1 {
+      color: ${darkBlue};
+      font-size: ${largeText};
+      text-align: center;
+      padding-bottom: 20px;
+    }
+
+    h2 {
+      color: ${darkBlue};
+      font-size: ${normalText};
+      font-weight: 400;
+      text-align: center;
+      padding-bottom: 30px;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      color: ${darkBlue};
+      font-weight: 600;
+
+      input,
+      select {
+        margin: 5px 0 20px 0;
+        width: 100%;
+        padding: 5px;
+        font-size: ${normalText};
+      }
+    }
+  }
 `;
 
 const textarea = css`
   margin: 5px 0 20px 0;
   width: 100%;
   padding: 5px;
-  line-height: 40px;
+  font-size: ${normalText};
   text-align: left;
+  line-height: 40px;
+`;
+
+const imageContainer = css`
+  display: flex;
+  justify-content: center;
+  padding-left: 50px;
 `;
 
 export default function PlayerRequest(props: Props) {
@@ -44,6 +98,14 @@ export default function PlayerRequest(props: Props) {
     <>
       <Layout username={props.username} />
       <div css={formContainer}>
+        <div css={imageContainer}>
+          <Image
+            alt="Logo Icon"
+            src="/images/baseball-player.jpg"
+            width="750px"
+            height="750px"
+          />
+        </div>
         <form
           onSubmit={async (event) => {
             event.preventDefault();
@@ -80,7 +142,6 @@ export default function PlayerRequest(props: Props) {
           <label>
             Which team would you like to apply for?
             <select
-              css={input}
               id="teamChoice"
               value={teamChoice}
               onChange={(event) => {
@@ -123,7 +184,6 @@ export default function PlayerRequest(props: Props) {
           <label>
             How would you rate your experience level?
             <select
-              css={input}
               id="experienceLevel"
               value={experienceLevel}
               onChange={(event) => {

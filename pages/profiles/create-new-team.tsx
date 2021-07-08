@@ -27,7 +27,7 @@ export const formContainer = css`
     flex-direction: column;
     border: 2px solid ${darkBlue};
     box-shadow: 10px 5px 5px ${darkBlue};
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 30px;
     width: 40%;
 
@@ -51,7 +51,7 @@ export const formContainer = css`
       flex-direction: column;
       text-align: left;
       color: ${darkBlue};
-      font-weight: 500;
+      font-weight: 600;
 
       input {
         margin: 5px 0 20px 0;

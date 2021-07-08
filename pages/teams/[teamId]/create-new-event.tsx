@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
@@ -38,21 +39,21 @@ const subMenu = css`
   border-right: 2px solid ${darkBlue};
 `;
 
-const formContainer = css`
-  width: 100%;
+export const formContainer = css`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin: 40px 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: 70px;
 
   form {
     display: flex;
     flex-direction: column;
     border: 2px solid ${darkBlue};
     box-shadow: 10px 5px 5px ${darkBlue};
-    border-radius: 20px;
+    border-radius: 15px;
     padding: 30px;
-    width: 55%;
+    width: 40%;
 
     h1 {
       color: ${darkBlue};
@@ -74,26 +75,24 @@ const formContainer = css`
       flex-direction: column;
       text-align: left;
       color: ${darkBlue};
-      font-weight: 500;
+      font-weight: 600;
 
-      input {
+      input,
+      select {
         margin: 5px 0 20px 0;
         width: 100%;
         padding: 5px;
+        font-size: ${normalText};
       }
-    }
 
-    select {
-      padding: 5px 0;
-      margin: 5px 0 20px 0;
-    }
-
-    textarea {
-      margin: 5px 0 20px 0;
-      width: 100%;
-      padding: 5px;
-      line-height: 40px;
-      text-align: left;
+      textarea {
+        margin: 5px 0 20px 0;
+        width: 100%;
+        padding: 5px;
+        font-size: ${normalText};
+        text-align: left;
+        line-height: 40px;
+      }
     }
   }
 `;
@@ -101,6 +100,12 @@ const formContainer = css`
 const neighborInputs = css`
   display: flex;
   justify-content: space-between;
+`;
+
+const imageContainer = css`
+  display: flex;
+  justify-content: center;
+  padding-left: 15px;
 `;
 
 export default function CreateEvent(props: Props) {
@@ -261,6 +266,14 @@ export default function CreateEvent(props: Props) {
               CREATE EVENT
             </button>
           </form>
+          <div css={imageContainer}>
+            <Image
+              alt="Logo Icon"
+              src="/images/basketball-player.jpg"
+              width="750px"
+              height="750px"
+            />
+          </div>
         </div>
       </div>
     </>
