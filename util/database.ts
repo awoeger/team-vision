@@ -130,6 +130,8 @@ export async function insertUserToEvent(
   eventId: number,
   response: string,
 ) {
+  // Returns the count of elements that are fitting the condition
+  // Should be either 0 or 1
   const ifUserInEvent = await sql`
     SELECT
     COUNT(*)
@@ -142,7 +144,8 @@ export async function insertUserToEvent(
   `;
 
   let usersInEvent;
-  console.log('ifUserInEvent', ifUserInEvent);
+
+  // if the user does not exist yet, insert them into the table
   if (ifUserInEvent[0].count === '0') {
     usersInEvent = await sql`
     INSERT INTO event_user
@@ -155,6 +158,7 @@ export async function insertUserToEvent(
     event_id,
     response
   `;
+    // otherwise we set the response to the new respnse
   } else {
     usersInEvent = await sql`
     UPDATE event_user

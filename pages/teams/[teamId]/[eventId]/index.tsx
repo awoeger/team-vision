@@ -172,7 +172,7 @@ export default function SingleEventPage(props: Props) {
                     <button
                       onClick={async (event) => {
                         event.preventDefault();
-
+                        // Post Request via API Route to insert user into event_user table
                         const response = await fetch(
                           `/api/teams-by-team-id/single-event`,
                           {
@@ -191,6 +191,7 @@ export default function SingleEventPage(props: Props) {
                         const json =
                           (await response.json()) as UpdateEventResponse;
 
+                        // set use State to the result of pushFirstEventResponse
                         setAllResponses(
                           pushFirstEventResponse(
                             props.loggedinUser,
@@ -198,7 +199,6 @@ export default function SingleEventPage(props: Props) {
                             'Yes',
                           ),
                         );
-                        console.log('resp', allResponses);
                       }}
                     >
                       <FaIcons.FaThumbsUp size={20} />
@@ -232,7 +232,6 @@ export default function SingleEventPage(props: Props) {
                             'Maybe',
                           ),
                         );
-                        console.log('resp', allResponses);
                       }}
                     >
                       <FaIcons.FaQuestion size={20} />
@@ -266,7 +265,6 @@ export default function SingleEventPage(props: Props) {
                             'No',
                           ),
                         );
-                        console.log('resp', allResponses);
                       }}
                     >
                       <FaIcons.FaThumbsDown size={20} />
