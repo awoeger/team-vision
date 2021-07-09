@@ -130,7 +130,21 @@ export async function insertUserToEvent(
   eventId: number,
   response: string,
 ) {
-  const usersInEvent = await sql`
+  const ifUserInEvent = await sql`
+    SELECT
+    COUNT(*)
+    FROM
+    event_user
+    WHERE
+    users_id = ${usersId}
+    AND
+    event_id = ${eventId}
+  `;
+
+  let usersInEvent;
+  console.log('ifUserInEvent', ifUserInEvent);
+  if (ifUserInEvent[0].count === '0') {
+    usersInEvent = await sql`
     INSERT INTO event_user
     -- column names
       (users_id, event_id, response)
@@ -141,6 +155,17 @@ export async function insertUserToEvent(
     event_id,
     response
   `;
+  } else {
+    usersInEvent = await sql`
+    UPDATE event_user
+    SET response = ${response}
+    WHERE
+    users_id = ${usersId}
+    AND
+    event_id = ${eventId}
+    `;
+  }
+
   return usersInEvent.map((user) => camelcaseKeys(user))[0];
 }
 
@@ -357,7 +382,10 @@ export async function getAllMembers(teamId: number) {
   return acceptedPlayers.map((player) => camelcaseKeys(player));
 }
 
-export async function getAllMembersNamesByTeamId(teamId: number) {
+export async function getAllMembersNamesByTeamId(
+  teamId: number,
+  userId: number,
+) {
   if (!teamId) return undefined;
 
   const acceptedPlayers = await sql`
@@ -367,7 +395,8 @@ export async function getAllMembersNamesByTeamId(teamId: number) {
     users as u,
     team_user as t
     WHERE t.users_id = u.id
-    AND t.status_id = 1
+    -- AND t.status_id = 1
+    AND u.id = ${userId}
     AND t.team_id = ${teamId};
   `;
   return acceptedPlayers.map((player) => camelcaseKeys(player));

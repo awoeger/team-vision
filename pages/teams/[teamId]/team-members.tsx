@@ -213,7 +213,6 @@ export default function TeamMembers(props: Props) {
 
                               const json =
                                 (await response.json()) as UpdateRequestResponse;
-                              console.log('json', json);
 
                               const acceptMember = () => {
                                 // create a copy of the allmembers array

@@ -41,7 +41,6 @@ const navMenuItems = css`
 `;
 
 export default function SubMenu(props) {
-  console.log('submenu props', props);
   return (
     <IconContext.Provider value={{ color: '#1d2a48' }}>
       <nav css={navMenuActive}>

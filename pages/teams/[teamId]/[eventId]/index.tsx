@@ -11,10 +11,7 @@ import {
   getEventByEventId,
   getUserByValidSessionToken,
 } from '../../../../util/database';
-import {
-  firstEventResponse,
-  pushFirstEventResponse,
-} from '../../../../util/functions';
+import { pushFirstEventResponse } from '../../../../util/functions';
 import {
   darkBlue,
   largeText,
@@ -26,7 +23,7 @@ type Props = {
   username: String;
   event: Event[];
   userRoleId: Number;
-  allMembers: Member[];
+  loggedinUser: User[];
   allResponsesForEvent: Response[];
 };
 
@@ -37,7 +34,7 @@ type Response = {
   response: string;
 };
 
-type Member = {
+type User = {
   id: Number;
   userFirstName: String;
   userLastName: String;
@@ -100,6 +97,7 @@ const eventContainer = css`
     text-align: center;
     width: 90%;
     margin: 20px 0 40px 0;
+    width: 50%;
 
     th {
       background: ${lightBlue};
@@ -109,8 +107,23 @@ const eventContainer = css`
   }
 `;
 
+const eventSubContainer = css`
+  display: flex;
+  flex-direction: column;
+`;
+
+const userAttendingDiv = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 40px;
+
+  button {
+    margin: 10px;
+  }
+`;
+
 export default function SingleEventPage(props: Props) {
-  const [allPlayers, setAllPlayers] = useState(props.allMembers);
   const [allResponses, setAllResponses] = useState(props.allResponsesForEvent);
 
   return (
@@ -129,23 +142,139 @@ export default function SingleEventPage(props: Props) {
           />
         </div>
         <div css={eventContainer}>
-          <div>
-            <h1>{props.event[0].eventType}</h1>
-            <h2>{props.event[0].startDay}</h2>
-            {/* {event.startDay === event.endDay ? (
-                 <h3>{event.startDay}</h3>
-                ) : (
-               <h3>
-               {event.startDay} - {event.endDay}
-                </h3>
-              )} */}
+          <div css={eventSubContainer}>
+            <div>
+              <h1>{props.event[0].eventType}</h1>
+              <h2>{props.event[0].startDay}</h2>
+              {/* {event.startDay === event.endDay ? (
+                  <h3>{event.startDay}</h3>
+                  ) : (
+                <h3>
+                {event.startDay} - {event.endDay}
+                  </h3>
+                )} */}
 
-            <h3>{props.event[0].endDay}</h3>
-            <h3>{props.event[0].meetingTime}</h3>
-            <h3>{props.event[0].startTime}</h3>
-            <h3>{props.event[0].endDay}</h3>
-            <h3>{props.event[0].eventLocation}</h3>
-            {/* <h3>{props.event[0].eventDescription}</h3> */}
+              <h3>{props.event[0].endDay}</h3>
+              <h3>{props.event[0].meetingTime}</h3>
+              <h3>{props.event[0].startTime}</h3>
+              <h3>{props.event[0].endDay}</h3>
+              <h3>{props.event[0].eventLocation}</h3>
+            </div>
+            {props.loggedinUser.map((user) => {
+              return (
+                <div css={userAttendingDiv} key={user.id}>
+                  <div>
+                    <p>
+                      Tell your coach, if you would like to attend this event.
+                    </p>
+                  </div>
+                  <div>
+                    <button
+                      onClick={async (event) => {
+                        event.preventDefault();
+
+                        const response = await fetch(
+                          `/api/teams-by-team-id/single-event`,
+                          {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              usersId: user.id,
+                              eventId: props.event[0].id,
+                              response: 'Yes',
+                            }),
+                          },
+                        );
+
+                        const json =
+                          (await response.json()) as UpdateEventResponse;
+
+                        setAllResponses(
+                          pushFirstEventResponse(
+                            props.loggedinUser,
+                            allResponses,
+                            'Yes',
+                          ),
+                        );
+                        console.log('resp', allResponses);
+                      }}
+                    >
+                      <FaIcons.FaThumbsUp size={20} />
+                    </button>
+                    <button
+                      onClick={async (event) => {
+                        event.preventDefault();
+
+                        const response = await fetch(
+                          `/api/teams-by-team-id/single-event`,
+                          {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              usersId: user.id,
+                              eventId: props.event[0].id,
+                              response: 'Maybe',
+                            }),
+                          },
+                        );
+
+                        const json =
+                          (await response.json()) as UpdateEventResponse;
+
+                        setAllResponses(
+                          pushFirstEventResponse(
+                            props.loggedinUser,
+                            allResponses,
+                            'Maybe',
+                          ),
+                        );
+                        console.log('resp', allResponses);
+                      }}
+                    >
+                      <FaIcons.FaQuestion size={20} />
+                    </button>
+                    <button
+                      onClick={async (event) => {
+                        event.preventDefault();
+
+                        const response = await fetch(
+                          `/api/teams-by-team-id/single-event`,
+                          {
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                              usersId: user.id,
+                              eventId: props.event[0].id,
+                              response: 'No',
+                            }),
+                          },
+                        );
+
+                        const json =
+                          (await response.json()) as UpdateEventResponse;
+
+                        setAllResponses(
+                          pushFirstEventResponse(
+                            props.loggedinUser,
+                            allResponses,
+                            'No',
+                          ),
+                        );
+                        console.log('resp', allResponses);
+                      }}
+                    >
+                      <FaIcons.FaThumbsDown size={20} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           <h2>Attending Players</h2>
@@ -154,7 +283,6 @@ export default function SingleEventPage(props: Props) {
               <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Edit Response</th>
               </tr>
             </thead>
             <tbody>
@@ -165,14 +293,6 @@ export default function SingleEventPage(props: Props) {
                     <tr key={response.usersId}>
                       <td>{response.userFirstName}</td>
                       <td>{response.userLastName}</td>
-                      <td>
-                        <button>
-                          <FaIcons.FaQuestion size={20} />
-                        </button>
-                        <button>
-                          <FaIcons.FaThumbsDown size={20} />
-                        </button>
-                      </td>
                     </tr>
                   );
                 })}
@@ -185,7 +305,6 @@ export default function SingleEventPage(props: Props) {
               <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Edit Response</th>
               </tr>
             </thead>
             <tbody>
@@ -196,14 +315,6 @@ export default function SingleEventPage(props: Props) {
                     <tr key={response.usersId}>
                       <td>{response.userFirstName}</td>
                       <td>{response.userLastName}</td>
-                      <td>
-                        <button>
-                          <FaIcons.FaThumbsUp size={20} />
-                        </button>
-                        <button>
-                          <FaIcons.FaThumbsDown size={20} />
-                        </button>
-                      </td>
                     </tr>
                   );
                 })}
@@ -216,7 +327,6 @@ export default function SingleEventPage(props: Props) {
               <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Edit Response</th>
               </tr>
             </thead>
             <tbody>
@@ -227,131 +337,9 @@ export default function SingleEventPage(props: Props) {
                     <tr key={response.usersId}>
                       <td>{response.userFirstName}</td>
                       <td>{response.userLastName}</td>
-                      <td>
-                        <button>
-                          <FaIcons.FaQuestion size={20} />
-                        </button>
-                        <button>
-                          <FaIcons.FaThumbsDown size={20} />
-                        </button>
-                      </td>
                     </tr>
                   );
                 })}
-            </tbody>
-          </table>
-
-          <h2>Awaiting Players</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Edit Response</th>
-              </tr>
-            </thead>
-            <tbody>
-              {allPlayers.map((player) => {
-                return (
-                  <tr key={player.id}>
-                    {/* {allResponses.includes(player.id)} */}
-                    <td>{player.userFirstName}</td>
-                    <td>{player.userLastName}</td>
-                    <td>
-                      <div>
-                        <button
-                          onClick={async (event) => {
-                            event.preventDefault();
-
-                            const response = await fetch(
-                              `/api/teams-by-team-id/single-event`,
-                              {
-                                method: 'POST',
-                                headers: {
-                                  'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                  usersId: player.id,
-                                  eventId: props.event[0].id,
-                                  response: 'Yes',
-                                }),
-                              },
-                            );
-
-                            const json =
-                              (await response.json()) as UpdateEventResponse;
-
-                            setAllResponses(
-                              pushFirstEventResponse(
-                                player.id,
-                                allResponses,
-                                allPlayers,
-                              ),
-                            );
-
-                            // set the state to the result of the function
-                            setAllPlayers(
-                              firstEventResponse(player.id, allPlayers),
-                            );
-                          }}
-                        >
-                          <FaIcons.FaThumbsUp size={20} />
-                        </button>
-                        <button
-                          onClick={async (event) => {
-                            event.preventDefault();
-
-                            const response = await fetch(
-                              `/api/teams-by-team-id/single-event`,
-                              {
-                                method: 'POST',
-                                headers: {
-                                  'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                  usersId: player.id,
-                                  eventId: props.event[0].id,
-                                  response: 'Maybe',
-                                }),
-                              },
-                            );
-
-                            const json =
-                              (await response.json()) as UpdateEventResponse;
-                          }}
-                        >
-                          <FaIcons.FaQuestion size={20} />
-                        </button>
-                        <button
-                          onClick={async (event) => {
-                            event.preventDefault();
-
-                            const response = await fetch(
-                              `/api/teams-by-team-id/single-event`,
-                              {
-                                method: 'POST',
-                                headers: {
-                                  'Content-Type': 'application/json',
-                                },
-                                body: JSON.stringify({
-                                  usersId: player.id,
-                                  eventId: props.event[0].id,
-                                  response: 'No',
-                                }),
-                              },
-                            );
-
-                            const json =
-                              (await response.json()) as UpdateEventResponse;
-                          }}
-                        >
-                          <FaIcons.FaThumbsDown size={20} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
             </tbody>
           </table>
         </div>
@@ -368,10 +356,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const sessionToken = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(sessionToken);
   const userRoleId = user?.userRoleId;
+  const userId = user?.id;
 
   // get all members of team
   const teamId = context.query.teamId;
-  const allMembers = await getAllMembersNamesByTeamId(Number(teamId));
+  const loggedinUser = await getAllMembersNamesByTeamId(
+    Number(teamId),
+    Number(userId),
+  );
 
   const allResponsesForEvent = await getAllResponsesForEvent(Number(eventId));
 
@@ -379,7 +371,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     props: {
       event,
       userRoleId,
-      allMembers,
+      loggedinUser,
       allResponsesForEvent,
     },
   };

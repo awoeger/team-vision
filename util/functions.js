@@ -1,41 +1,47 @@
-export const firstEventResponse = (playerId, allPlayersArray) => {
-  // create a copy of the allPlayers, allResponses array
-  const newAllPlayerArray = [...allPlayersArray];
+// export const firstEventResponse = (playerId, allPlayersArray) => {
+//   // create a copy of the allPlayers, allResponses array
+//   const newAllPlayerArray = [...allPlayersArray];
 
-  // find the person.id that has been clicked on
-  const attendingPlayer = newAllPlayerArray.find((p) => p.id === playerId);
+//   // find the person.id that has been clicked on
+//   const attendingPlayer = newAllPlayerArray.find((p) => p.id === playerId);
 
-  const attendingMemberIndex = newAllPlayerArray.indexOf(attendingPlayer);
+//   const attendingMemberIndex = newAllPlayerArray.indexOf(attendingPlayer);
 
-  // Change the status number to accepted
-  if (attendingPlayer) {
-    newAllPlayerArray.splice(attendingMemberIndex, 1);
-  }
+//   // Change the status number to accepted
+//   if (attendingPlayer) {
+//     newAllPlayerArray.splice(attendingMemberIndex, 1);
+//   }
 
-  return newAllPlayerArray;
-};
+//   return newAllPlayerArray;
+// };
 
 export const pushFirstEventResponse = (
-  playerId,
+  loggedinUser,
   allResponsesArray,
-  allPlayersArray,
+  response,
 ) => {
-  console.log('allResponsesArray', allResponsesArray);
+  const userWithResponse = [...loggedinUser];
 
-  // create a copy of the allPlayers, allResponses array
   const newAllResponsesArray = [...allResponsesArray];
-  console.log('newAllResponsesArray', newAllResponsesArray);
 
-  // find the person.id that has been clicked on
-  // const player = newAllResponsesArray.find((p) => p.usersId === playerId);
-  // console.log('player', player);
+  if (!newAllResponsesArray.includes(userWithResponse[0])) {
+    userWithResponse[0].response = response;
+    // TODO 1: if loggedInuser doesn't exist in NewAllResponsesArray then ...
+    newAllResponsesArray.push(userWithResponse[0]);
+  } else {
+    userWithResponse[0].response = response;
+    // TODO 2: if it does exist
+    // - 1: find the index of the loggedInuser in the newAllresponsesArray
+    // - 2: newAllResponsesArray[index that we find in 1].response = respon
+    const userWithResponseIndex = newAllResponsesArray.indexOf(
+      userWithResponse[0],
+    );
 
-  const player = allPlayersArray.find((p) => p.id === playerId);
+    console.log('uswr', userWithResponseIndex);
 
-  // Change the status number to accepted
-  if (player) {
-    newAllResponsesArray.push(player);
+    newAllResponsesArray[userWithResponseIndex].response = response;
   }
 
+  // TODO 3: return....
   return newAllResponsesArray;
 };

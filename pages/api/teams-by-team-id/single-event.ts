@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {
   deleteEvent,
+  getAllResponsesForEvent,
   getValidSessionByToken,
   insertUserToEvent,
 } from '../../../util/database';
