@@ -153,16 +153,13 @@ const guideSection = css`
 `;
 
 const contactSection = css`
-  background-image: url(/images/background_blue_smoke.PNG);
-  background-size: cover;
-  background-repeat: no-repeat;
   display: flex;
-  height: 50vh;
+  /* height: 50vh; */
   margin-top: 100px;
 
   h3 {
     text-transform: uppercase;
-    color: white;
+    color: ${darkBlue};
     font-size: 2em;
     padding: 30px 0 20px 20px;
     margin-left: 20px;
@@ -172,15 +169,16 @@ const contactSection = css`
 const contactInformation = css`
   padding-left: 30px;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   width: 50%;
+  width: 35%;
 
   div {
     margin-left: 10px;
   }
 
   h5 {
-    color: white;
+    color: ${darkBlue};
     font-size: ${largeText};
     margin-left: 20px;
     margin-block-start: 0;
@@ -188,7 +186,7 @@ const contactInformation = css`
   }
 
   p {
-    color: white;
+    color: ${darkBlue};
     font-size: 18px;
     margin-left: 30px;
   }
@@ -198,6 +196,11 @@ const contactInfoHeader = css`
   display: flex;
   align-items: center;
   margin-top: 20px;
+`;
+
+const imageContainer = css`
+  display: flex;
+  justify-content: center;
 `;
 
 type Props = {
@@ -374,14 +377,11 @@ export default function Home(props: Props) {
 
         <section css={contactSection} id="contact">
           <div css={contactInformation}>
-            <div>
-              <h3>Contact information</h3>
-            </div>
-
+            <h3>Contact information</h3>
             <div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillHome style={{ color: 'white' }} size={30} />
+                  <AiIcons.AiFillHome size={30} />
                   <h5>Address</h5>
                 </div>
                 <p>Team Vision GmbH</p>
@@ -391,19 +391,27 @@ export default function Home(props: Props) {
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillMail style={{ color: 'white' }} size={30} />
+                  <AiIcons.AiFillMail size={30} />
                   <h5>Email</h5>
                 </div>
                 <p>team@vision.com</p>
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillPhone style={{ color: 'white' }} size={30} />
+                  <AiIcons.AiFillPhone size={30} />
                   <h5>Phone</h5>
                 </div>
                 <p>0664/ 555 55 44 33</p>
               </div>
             </div>
+          </div>
+          <div css={imageContainer}>
+            <Image
+              alt="Logo Icon"
+              src="/images/soccer-players.jpg"
+              width="850px"
+              height="850px"
+            />
           </div>
         </section>
       </div>

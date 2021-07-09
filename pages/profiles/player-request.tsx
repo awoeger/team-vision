@@ -75,7 +75,7 @@ export const formContainer = css`
 const textarea = css`
   margin: 5px 0 20px 0;
   width: 100%;
-  padding: 5px;
+  padding-left: 10px;
   font-size: ${normalText};
   text-align: left;
   line-height: 40px;

@@ -53,7 +53,7 @@ export const formContainer = css`
     box-shadow: 10px 5px 5px ${darkBlue};
     border-radius: 15px;
     padding: 30px;
-    width: 40%;
+    width: 50%;
 
     h1 {
       color: ${darkBlue};
@@ -106,6 +106,7 @@ const imageContainer = css`
   display: flex;
   justify-content: center;
   padding-left: 15px;
+  margin-right: 50px;
 `;
 
 export default function CreateEvent(props: Props) {
@@ -131,6 +132,14 @@ export default function CreateEvent(props: Props) {
           <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
         </div>
         <div css={formContainer}>
+          <div css={imageContainer}>
+            <Image
+              alt="Logo Icon"
+              src="/images/female-runner.png"
+              width="416px"
+              height="750px"
+            />
+          </div>
           <form
             onSubmit={async (event) => {
               event.preventDefault();
@@ -266,14 +275,6 @@ export default function CreateEvent(props: Props) {
               CREATE EVENT
             </button>
           </form>
-          <div css={imageContainer}>
-            <Image
-              alt="Logo Icon"
-              src="/images/basketball-player.jpg"
-              width="750px"
-              height="750px"
-            />
-          </div>
         </div>
       </div>
     </>
