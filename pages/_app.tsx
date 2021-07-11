@@ -65,7 +65,6 @@ function MyApp({ Component, pageProps }: AppProps) {
           h2 {
             margin: 0px;
             font-weight: 600;
-            font-size: 2em;
             color: ${darkBlue};
           }
         `}

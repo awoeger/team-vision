@@ -9,7 +9,6 @@ import {
   Session,
   TeamInfo,
   User,
-  UserInEvent,
   UserWithPasswordHash,
 } from '../util/types';
 
@@ -299,8 +298,8 @@ export async function getEvents(teamId: number) {
     id,
     event_type,
     team_id,
-    TO_CHAR(start_day, 'DD.MM.YYYY') start_day,
-    TO_CHAR(end_day, 'DD.MM.YYYY') end_day,
+    TO_CHAR(start_day, 'DD.MM.YYYY') as formatted_start_day,
+    TO_CHAR(end_day, 'DD.MM.YYYY') as formatted_end_day,
     start_time,
     end_time,
     meeting_time,
@@ -312,6 +311,8 @@ export async function getEvents(teamId: number) {
     team_id = ${teamId}
     AND
     end_day > NOW()
+    ORDER BY
+    end_day ASC
   `;
   return eventInfo.map((event) => camelcaseKeys(event));
 }

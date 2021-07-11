@@ -12,6 +12,7 @@ import * as GrIcons from 'react-icons/gr';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import {
+  getAllResponsesForEvent,
   getEvents,
   getTeamNameById,
   getUserByValidSessionToken,
@@ -32,14 +33,22 @@ type Props = {
   teamId: Number;
   events: Event[];
   userRoleId: Number;
+  allResponsesForEvent: Response[];
+};
+
+type Response = {
+  usersId: number;
+  userFirstName: string;
+  userLastName: string;
+  response: string;
 };
 
 type Event = {
   id: number;
   eventType: string;
   teamId: number;
-  startDay: string;
-  endDay: string;
+  formattedStartDay: string;
+  formattedEndDay: string;
   startTime: string;
   endTime: string;
   meetingTime: string;
@@ -301,11 +310,13 @@ export default function SingleTeamPage(props: Props) {
                         <div css={eventInfos}>
                           <div css={eventDate}>
                             <AiIcons.AiOutlineCalendar size={30} />
-                            {event.startDay === event.endDay ? (
-                              <h3>{event.startDay}</h3>
+                            {event.formattedStartDay ===
+                            event.formattedEndDay ? (
+                              <h3>{event.formattedStartDay}</h3>
                             ) : (
                               <h3>
-                                {event.startDay} - {event.endDay}
+                                {event.formattedStartDay} -{' '}
+                                {event.formattedEndDay}
                               </h3>
                             )}
                           </div>
@@ -381,6 +392,8 @@ export default function SingleTeamPage(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  console.log(context.query);
+
   const teamIdString = context.query.teamId;
   const teamId = Number(teamIdString);
   const events = await getEvents(teamId);

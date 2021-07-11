@@ -193,7 +193,7 @@ export default function PlayerRequest(props: Props) {
               <option>Please select</option>
               <option value="Beginner">Beginner</option>
               <option value="Advanced">Advanced</option>
-              <option value="Professional">Profressional</option>
+              <option value="Professional">Professional</option>
             </select>
           </label>
 

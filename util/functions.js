@@ -31,3 +31,7 @@ export const pushFirstEventResponse = (
   }
   return newAllResponsesArray;
 };
+
+export const getTotalAttendeesForEvent = (arr) => {
+  return arr.reduce((acc, attendee) => acc + attendee, 0);
+};

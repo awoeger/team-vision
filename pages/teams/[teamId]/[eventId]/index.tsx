@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import Image from 'next/image';
 import { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../../components/Layout';
@@ -14,9 +15,9 @@ import {
 import { pushFirstEventResponse } from '../../../../util/functions';
 import {
   darkBlue,
-  largeText,
   lightBlue,
   lightGrey,
+  normalText,
 } from '../../../../util/sharedStyles';
 
 type Props = {
@@ -88,7 +89,7 @@ const eventContainer = css`
     }
 
     h2 {
-      font-size: ${largeText};
+      font-size: ${normalText};
       margin-top: 20px;
     }
   }
@@ -97,7 +98,7 @@ const eventContainer = css`
     text-align: center;
     width: 90%;
     margin: 20px 0 40px 0;
-    width: 50%;
+    width: 40%;
 
     th {
       background: ${lightBlue};
@@ -123,6 +124,13 @@ const userAttendingDiv = css`
   }
 `;
 
+const imageContainer = css`
+  display: flex;
+  justify-content: center;
+  padding-left: 15px;
+  margin-right: 50px;
+`;
+
 export default function SingleEventPage(props: Props) {
   const [allResponses, setAllResponses] = useState(props.allResponsesForEvent);
 
@@ -141,6 +149,7 @@ export default function SingleEventPage(props: Props) {
             teamId={props.event[0].teamId}
           />
         </div>
+
         <div css={eventContainer}>
           <div css={eventSubContainer}>
             <div>
@@ -340,6 +349,14 @@ export default function SingleEventPage(props: Props) {
                 })}
             </tbody>
           </table>
+        </div>
+        <div css={imageContainer}>
+          <Image
+            alt="Logo Icon"
+            src="/images/basketball-player.jpg"
+            width="1000px"
+            height="1000px"
+          />
         </div>
       </div>
     </>
