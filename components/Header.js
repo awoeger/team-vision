@@ -1,19 +1,14 @@
 import { css } from '@emotion/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { darkBlue, largeText } from '../util/sharedStyles';
-
-// TODO: sticky header on index.js but not the other pages
 
 const headerContainer = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
+  padding: 35px 0;
   width: 100%;
   background-color: ${darkBlue};
-  /* position: fixed;
-  z-index: 1; */
 
   > div {
     display: flex;
@@ -27,11 +22,26 @@ const headerContainer = css`
     font-size: ${largeText};
     font-weight: 600;
     cursor: pointer;
-  }
-`;
+    margin-right: 30px;
+    margin-left: 30px;
 
-const link = css`
-  margin-left: 50px;
+    ::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 3px;
+      background: white;
+      transition: width 0.3s;
+    }
+
+    :hover::after {
+      width: 100%;
+    }
+
+    :active {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export default function Header(props) {
@@ -40,26 +50,21 @@ export default function Header(props) {
       <div>
         <Link href="/">
           <a>
-            <Image
-              alt="Logo Icon"
-              src="/images/logo_white/teamvision_icon.png"
-              width="50px"
-              height="50px"
-            />
+            <span>Home</span>
           </a>
         </Link>
         <Link href="/#about">
-          <a css={link}>
+          <a>
             <span>About</span>
           </a>
         </Link>
         <Link href="/#guide">
-          <a css={link}>
+          <a>
             <span>Guide</span>
           </a>
         </Link>
         <Link href="/#contact">
-          <a css={link}>
+          <a>
             <span>Contact</span>
           </a>
         </Link>
@@ -67,7 +72,9 @@ export default function Header(props) {
       <div>
         {props.username ? (
           <Link href={`/profiles/${props.username}`}>
-            <a>{props.username && 'Your Profile'} &nbsp;</a>
+            <a>
+              <span>{props.username && 'Your Profile'} &nbsp;</span>
+            </a>
           </Link>
         ) : (
           <div />
@@ -75,11 +82,15 @@ export default function Header(props) {
 
         {props.username ? (
           <Link href="/logout">
-            <a css={link}>Logout</a>
+            <a>
+              <span>Logout</span>
+            </a>
           </Link>
         ) : (
-          <Link css={link} href="/login">
-            <a>Login</a>
+          <Link href="/login">
+            <a>
+              <span>Login</span>
+            </a>
           </Link>
         )}
       </div>

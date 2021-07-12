@@ -10,7 +10,6 @@ import CoachProfile from '../../components/CoachProfile';
 import Layout from '../../components/Layout';
 import PlayerProfile from '../../components/PlayerProfile';
 import {
-  deleteTeam,
   getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
 } from '../../util/database';
@@ -94,7 +93,7 @@ const teamHeader = css`
   justify-content: space-between;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  padding: 15px 20px;
+  padding: 15px 10px;
 
   div {
     display: flex;
@@ -286,7 +285,9 @@ export default function SingleUserProfile(props: Props) {
               {props.playerTeams.map((playerTeam) => {
                 return (
                   <div key={playerTeam.id}>
-                    <h3>{playerTeam.teamName}</h3>
+                    <div css={teamHeader}>
+                      <h3>{playerTeam.teamName}</h3>
+                    </div>
                     <div css={teamInfoBox}>
                       <div>
                         <GiIcons.GiVolleyballBall

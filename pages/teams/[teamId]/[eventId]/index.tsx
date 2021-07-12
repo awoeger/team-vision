@@ -15,9 +15,9 @@ import {
 import { pushFirstEventResponse } from '../../../../util/functions';
 import {
   darkBlue,
-  lightBlue,
-  lightGrey,
+  largeText,
   normalText,
+  orange,
 } from '../../../../util/sharedStyles';
 
 type Props = {
@@ -63,23 +63,15 @@ type UpdateEventResponse = {
 const mainContainer = css`
   width: 100%;
   display: flex;
-`;
-
-const subMenu = css`
-  width: 25%;
-  position: static;
-  display: flex;
-  justify-content: flex-start;
-  background: ${lightGrey};
-  padding: 20px;
-  border-right: 2px solid ${darkBlue};
+  justify-content: center;
 `;
 
 const eventContainer = css`
-  width: 100%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 50px 0;
 
   div {
     display: flex;
@@ -101,9 +93,19 @@ const eventContainer = css`
     width: 40%;
 
     th {
-      background: ${lightBlue};
       color: white;
       padding: 10px;
+    }
+
+    td {
+      padding: 10px 0;
+    }
+
+    tfoot {
+      td {
+        border-top: 2px solid ${darkBlue};
+        font-weight: 600;
+      }
     }
   }
 `;
@@ -117,10 +119,24 @@ const userAttendingDiv = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 40px;
+  margin: 50px 0;
+  text-align: center;
+
+  p {
+    font-size: ${largeText};
+    span {
+      font-weight: 600;
+    }
+  }
 
   button {
-    margin: 10px;
+    margin: 10px 20px;
+    padding: 15px;
+    border-radius: 100%;
+    color: white;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 20px,
+      rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
 `;
 
@@ -128,7 +144,46 @@ const imageContainer = css`
   display: flex;
   justify-content: center;
   padding-left: 15px;
-  margin-right: 50px;
+  margin-right: 100px;
+`;
+
+const yesButton = css`
+  background: rgb(14 167 14 / 60%);
+
+  :hover,
+  :active {
+    background: #0ea70e;
+  }
+`;
+
+const maybeButton = css`
+  background: rgb(255 165 0 / 70%);
+
+  :hover,
+  :active {
+    background: #ffa500;
+  }
+`;
+
+const noButton = css`
+  background: rgb(253 60 1 / 70%);
+
+  :hover,
+  :active {
+    background: ${orange};
+  }
+`;
+
+const yesTableHeader = css`
+  background: #0ea70e;
+`;
+
+const maybeTableHeader = css`
+  background: #ffa500;
+`;
+
+const noTableHeader = css`
+  background: ${orange};
 `;
 
 export default function SingleEventPage(props: Props) {
@@ -142,43 +197,24 @@ export default function SingleEventPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
+      <SubMenu userRoleId={props.userRoleId} teamId={props.event[0].teamId} />
       <div css={mainContainer}>
-        <div css={subMenu}>
-          <SubMenu
-            userRoleId={props.userRoleId}
-            teamId={props.event[0].teamId}
-          />
-        </div>
-
         <div css={eventContainer}>
           <div css={eventSubContainer}>
-            <div>
-              <h1>{props.event[0].eventType}</h1>
-              <h2>{props.event[0].startDay}</h2>
-              {/* {event.startDay === event.endDay ? (
-                  <h3>{event.startDay}</h3>
-                  ) : (
-                <h3>
-                {event.startDay} - {event.endDay}
-                  </h3>
-                )} */}
-
-              <h3>{props.event[0].endDay}</h3>
-              <h3>{props.event[0].meetingTime}</h3>
-              <h3>{props.event[0].startTime}</h3>
-              <h3>{props.event[0].endDay}</h3>
-              <h3>{props.event[0].eventLocation}</h3>
-            </div>
             {props.loggedinUser.map((user) => {
               return (
                 <div css={userAttendingDiv} key={user.id}>
                   <div>
                     <p>
-                      Tell your coach, if you would like to attend this event.
+                      Tell your coach, if you would like to attend the <br />{' '}
+                      <span>{props.event[0].eventType}</span> on{' '}
+                      <span>{props.event[0].startDay}</span> at{' '}
+                      <span>{props.event[0].startTime}</span>.
                     </p>
                   </div>
                   <div>
                     <button
+                      css={yesButton}
                       onClick={async (event) => {
                         event.preventDefault();
                         // Post Request via API Route to insert user into event_user table
@@ -213,6 +249,7 @@ export default function SingleEventPage(props: Props) {
                       <FaIcons.FaThumbsUp size={20} />
                     </button>
                     <button
+                      css={maybeButton}
                       onClick={async (event) => {
                         event.preventDefault();
 
@@ -246,6 +283,7 @@ export default function SingleEventPage(props: Props) {
                       <FaIcons.FaQuestion size={20} />
                     </button>
                     <button
+                      css={noButton}
                       onClick={async (event) => {
                         event.preventDefault();
 
@@ -288,8 +326,8 @@ export default function SingleEventPage(props: Props) {
           <table>
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th css={yesTableHeader}>First Name</th>
+                <th css={yesTableHeader}>Last Name</th>
               </tr>
             </thead>
             <tbody>
@@ -304,14 +342,26 @@ export default function SingleEventPage(props: Props) {
                   );
                 })}
             </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={2}>
+                  Total Amount:{' '}
+                  {
+                    allResponses.filter(
+                      (response) => response.response === 'Yes',
+                    ).length
+                  }
+                </td>
+              </tr>
+            </tfoot>
           </table>
 
           <h2>Possibly attending Players</h2>
           <table>
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th css={maybeTableHeader}>First Name</th>
+                <th css={maybeTableHeader}>Last Name</th>
               </tr>
             </thead>
             <tbody>
@@ -326,14 +376,26 @@ export default function SingleEventPage(props: Props) {
                   );
                 })}
             </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={2}>
+                  Total Amount:{' '}
+                  {
+                    allResponses.filter(
+                      (response) => response.response === 'Maybe',
+                    ).length
+                  }
+                </td>
+              </tr>
+            </tfoot>
           </table>
 
           <h2>Non attending Players</h2>
           <table>
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th css={noTableHeader}>First Name</th>
+                <th css={noTableHeader}>Last Name</th>
               </tr>
             </thead>
             <tbody>
@@ -348,14 +410,26 @@ export default function SingleEventPage(props: Props) {
                   );
                 })}
             </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={2}>
+                  Total Amount:{' '}
+                  {
+                    allResponses.filter(
+                      (response) => response.response === 'No',
+                    ).length
+                  }
+                </td>
+              </tr>
+            </tfoot>
           </table>
         </div>
         <div css={imageContainer}>
           <Image
             alt="Logo Icon"
             src="/images/basketball-player.jpg"
-            width="1000px"
-            height="1000px"
+            width="700px"
+            height="700px"
           />
         </div>
       </div>

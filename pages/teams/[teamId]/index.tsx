@@ -16,16 +16,7 @@ import {
   getTeamNameById,
   getUserByValidSessionToken,
 } from '../../../util/database';
-import {
-  darkBlue,
-  largeText,
-  lightBlue,
-  lightGrey,
-  link,
-  orange,
-} from '../../../util/sharedStyles';
-
-// TODO: Create a filter for event types
+import { largeText, lightBlue, link, orange } from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
@@ -59,16 +50,6 @@ type DeleteEventRequest = {
 const mainContainer = css`
   width: 100%;
   display: flex;
-`;
-
-const subMenu = css`
-  width: 25%;
-  position: static;
-  background: ${lightGrey};
-  display: flex;
-  justify-content: flex-start;
-  padding: 20px;
-  border-right: 2px solid ${darkBlue};
 `;
 
 const eventsMainContainer = css`
@@ -221,11 +202,8 @@ export default function SingleTeamPage(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
+      <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
       <div css={mainContainer}>
-        <div css={subMenu}>
-          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
-        </div>
-
         {props.events.length === 0 ? (
           <div css={noEventsContainer}>
             <h2>There are no events scheduled for this team yet.</h2>

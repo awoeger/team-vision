@@ -4,32 +4,28 @@ import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
-import { darkBlue, largeText } from '../util/sharedStyles';
+import { darkBlue, lightGrey } from '../util/sharedStyles';
 
 const navMenuActive = css`
   display: flex;
   justify-content: center;
+  background: ${lightGrey};
 `;
 
 const navText = css`
   display: flex;
   justify-content: start;
   align-items: center;
-  padding: 8px 0px 8px 30px;
+  padding: 8px 0px 8px 0px;
+  margin-left: 50px;
   list-style: none;
-  height: 60px;
 
   a {
     text-decoration: none;
     color: ${darkBlue};
-    font-size: ${largeText};
+    font-size: 24px;
     font-weight: 500;
     word-spacing: 3px;
-    font-size: 18px;
-    width: 95%;
-    min-height: 100%;
-    display: flex;
-    align-items: center;
     padding: 0 16px;
     border-radius: 4px;
   }
@@ -38,6 +34,8 @@ const navText = css`
 const navMenuItems = css`
   width: 100%;
   padding-left: 0;
+  display: flex;
+  justify-content: center;
 `;
 
 export default function SubMenu(props) {
@@ -73,12 +71,6 @@ export default function SubMenu(props) {
             <FaIcons.FaRunning />
             <Link href={`/teams/${props.teamId}/exercises`}>
               <a>EXERCISES</a>
-            </Link>
-          </li>
-          <li css={navText}>
-            <IoIcons.IoMdSettings />
-            <Link href={`/teams/${props.teamId}/team-settings`}>
-              <a>TEAM SETTINGS</a>
             </Link>
           </li>
         </ul>

@@ -5,12 +5,7 @@ import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { getUserByValidSessionToken } from '../../../util/database';
-import {
-  darkBlue,
-  largeText,
-  lightBlue,
-  lightGrey,
-} from '../../../util/sharedStyles';
+import { largeText, lightBlue } from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
@@ -41,16 +36,6 @@ export type DeclinedPlayerRequestResponse = {
 const mainContainer = css`
   width: 100%;
   display: flex;
-`;
-
-const subMenu = css`
-  width: 25%;
-  position: static;
-  display: flex;
-  justify-content: flex-start;
-  background: ${lightGrey};
-  padding: 20px;
-  border-right: 2px solid ${darkBlue};
 `;
 
 const teamMembersContainer = css`
@@ -92,10 +77,8 @@ export default function TeamMembers(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
+      <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
       <div css={mainContainer}>
-        <div css={subMenu}>
-          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
-        </div>
         <div css={teamMembersContainer}>
           <h1>Team Members</h1>
           <h2>Accepted Members</h2>

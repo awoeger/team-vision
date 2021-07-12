@@ -11,7 +11,6 @@ import {
   button,
   darkBlue,
   largeText,
-  lightGrey,
   normalText,
 } from '../../../util/sharedStyles';
 import { RegisterResponse } from '../../api/register';
@@ -27,23 +26,12 @@ type Props = {
 const mainContainer = css`
   width: 100%;
   display: flex;
-`;
-
-const subMenu = css`
-  width: 25%;
-  position: static;
-  display: flex;
-  justify-content: flex-start;
-  background: ${lightGrey};
-  padding: 20px;
-  border-right: 2px solid ${darkBlue};
+  justify-content: center;
 `;
 
 export const formContainer = css`
   display: flex;
   align-items: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
   margin-left: 70px;
 
   form {
@@ -60,14 +48,6 @@ export const formContainer = css`
       font-size: ${largeText};
       text-align: center;
       padding-bottom: 20px;
-    }
-
-    h2 {
-      color: ${darkBlue};
-      font-size: ${normalText};
-      font-weight: 400;
-      text-align: center;
-      padding-bottom: 30px;
     }
 
     label {
@@ -127,17 +107,15 @@ export default function CreateEvent(props: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout username={props.username} />
+      <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
       <div css={mainContainer}>
-        <div css={subMenu}>
-          <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
-        </div>
         <div css={formContainer}>
           <div css={imageContainer}>
             <Image
               alt="Logo Icon"
               src="/images/female-runner.png"
-              width="416px"
-              height="750px"
+              width="400px"
+              height="730px"
             />
           </div>
           <form
@@ -170,7 +148,6 @@ export default function CreateEvent(props: Props) {
             }}
           >
             <h1>Create an event</h1>
-            <h2>and tell your players all important infos for it.</h2>
 
             <label>
               Event Type
