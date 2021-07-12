@@ -362,8 +362,6 @@ export default function SingleTeamPage(props: Props) {
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  console.log(context.query);
-
   const teamIdString = context.query.teamId;
   const teamId = Number(teamIdString);
   const events = await getEvents(teamId);

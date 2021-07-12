@@ -31,15 +31,11 @@ const headerContainer = css`
       width: 0;
       height: 3px;
       background: white;
-      transition: width 0.3s;
+      transition: width 0.4s;
     }
 
     :hover::after {
       width: 100%;
-    }
-
-    :active {
-      text-decoration: underline;
     }
   }
 `;

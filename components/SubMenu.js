@@ -4,7 +4,7 @@ import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as IoIcons from 'react-icons/io';
-import { darkBlue, lightGrey } from '../util/sharedStyles';
+import { darkBlue, largeText, lightGrey } from '../util/sharedStyles';
 
 const navMenuActive = css`
   display: flex;
@@ -23,11 +23,25 @@ const navText = css`
   a {
     text-decoration: none;
     color: ${darkBlue};
-    font-size: 24px;
-    font-weight: 500;
-    word-spacing: 3px;
-    padding: 0 16px;
-    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: ${largeText};
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: 30px;
+    margin-left: 30px;
+
+    ::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 3px;
+      background: ${darkBlue};
+      transition: width 0.3s;
+    }
+
+    :hover::after {
+      width: 100%;
+    }
   }
 `;
 

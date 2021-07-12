@@ -11,8 +11,6 @@ import * as RiIcons from 'react-icons/ri';
 import Layout from '../components/Layout';
 import { darkBlue, largeText } from '../util/sharedStyles';
 
-// Todo: Video as background
-
 const heroDiv = css`
   display: flex;
   justify-content: center;
@@ -108,6 +106,15 @@ const gridContainer = css`
   justify-items: stretch;
 `;
 
+const gridSubcontainer = css`
+  transition: 0.3s;
+  margin-top: 20px;
+
+  :hover {
+    transform: translate(0, -10px);
+  }
+`;
+
 const headersForFunctionalites = css`
   display: flex;
   background-image: url('/images/button_background_lightBlue.PNG');
@@ -146,15 +153,13 @@ const guideSection = css`
   }
 
   h4 {
-    margin-left: 120px;
-    margin-top: 60px;
+    margin: 30px 0 30px 120px;
     font-size: ${largeText};
   }
 `;
 
 const contactSection = css`
   display: flex;
-  /* height: 50vh; */
   margin-top: 100px;
 
   h3 {
@@ -293,7 +298,7 @@ export default function Home(props: Props) {
           <h4>Functionalities for coaches</h4>
 
           <div css={gridContainer}>
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <RiIcons.RiTeamLine size={30} />
                 <h5>CREATE TEAMS</h5>
@@ -306,7 +311,7 @@ export default function Home(props: Props) {
               </div>
             </div>
 
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <FiIcons.FiUserCheck size={30} />
                 <h5>CHECK APPLICANTS</h5>
@@ -319,7 +324,7 @@ export default function Home(props: Props) {
               </div>
             </div>
 
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <AiIcons.AiOutlineCalendar size={30} />
                 <h5>EVENT MANAGEMENT</h5>
@@ -334,7 +339,7 @@ export default function Home(props: Props) {
           </div>
           <h4>Functionalities for players</h4>
           <div css={gridContainer}>
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <CgIcons.CgProfile size={30} />
                 <h5>TEAM SIGN UP</h5>
@@ -347,7 +352,7 @@ export default function Home(props: Props) {
               </div>
             </div>
 
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <AiIcons.AiOutlineCalendar size={30} />
                 <h5>EVENT SIGN UP</h5>
@@ -360,7 +365,7 @@ export default function Home(props: Props) {
               </div>
             </div>
 
-            <div>
+            <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
                 <BiIcons.BiDumbbell size={30} />
                 <h5>EXERCISES</h5>

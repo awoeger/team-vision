@@ -135,8 +135,8 @@ const userAttendingDiv = css`
     border-radius: 100%;
     color: white;
     border: none;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 20px,
-      rgba(0, 0, 0, 0.22) 0px 10px 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px,
+      rgba(0, 0, 0, 0.22) 0px 5px 5px;
   }
 `;
 

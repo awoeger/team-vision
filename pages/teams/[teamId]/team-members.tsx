@@ -2,10 +2,12 @@ import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
+import * as BsIcons from 'react-icons/bs';
+import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { getUserByValidSessionToken } from '../../../util/database';
-import { largeText, lightBlue } from '../../../util/sharedStyles';
+import { largeText, orange } from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
@@ -51,6 +53,12 @@ const teamMembersContainer = css`
   h2 {
     font-size: ${largeText};
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 20px;
+    }
   }
 
   table {
@@ -59,10 +67,49 @@ const teamMembersContainer = css`
     margin: 20px 0 40px 0;
 
     th {
-      background: ${lightBlue};
       color: white;
       padding: 10px;
     }
+
+    td {
+      padding: 10px;
+    }
+
+    button {
+      margin: 5px 10px;
+      padding: 8px;
+      border-radius: 100%;
+      color: white;
+      border: none;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px,
+        rgba(0, 0, 0, 0.22) 0px 5px 5px;
+    }
+  }
+`;
+
+const acceptedMembers = css`
+  background: #0ea70e;
+`;
+
+const awaitingMembers = css`
+  background: #ffa500;
+`;
+
+const acceptButton = css`
+  background: rgb(14 167 14 / 60%);
+
+  :hover,
+  :active {
+    background: #0ea70e;
+  }
+`;
+
+const declineButton = css`
+  background: rgb(253 60 1 / 70%);
+
+  :hover,
+  :active {
+    background: ${orange};
   }
 `;
 
@@ -81,9 +128,15 @@ export default function TeamMembers(props: Props) {
       <div css={mainContainer}>
         <div css={teamMembersContainer}>
           <h1>Team Members</h1>
-          <h2>Accepted Members</h2>
+          <h2>
+            <BsIcons.BsPersonCheckFill size={25} />{' '}
+            <span>
+              Accepted Members -{' '}
+              {members.filter((member) => member.statusId === 1).length}
+            </span>
+          </h2>
           <table>
-            <tr>
+            <tr css={acceptedMembers}>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Playing since</th>
@@ -104,6 +157,7 @@ export default function TeamMembers(props: Props) {
                     <td>{member.positionOnTeam}</td>
                     <td>{member.playerMessage}</td>
                     <button
+                      css={declineButton}
                       onClick={async (event) => {
                         event.preventDefault();
 
@@ -145,23 +199,29 @@ export default function TeamMembers(props: Props) {
                         setMembers(declineMember());
                       }}
                     >
-                      Delete
+                      <BsIcons.BsTrashFill size={20} />
                     </button>
                   </tr>
                 );
               })}
           </table>
-          <h2>Awaiting Players</h2>
+          <h2>
+            <BsIcons.BsFillPersonFill size={25} />{' '}
+            <span>
+              Awaiting Players -{' '}
+              {members.filter((member) => member.statusId === 3).length}
+            </span>
+          </h2>
           <table>
             <thead>
-              <tr>
+              <tr css={awaitingMembers}>
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Playing since</th>
                 <th>Experience level</th>
                 <th>Position on the team</th>
                 <th>Message to the coach</th>
-                <th>Status</th>
+                <th>Change Status</th>
               </tr>
             </thead>
             <tbody>
@@ -179,6 +239,7 @@ export default function TeamMembers(props: Props) {
                       <td>
                         <div>
                           <button
+                            css={acceptButton}
                             onClick={async (event) => {
                               event.preventDefault();
                               const response = await fetch(
@@ -215,9 +276,10 @@ export default function TeamMembers(props: Props) {
                               setMembers(acceptMember());
                             }}
                           >
-                            Accept
+                            <FaIcons.FaCheck size={20} />
                           </button>
                           <button
+                            css={declineButton}
                             onClick={async (event) => {
                               event.preventDefault();
                               const response = await fetch(
@@ -258,7 +320,7 @@ export default function TeamMembers(props: Props) {
                               setMembers(declineMember());
                             }}
                           >
-                            Decline
+                            <BsIcons.BsTrashFill size={20} />
                           </button>
                         </div>
                       </td>
