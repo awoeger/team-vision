@@ -1,6 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { convertQueryValueString } from '../../../util/context';
-import { getUserByUsernameAndToken } from '../../../util/database';
+import {
+  deleteTeam,
+  getUserByUsernameAndToken,
+  getValidSessionByToken,
+} from '../../../util/database';
 import { ApplicationError, User } from '../../../util/types';
 
 export type SingleUserResponseType =
@@ -13,6 +17,24 @@ export default async function singleUserHandler(
   req: NextApiRequest,
   res: NextApiResponse<SingleUserResponseType>,
 ) {
+  if (req.method === 'DELETE') {
+    const validSession = await getValidSessionByToken(req.cookies.sessionToken);
+
+    const id = req.body.id;
+
+    // check if userId, etc. is not undefined
+    if (!validSession) {
+      return res
+        .status(403)
+        .json({ errors: [{ message: 'No valid session.' }] });
+    }
+
+    // updatedStatusId is equal to the result of function updatePlayerRequest
+    const deletedTeam = await deleteTeam(id);
+
+    return res.status(200).json({ id: deletedTeam });
+  }
+
   // Retrieve username from the query string (the square
   // bracket notation in the filename)
   const username = convertQueryValueString(req.query.username);

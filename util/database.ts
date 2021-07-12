@@ -430,7 +430,7 @@ export async function deleteTeam(teamId: number) {
     RETURNING
     id
   `;
-  return teamInfo.map((team) => camelcaseKeys(team));
+  return teamInfo.map((team) => camelcaseKeys(team)[0]);
 }
 
 export async function getPlayerTeamsByUserId(userId: number) {

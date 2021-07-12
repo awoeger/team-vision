@@ -35,3 +35,18 @@ export const pushFirstEventResponse = (
 export const getTotalAttendeesForEvent = (arr) => {
   return arr.reduce((acc, attendee) => acc + attendee, 0);
 };
+
+export const deleteTeam = (id, coachTeamArray) => {
+  // create a copy of the allTeam array
+  const newTeamArray = [...coachTeamArray];
+  // find the team.id that has been clicked on
+  const deletedTeam = newTeamArray.find((e) => e.id === id);
+  // get the index of the team in the copy of the array
+  const deletedTeamIndex = newTeamArray.indexOf(deletedTeam);
+  // splice the index out of the array
+  if (deletedTeam) {
+    newTeamArray.splice(deletedTeamIndex, 1);
+  }
+
+  return newTeamArray;
+};

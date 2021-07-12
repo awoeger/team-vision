@@ -2,21 +2,27 @@ import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useState } from 'react';
+import * as BsIcons from 'react-icons/bs';
 import * as GiIcons from 'react-icons/gi';
 import * as MdIcons from 'react-icons/md';
 import CoachProfile from '../../components/CoachProfile';
 import Layout from '../../components/Layout';
 import PlayerProfile from '../../components/PlayerProfile';
 import {
+  deleteTeam,
   getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
 } from '../../util/database';
-import { darkBlue, largeText, link, normalText } from '../../util/sharedStyles';
+import {
+  darkBlue,
+  largeText,
+  link,
+  normalText,
+  orange,
+} from '../../util/sharedStyles';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
-
-// TODO: Style page
-// TODO: Style the error messages
 
 type Props = {
   user?: User;
@@ -39,6 +45,10 @@ type PlayerTeam = {
   teamName: String;
   sportType: String;
   founded: String;
+};
+
+type DeletedTeamResponse = {
+  id: Number;
 };
 
 const error = css`
@@ -70,22 +80,42 @@ const gridContainer = css`
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr;
-  gap: 20px 100px;
+  gap: 40px 100px;
   justify-items: stretch;
-  margin-left: 100px;
-  margin-right: 100px;
+  margin: 30px 100px 30px 100px;
+`;
+
+const teamHeader = css`
+  display: flex;
+  align-items: center;
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  justify-content: space-between;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 15px 20px;
+
+  div {
+    display: flex;
+    align-items: center;
+  }
 
   h3 {
-    background-image: url('/images/button_background_lightBlue.PNG');
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 15px 0;
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
     color: white;
-    text-transform: uppercase;
-    margin-bottom: 0;
     font-size: ${largeText};
+    margin-left: 10px;
+    text-transform: uppercase;
+    margin: 0 0 0 20px;
+  }
+
+  button {
+    padding: 10px;
+    color: ${orange};
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 90%;
+    border: none;
+    cursor: pointer;
   }
 `;
 
@@ -117,6 +147,8 @@ const teamInfoBox = css`
 `;
 
 export default function SingleUserProfile(props: Props) {
+  const [coachTeams, setCoachTeams] = useState(props.coachTeams);
+
   // Show message if user not allowed
   const errors = props.errors;
   if (errors) {
@@ -159,10 +191,56 @@ export default function SingleUserProfile(props: Props) {
             <h2>YOUR TEAMS</h2>
 
             <div css={gridContainer}>
-              {props.coachTeams.map((coachTeam) => {
+              {coachTeams.map((coachTeam) => {
                 return (
                   <div key={coachTeam.id}>
-                    <h3>{coachTeam.teamName}</h3>
+                    <div css={teamHeader}>
+                      <h3>{coachTeam.teamName}</h3>
+                      <button
+                        onClick={async (singleTeam) => {
+                          singleTeam.preventDefault();
+
+                          const response = await fetch(
+                            `/api/users-by-username/${props.user.username}`,
+                            {
+                              method: 'DELETE',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                id: coachTeam.id,
+                              }),
+                            },
+                          );
+
+                          const json =
+                            (await response.json()) as DeletedTeamResponse;
+
+                          const deleteTeam = () => {
+                            // create a copy of the allTeam array
+                            const newTeamArray = [...coachTeams];
+                            // find the team.id that has been clicked on
+                            const deletedTeam = newTeamArray.find(
+                              (e) => e.id === coachTeam.id,
+                            );
+                            // get the index of the team in the copy of the array
+                            const deletedTeamIndex =
+                              newTeamArray.indexOf(deletedTeam);
+                            // splice the index out of the array
+                            if (deletedTeam) {
+                              newTeamArray.splice(deletedTeamIndex, 1);
+                            }
+
+                            return newTeamArray;
+                          };
+
+                          setCoachTeams(deleteTeam());
+                        }}
+                      >
+                        <BsIcons.BsTrashFill size={20} />
+                      </button>
+                    </div>
+
                     <div css={teamInfoBox}>
                       <div>
                         <GiIcons.GiVolleyballBall

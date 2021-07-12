@@ -12,7 +12,6 @@ import * as GrIcons from 'react-icons/gr';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import {
-  getAllResponsesForEvent,
   getEvents,
   getTeamNameById,
   getUserByValidSessionToken,
@@ -23,6 +22,7 @@ import {
   lightBlue,
   lightGrey,
   link,
+  orange,
 } from '../../../util/sharedStyles';
 
 // TODO: Create a filter for event types
@@ -33,14 +33,6 @@ type Props = {
   teamId: Number;
   events: Event[];
   userRoleId: Number;
-  allResponsesForEvent: Response[];
-};
-
-type Response = {
-  usersId: number;
-  userFirstName: string;
-  userLastName: string;
-  response: string;
 };
 
 type Event = {
@@ -136,7 +128,7 @@ const eventHeader = css`
 
   button {
     padding: 10px;
-    color: #ca2121;
+    color: ${orange};
     background: rgba(255, 255, 255, 0.7);
     border-radius: 90%;
     border: none;
