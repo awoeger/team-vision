@@ -162,6 +162,9 @@ export default function PlayerRequest(props: Props) {
           <label>
             What position do you plan on playing?
             <input
+              required
+              minLength={3}
+              maxLength={50}
               placeholder="Defender"
               value={positionOnTeam}
               onChange={(event) => {
@@ -173,6 +176,9 @@ export default function PlayerRequest(props: Props) {
           <label>
             Since when have you been playing this sport?
             <input
+              required
+              minLength={7}
+              maxLength={7}
               placeholder="mm/yyyy"
               value={playingSince}
               onChange={(event) => {
@@ -184,6 +190,7 @@ export default function PlayerRequest(props: Props) {
           <label>
             How would you rate your experience level?
             <select
+              required
               id="experienceLevel"
               value={experienceLevel}
               onChange={(event) => {
@@ -200,6 +207,9 @@ export default function PlayerRequest(props: Props) {
           <label>
             Send your message to the coach.
             <textarea
+              required
+              minLength={5}
+              maxLength={100}
               css={textarea}
               placeholder="Why do you want to join this team?"
               value={message}

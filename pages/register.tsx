@@ -92,6 +92,8 @@ export default function Register(props: Props) {
                 <label>
                   First Name
                   <input
+                    required
+                    maxLength={50}
                     placeholder="Karl"
                     value={firstName}
                     onChange={(event) => {
@@ -105,6 +107,8 @@ export default function Register(props: Props) {
                 <label>
                   Last Name
                   <input
+                    required
+                    maxLength={50}
                     placeholder="Karlson"
                     value={lastName}
                     onChange={(event) => {
@@ -119,6 +123,8 @@ export default function Register(props: Props) {
               <label>
                 Username
                 <input
+                  required
+                  maxLength={50}
                   placeholder="Karl_the_Lama"
                   value={username}
                   onChange={(event) => {
@@ -132,6 +138,8 @@ export default function Register(props: Props) {
               <label>
                 Email
                 <input
+                  required
+                  maxLength={50}
                   placeholder="karl@karlson.com"
                   value={email}
                   type="email"
@@ -146,6 +154,8 @@ export default function Register(props: Props) {
               <label>
                 Password
                 <input
+                  required
+                  minLength={4}
                   placeholder="***********"
                   value={password}
                   type="password"

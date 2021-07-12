@@ -175,6 +175,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Event Type
               <select
+                required
                 id="eventType"
                 value={eventType}
                 onChange={(event) => {
@@ -192,6 +193,7 @@ export default function CreateEvent(props: Props) {
               <label>
                 Start Date
                 <input
+                  required
                   type="date"
                   placeholder="dd/mm/yyyy"
                   value={startDate}
@@ -204,6 +206,7 @@ export default function CreateEvent(props: Props) {
               <label>
                 End Date
                 <input
+                  required
                   type="date"
                   placeholder="dd/mm/yyyy"
                   value={endDate}
@@ -218,6 +221,7 @@ export default function CreateEvent(props: Props) {
               <label>
                 Meeting Time
                 <input
+                  required
                   placeholder="hh:mm"
                   value={meetingTime}
                   onChange={(event) => {
@@ -229,6 +233,7 @@ export default function CreateEvent(props: Props) {
               <label>
                 Start Time
                 <input
+                  required
                   placeholder="hh:mm"
                   value={startTime}
                   onChange={(event) => {
@@ -240,6 +245,7 @@ export default function CreateEvent(props: Props) {
               <label>
                 End Time
                 <input
+                  required
                   placeholder="hh:mm"
                   value={endTime}
                   onChange={(event) => {
@@ -252,6 +258,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Event Location
               <input
+                required
                 placeholder="ASKÖ Sportzentrum, 1020 Wien"
                 value={eventLocation}
                 onChange={(event) => {

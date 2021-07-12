@@ -11,13 +11,7 @@ import {
   getCoachTeamsByUserId,
   getPlayerTeamsByUserId,
 } from '../../util/database';
-import {
-  button,
-  darkBlue,
-  largeText,
-  link,
-  normalText,
-} from '../../util/sharedStyles';
+import { darkBlue, largeText, link, normalText } from '../../util/sharedStyles';
 import { ApplicationError, User } from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 

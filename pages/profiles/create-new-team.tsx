@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { css } from '@emotion/react';
 import Image from 'next/image';
 import router from 'next/router';
@@ -106,9 +107,13 @@ export default function CreateNewTeamForm(props: Props) {
             Tell us your team name and what sport you are planning to play.
           </h2>
 
-          <label>
-            Team Name
+          <label htmlFor="Team name">
+            Team name
             <input
+              required
+              minLength={3}
+              maxLength={50}
+              name="Team name"
               placeholder="Chicago Bulls"
               value={teamName}
               onChange={(event) => {
@@ -117,9 +122,13 @@ export default function CreateNewTeamForm(props: Props) {
             />
           </label>
 
-          <label>
+          <label htmlFor="Sport type">
             Sport type
             <input
+              required
+              minLength={3}
+              maxLength={50}
+              name="Sport type"
               placeholder="Basketball"
               value={sportType}
               onChange={(event) => {
@@ -128,9 +137,13 @@ export default function CreateNewTeamForm(props: Props) {
             />
           </label>
 
-          <label>
+          <label htmlFor="Date of establishment">
             Date of establishment
             <input
+              required
+              minLength={7}
+              maxLength={7}
+              name="Date of establishment"
               placeholder="mm/yyyy"
               value={foundedAt}
               onChange={(event) => {

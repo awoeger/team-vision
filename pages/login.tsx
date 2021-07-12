@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
@@ -93,7 +94,6 @@ export default function Login(props: Props) {
         <div css={mainSubContainer}>
           <h1>Login</h1>
 
-          {/* Send username and password to the API for verification */}
           <form
             onSubmit={async (event) => {
               event.preventDefault();
@@ -124,6 +124,8 @@ export default function Login(props: Props) {
               <label>
                 Username
                 <input
+                  required
+                  name="username"
                   placeholder="Karl Karlson"
                   value={username}
                   onChange={(event) => {
@@ -137,6 +139,8 @@ export default function Login(props: Props) {
               <label>
                 Password
                 <input
+                  required
+                  name="password"
                   placeholder="*************"
                   value={password}
                   type="password"

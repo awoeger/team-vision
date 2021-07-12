@@ -407,7 +407,7 @@ export default function Home(props: Props) {
           </div>
           <div css={imageContainer}>
             <Image
-              alt="Logo Icon"
+              alt="Soccer Players fighting for a ball"
               src="/images/soccer-players.jpg"
               width="850px"
               height="850px"
