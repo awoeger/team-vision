@@ -16,7 +16,13 @@ import {
   getTeamNameById,
   getUserByValidSessionToken,
 } from '../../../util/database';
-import { largeText, lightBlue, link, orange } from '../../../util/sharedStyles';
+import {
+  darkBlue,
+  largeText,
+  lightBlue,
+  link,
+  orange,
+} from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
@@ -47,16 +53,24 @@ type DeleteEventRequest = {
   id: Number;
 };
 
+const heading = css`
+  text-align: center;
+  margin-top: 40px;
+  font-size: 2em;
+`;
+
 const mainContainer = css`
   width: 100%;
   display: flex;
+  justify-content: center;
 `;
 
 const eventsMainContainer = css`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 70px;
   margin-bottom: 50px;
+  margin-left: 80px;
   width: 70%;
 `;
 
@@ -191,8 +205,65 @@ const eventFooter = css`
   padding: 10px 30px;
 `;
 
+const filterContainer = css`
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0 0 100px;
+  position: fixed;
+  left: 150px;
+  top: 210px;
+
+  button {
+    width: 100%;
+    margin: 30px 0px;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    color: ${darkBlue};
+    background: white;
+    border: ${lightBlue} 3px solid;
+    border-radius: 10px;
+    cursor: pointer;
+
+    :hover {
+      background: rgb(28 154 150 / 50%);
+    }
+  }
+`;
+
 export default function SingleTeamPage(props: Props) {
   const [allEvents, setAllEvents] = useState(props.events);
+  const [filteredEvents] = useState(allEvents);
+
+  // onClick functions for filters
+  const handleAllEventsClick = () => {
+    return setAllEvents(filteredEvents);
+  };
+
+  const handleAllTrainingsClick = () => {
+    const allTrainings = filteredEvents.filter(
+      (training) => training.eventType === 'Training',
+    );
+
+    return setAllEvents(allTrainings);
+  };
+
+  const handleAllTournamentsClick = () => {
+    const allTournaments = filteredEvents.filter(
+      (tournament) => tournament.eventType === 'Tournament',
+    );
+
+    return setAllEvents(allTournaments);
+  };
+
+  const handleAllSocialsClick = () => {
+    const allSocials = filteredEvents.filter(
+      (social) => social.eventType === 'Social',
+    );
+
+    return setAllEvents(allSocials);
+  };
 
   return (
     <>
@@ -203,7 +274,20 @@ export default function SingleTeamPage(props: Props) {
       </Head>
       <Layout username={props.username} />
       <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
+
+      <h1 css={heading}>Welcome to the {props.teamName[0].teamName}</h1>
       <div css={mainContainer}>
+        {/* Filter buttons start */}
+        <div css={filterContainer}>
+          <button onClick={handleAllEventsClick}>Show all events</button>
+          <button onClick={handleAllTrainingsClick}>Show only trainings</button>
+          <button onClick={handleAllTournamentsClick}>
+            Show only tournaments
+          </button>
+          <button onClick={handleAllSocialsClick}>Show only socials</button>
+        </div>
+        {/* Filter buttons end */}
+
         {props.events.length === 0 ? (
           <div css={noEventsContainer}>
             <h2>There are no events scheduled for this team yet.</h2>
@@ -211,7 +295,6 @@ export default function SingleTeamPage(props: Props) {
         ) : (
           <div css={eventsMainContainer}>
             <div css={eventsContainer}>
-              <h1>Welcome to the {props.teamName[0].teamName}</h1>
               <div>
                 {allEvents.map((event) => {
                   return (

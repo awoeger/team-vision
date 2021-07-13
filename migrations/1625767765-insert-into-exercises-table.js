@@ -1,295 +1,302 @@
 const exercises = [
   {
-    bodyPart: 'Core',
-    exerciseName: 'Alternate Heel Touchers',
+    bodypart: 'Core',
+    title: 'Alternate Heel Touchers',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
   {
-    bodyPart: 'Core',
-    exerciseName: 'Plank',
+    bodypart: 'Core',
+    title: 'Plank',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
-  },
-
-  {
-    bodyPart: 'Core',
-    exerciseName: 'Plank',
-    equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Side Plank',
+    bodypart: 'Core',
+    title: 'Plank',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'High Planks with Hip Touches',
+    bodypart: 'Core',
+    title: 'Side Plank',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Reverse plank',
+    bodypart: 'Core',
+    title: 'High Planks with Hip Touches',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Superman',
+    bodypart: 'Core',
+    title: 'Reverse plank',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Hip lift',
+    bodypart: 'Core',
+    title: 'Superman',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Crunshes',
+    bodypart: 'Core',
+    title: 'Hip lift',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Scissors',
+    bodypart: 'Core',
+    title: 'Crunshes',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Rowing',
+    bodypart: 'Core',
+    title: 'Scissors',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Scissors',
+    bodypart: 'Core',
+    title: 'Rowing',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Standing Wood Chop',
+    bodypart: 'Core',
+    title: 'Scissors',
+    equipment: 'Body only',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+  },
+
+  {
+    bodypart: 'Core',
+    title: 'Standing Wood Chop',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Elbow to knee crunsh',
+    bodypart: 'Core',
+    title: 'Elbow to knee crunsh',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Core',
-    exerciseName: 'Spider Crawl ',
+    bodypart: 'Core',
+    title: 'Spider Crawl ',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Squats',
+    bodypart: 'Legs',
+    title: 'Squats',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Bulgarian',
+    bodypart: 'Legs',
+    title: 'Bulgarian',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Alternate lunges',
+    bodypart: 'Legs',
+    title: 'Alternate lunges',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Squat jumps',
+    bodypart: 'Legs',
+    title: 'Squat jumps',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Calf raises',
+    bodypart: 'Legs',
+    title: 'Calf raises',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Sitting on the wall',
+    bodypart: 'Legs',
+    title: 'Sitting on the wall',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Sitting on the wall',
+    bodypart: 'Legs',
+    title: 'Sitting on the wall',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Hamstring curl',
+    bodypart: 'Legs',
+    title: 'Hamstring curl',
     equipment: 'Resistance band',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Legs',
-    exerciseName: 'Toe curl',
+    bodypart: 'Legs',
+    title: 'Toe curl',
     equipment: 'Resistance band',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'High knees',
+    bodypart: 'Agility',
+    title: 'High knees',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Mountain Climbers',
+    bodypart: 'Agility',
+    title: 'Mountain Climbers',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Butt kicks',
+    bodypart: 'Agility',
+    title: 'Butt kicks',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Rope jumping',
+    bodypart: 'Agility',
+    title: 'Rope jumping',
     equipment: 'Rope',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Shuffle',
+    bodypart: 'Agility',
+    title: 'Shuffle',
     equipment: 'Cones',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Tipping',
+    bodypart: 'Agility',
+    title: 'Burpees',
+    equipment: 'Cones',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+  },
+
+  {
+    bodypart: 'Agility',
+    title: 'Tipping',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Tipping',
+    bodypart: 'Agility',
+    title: 'Tipping',
     equipment: 'Resistance band',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Agility',
-    exerciseName: 'Hurdle hops',
+    bodypart: 'Agility',
+    title: 'Hurdle hops',
     equipment: 'Hurdles',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Push ups',
+    bodypart: 'Arms',
+    title: 'Push ups',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Biceps curls',
+    bodypart: 'Arms',
+    title: 'Biceps curls',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Triceps dips',
+    bodypart: 'Arms',
+    title: 'Triceps dips',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Chest press',
+    bodypart: 'Arms',
+    title: 'Chest press',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Pull ups',
+    bodypart: 'Arms',
+    title: 'Pull ups',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Wrist curl',
+    bodypart: 'Arms',
+    title: 'Wrist curl',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Hammer Curl',
+    bodypart: 'Arms',
+    title: 'Hammer Curl',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Reverse Biceps Curl',
+    bodypart: 'Arms',
+    title: 'Reverse Biceps Curl',
     equipment: 'Weights',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Reverse Push up',
+    bodypart: 'Arms',
+    title: 'Reverse Push up',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 
   {
-    bodyPart: 'Arms',
-    exerciseName: 'Reverse Pull up',
+    bodypart: 'Arms',
+    title: 'Reverse Pull up',
     equipment: 'Body only',
-    videoURL: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
+    video: 'https://www.youtube.com/watch?v=1Of0VqpvVKs',
   },
 ];
 
@@ -297,10 +304,10 @@ exports.up = async function up(sql) {
   await sql`
 	INSERT INTO exercises ${sql(
     exercises,
-    'bodyPart',
-    'exerciseName',
+    'bodypart',
+    'title',
     'equipment',
-    'videoURL',
+    'video',
   )}
 	 `;
 };
@@ -311,7 +318,7 @@ exports.down = async function down(sql) {
       DELETE FROM
         exercises
       WHERE
-        bodyPart = ${exercise.bodyPart}
+        bodypart = ${exercise.bodypart}
     `;
   }
 };
