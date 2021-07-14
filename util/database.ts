@@ -187,6 +187,16 @@ export async function getAllResponsesForEvent(eventId: number) {
   return eventInfo.map((event) => camelcaseKeys(event));
 }
 
+export async function getAllExercises() {
+  const allExercises = await sql`
+    SELECT
+    *
+    FROM
+      exercises
+  `;
+  return allExercises.map((exercise) => camelcaseKeys(exercise));
+}
+
 export async function createNewTeam(
   teamName: string,
   sportType: string,

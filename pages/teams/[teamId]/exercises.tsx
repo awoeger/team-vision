@@ -1,18 +1,188 @@
+import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
+import * as BiIcons from 'react-icons/bi';
 import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getUserByValidSessionToken } from '../../../util/database';
+import {
+  getAllExercises,
+  getUserByValidSessionToken,
+} from '../../../util/database';
+import {
+  darkBlue,
+  heading,
+  largeText,
+  lightBlue,
+} from '../../../util/sharedStyles';
 
 type Props = {
   username: String;
   teamId: Number;
   userRoleId: Number;
+  allExercises: Exercise[];
 };
 
+type Exercise = {
+  id: Number;
+  bodypart: String;
+  title: String;
+  equipment: String;
+  video: String;
+};
+
+const exerciseMainContainer = css`
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 50px 100px;
+  justify-items: center;
+  margin-top: 50px;
+  margin-left: 100px;
+`;
+
+const exerciseSubContainer = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+  color: white;
+
+  h2 {
+    margin-left: 20px;
+    text-transform: uppercase;
+    color: white;
+  }
+`;
+
+const exerciseHeader = css`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 15px 20px;
+  width: 100%;
+`;
+
+const exerciseBody = css`
+  display: flex;
+  align-items: center;
+  color: ${darkBlue};
+  font-size: ${largeText};
+  width: 100%;
+  padding: 20px;
+  border: 2px solid ${lightBlue};
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+
+  div {
+    width: 50%;
+  }
+
+  .videoDiv {
+    background: #cefffd80;
+    padding: 100px;
+    text-align: center;
+    border: 1px solid ${darkBlue};
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    font-weight: 500;
+    margin-left: 10px;
+  }
+`;
+
+export const filterContainer = css`
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0 0 100px;
+  position: fixed;
+  left: 100px;
+  top: 190px;
+
+  button {
+    width: 100%;
+    margin: 30px 0px;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    color: ${darkBlue};
+    background: white;
+    border: ${lightBlue} 3px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 20px;
+    }
+
+    :hover {
+      background: rgb(28 154 150 / 50%);
+    }
+  }
+`;
+
 export default function Exercises(props: Props) {
+  const [allExercises, setAllExercises] = useState(props.allExercises);
+  const [filteredExercises] = useState(allExercises);
+
+  const handleAllExercisesClick = () => {
+    return setAllExercises(filteredExercises);
+  };
+
+  const handleAllArmExercisesClick = () => {
+    const allArms = filteredExercises.filter(
+      (exercise) => exercise.bodypart === 'Arms',
+    );
+
+    return setAllExercises(allArms);
+  };
+
+  const handleAllLegsExercisesClick = () => {
+    const allLegs = filteredExercises.filter(
+      (exercise) => exercise.bodypart === 'Legs',
+    );
+
+    return setAllExercises(allLegs);
+  };
+
+  const handleAllCoreExercisesClick = () => {
+    const allCore = filteredExercises.filter(
+      (exercise) => exercise.bodypart === 'Core',
+    );
+
+    return setAllExercises(allCore);
+  };
+
+  const handleAllAgilityExercisesClick = () => {
+    const allAgility = filteredExercises.filter(
+      (exercise) => exercise.bodypart === 'Agility',
+    );
+
+    return setAllExercises(allAgility);
+  };
+
   return (
     <>
       <Head>
@@ -22,24 +192,67 @@ export default function Exercises(props: Props) {
       </Head>
       <Layout username={props.username} />
       <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
-      <h1>Exercises</h1>
+      <h1 css={heading}>Exercises</h1>
       <div>
-        <div>
-          <button>
-            <GiIcons.GiBiceps size={20} />
-            Arms
+        <div css={filterContainer}>
+          <button onClick={handleAllExercisesClick}>All Exercises</button>
+
+          <button onClick={handleAllArmExercisesClick}>
+            <GiIcons.GiBiceps size={30} />
+            <span>Arms</span>
           </button>
-          <button>Core</button>
-          <button>
-            <GiIcons.GiLeg size={20} />
-            Legs
+
+          <button onClick={handleAllCoreExercisesClick}>
+            <BiIcons.BiBody size={30} />
+            <span>Core</span>
           </button>
-          <button>
-            <FaIcons.FaRunning size={20} />
-            Agility
+
+          <button onClick={handleAllLegsExercisesClick}>
+            <GiIcons.GiLeg size={30} />
+            <span>Legs</span>
+          </button>
+
+          <button onClick={handleAllAgilityExercisesClick}>
+            <FaIcons.FaRunning size={30} />
+            <span>Agility</span>
           </button>
         </div>
-        <div></div>
+        <div css={exerciseMainContainer}>
+          {allExercises.map((exercise) => {
+            return (
+              <div css={exerciseSubContainer} key={exercise.id}>
+                <div css={exerciseHeader}>
+                  {/* <GiIcons.GiBiceps size={30} /> */}
+                  {exercise.bodypart === 'Arms' ? (
+                    <GiIcons.GiBiceps size={30} />
+                  ) : undefined}
+                  {exercise.bodypart === 'Legs' ? (
+                    <GiIcons.GiLeg size={30} />
+                  ) : undefined}
+                  {exercise.bodypart === 'Core' ? (
+                    <BiIcons.BiBody size={30} />
+                  ) : undefined}
+                  {exercise.bodypart === 'Agility' ? (
+                    <FaIcons.FaRunning size={30} />
+                  ) : undefined}
+                  <h2>{exercise.bodypart}</h2>
+                </div>
+
+                <div css={exerciseBody}>
+                  <div>
+                    <h3>{exercise.title}</h3>
+
+                    <p>
+                      <BiIcons.BiDumbbell size={30} />
+                      <span>Equipment: </span> <span>{exercise.equipment}</span>
+                    </p>
+                  </div>
+                  <div className="videoDiv">Video in the making</div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
@@ -51,10 +264,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const user = await getUserByValidSessionToken(sessionToken);
   const userRoleId = user?.userRoleId;
 
+  const allExercises = await getAllExercises();
+
   return {
     props: {
       userRoleId,
       teamId,
+      allExercises,
     },
   };
 }

@@ -43,3 +43,44 @@ export const link = css`
     color: white;
   }
 `;
+
+// Heading for Event and Exercise Page
+export const heading = css`
+  text-align: center;
+  margin-top: 40px;
+  font-size: 2em;
+`;
+
+// Container for filter functionality
+export const filterContainer = css`
+  display: flex;
+  flex-direction: column;
+  margin: 100px 0 0 100px;
+  position: fixed;
+  left: 50px;
+  top: 210px;
+
+  button {
+    width: 100%;
+    margin: 30px 0px;
+    padding: 15px;
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 500;
+    color: ${darkBlue};
+    background: white;
+    border: ${lightBlue} 3px solid;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    span {
+      margin-left: 20px;
+    }
+
+    :hover {
+      background: rgb(28 154 150 / 50%);
+    }
+  }
+`;

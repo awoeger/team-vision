@@ -17,7 +17,8 @@ import {
   getUserByValidSessionToken,
 } from '../../../util/database';
 import {
-  darkBlue,
+  filterContainer,
+  heading,
   largeText,
   lightBlue,
   link,
@@ -53,12 +54,6 @@ type DeleteEventRequest = {
   id: Number;
 };
 
-const heading = css`
-  text-align: center;
-  margin-top: 40px;
-  font-size: 2em;
-`;
-
 const mainContainer = css`
   width: 100%;
   display: flex;
@@ -67,10 +62,9 @@ const mainContainer = css`
 
 const eventsMainContainer = css`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   margin-top: 70px;
   margin-bottom: 50px;
-  margin-left: 80px;
   width: 70%;
 `;
 
@@ -205,33 +199,6 @@ const eventFooter = css`
   padding: 10px 30px;
 `;
 
-const filterContainer = css`
-  display: flex;
-  flex-direction: column;
-  margin: 100px 0 0 100px;
-  position: fixed;
-  left: 150px;
-  top: 210px;
-
-  button {
-    width: 100%;
-    margin: 30px 0px;
-    padding: 15px;
-    text-transform: uppercase;
-    font-size: 20px;
-    font-weight: 500;
-    color: ${darkBlue};
-    background: white;
-    border: ${lightBlue} 3px solid;
-    border-radius: 10px;
-    cursor: pointer;
-
-    :hover {
-      background: rgb(28 154 150 / 50%);
-    }
-  }
-`;
-
 export default function SingleTeamPage(props: Props) {
   const [allEvents, setAllEvents] = useState(props.events);
   const [filteredEvents] = useState(allEvents);
@@ -279,12 +246,19 @@ export default function SingleTeamPage(props: Props) {
       <div css={mainContainer}>
         {/* Filter buttons start */}
         <div css={filterContainer}>
-          <button onClick={handleAllEventsClick}>Show all events</button>
-          <button onClick={handleAllTrainingsClick}>Show only trainings</button>
-          <button onClick={handleAllTournamentsClick}>
-            Show only tournaments
+          <button onClick={handleAllEventsClick}>All events</button>
+          <button onClick={handleAllTrainingsClick}>
+            <BiIcons.BiDumbbell size={30} />
+            <span>Trainings</span>
           </button>
-          <button onClick={handleAllSocialsClick}>Show only socials</button>
+          <button onClick={handleAllTournamentsClick}>
+            <FaIcons.FaTrophy size={30} />
+            <span>Tournaments</span>
+          </button>
+          <button onClick={handleAllSocialsClick}>
+            <GiIcons.GiPartyPopper size={30} />
+            <span>Socials</span>
+          </button>
         </div>
         {/* Filter buttons end */}
 
