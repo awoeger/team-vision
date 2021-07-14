@@ -11,11 +11,11 @@
 You can visit the deployed website under:
 [Team Vision]().
 
-This project was created as the final project of the requirements for the Upleveled bootcamp in Vienna.
+This web application was created as the final project for the Upleveled bootcamp in Vienna.
 
 ## Functionalities
 
-This management app for sport teams includes the following functionalities:
+It is a management application for sport teams, which includes the following functionalities:
 
 - Register either as a coach or a player
 
