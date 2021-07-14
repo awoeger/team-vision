@@ -451,12 +451,17 @@ export async function getPlayerTeamsByUserId(userId: number) {
     teams.id,
     teams.team_name,
     teams.sport_type,
-    teams.founded
+    teams.founded,
+    team_user.status_id
     FROM
       team_user, teams
+    -- WHERE
+    --   team_user.status_id = 1
+    -- -- AND
+    -- --   team_user.status_id = 2
+    -- -- AND
+    -- --   team_user.status_id = 3
     WHERE
-      team_user.status_id = 1
-    AND
       team_user.users_id = ${userId}
     AND
       team_user.team_id = teams.id

@@ -291,48 +291,47 @@ export default function SingleTeamPage(props: Props) {
                             onClick={async (singleEvent) => {
                               singleEvent.preventDefault();
 
-                              // if (
-                              //   window.confirm(
-                              //     'Are you sure you wish to delete this team?',
-                              //   )
-                              // )
-                              //   this.onCancel(item);
-
-                              const response = await fetch(
-                                `/api/teams-by-team-id/events`,
-                                {
-                                  method: 'DELETE',
-                                  headers: {
-                                    'Content-Type': 'application/json',
+                              if (
+                                window.confirm(
+                                  'Are you sure you want to delete this event?',
+                                )
+                              ) {
+                                const response = await fetch(
+                                  `/api/teams-by-team-id/events`,
+                                  {
+                                    method: 'DELETE',
+                                    headers: {
+                                      'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                      id: event.id,
+                                    }),
                                   },
-                                  body: JSON.stringify({
-                                    id: event.id,
-                                  }),
-                                },
-                              );
-
-                              const json =
-                                (await response.json()) as DeleteEventRequest;
-
-                              const deleteEvent = () => {
-                                // create a copy of the allEvents array
-                                const newEventArray = [...allEvents];
-                                // find the event.id that has been clicked on
-                                const deletedEvent = newEventArray.find(
-                                  (e) => e.id === event.id,
                                 );
-                                // get the index of the event in the copy of the array
-                                const deletedEventIndex =
-                                  newEventArray.indexOf(deletedEvent);
-                                // splice the index out of the array
-                                if (deletedEvent) {
-                                  newEventArray.splice(deletedEventIndex, 1);
-                                }
 
-                                return newEventArray;
-                              };
-                              // set the state to the result of the function
-                              setAllEvents(deleteEvent());
+                                const json =
+                                  (await response.json()) as DeleteEventRequest;
+
+                                const deleteEvent = () => {
+                                  // create a copy of the allEvents array
+                                  const newEventArray = [...allEvents];
+                                  // find the event.id that has been clicked on
+                                  const deletedEvent = newEventArray.find(
+                                    (e) => e.id === event.id,
+                                  );
+                                  // get the index of the event in the copy of the array
+                                  const deletedEventIndex =
+                                    newEventArray.indexOf(deletedEvent);
+                                  // splice the index out of the array
+                                  if (deletedEvent) {
+                                    newEventArray.splice(deletedEventIndex, 1);
+                                  }
+
+                                  return newEventArray;
+                                };
+                                // set the state to the result of the function
+                                setAllEvents(deleteEvent());
+                              }
                             }}
                           >
                             <BsIcons.BsTrashFill size={20} />

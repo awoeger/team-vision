@@ -44,6 +44,7 @@ type PlayerTeam = {
   teamName: String;
   sportType: String;
   founded: String;
+  statusId: Number;
 };
 
 type DeletedTeamResponse = {
@@ -65,13 +66,21 @@ const mainSecondSubContainer = css`
   width: 100%;
   text-align: center;
 
-  h2 {
+  h2,
+  h4 {
     margin: 60px 100px 20px 100px;
     padding: 10px 0;
-    background: ${darkBlue};
     color: white;
     border-radius: 20px;
     font-size: 1.5em;
+  }
+
+  h2 {
+    background: ${darkBlue};
+  }
+
+  h4 {
+    background: #ffa500;
   }
 `;
 
@@ -199,41 +208,47 @@ export default function SingleUserProfile(props: Props) {
                         onClick={async (singleTeam) => {
                           singleTeam.preventDefault();
 
-                          const response = await fetch(
-                            `/api/users-by-username/${props.user.username}`,
-                            {
-                              method: 'DELETE',
-                              headers: {
-                                'Content-Type': 'application/json',
+                          if (
+                            window.confirm(
+                              'Are you sure you want to delete this team?',
+                            )
+                          ) {
+                            const response = await fetch(
+                              `/api/users-by-username/${props.user.username}`,
+                              {
+                                method: 'DELETE',
+                                headers: {
+                                  'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                  id: coachTeam.id,
+                                }),
                               },
-                              body: JSON.stringify({
-                                id: coachTeam.id,
-                              }),
-                            },
-                          );
-
-                          const json =
-                            (await response.json()) as DeletedTeamResponse;
-
-                          const deleteTeam = () => {
-                            // create a copy of the allTeam array
-                            const newTeamArray = [...coachTeams];
-                            // find the team.id that has been clicked on
-                            const deletedTeam = newTeamArray.find(
-                              (e) => e.id === coachTeam.id,
                             );
-                            // get the index of the team in the copy of the array
-                            const deletedTeamIndex =
-                              newTeamArray.indexOf(deletedTeam);
-                            // splice the index out of the array
-                            if (deletedTeam) {
-                              newTeamArray.splice(deletedTeamIndex, 1);
-                            }
 
-                            return newTeamArray;
-                          };
+                            const json =
+                              (await response.json()) as DeletedTeamResponse;
 
-                          setCoachTeams(deleteTeam());
+                            const deleteTeam = () => {
+                              // create a copy of the allTeam array
+                              const newTeamArray = [...coachTeams];
+                              // find the team.id that has been clicked on
+                              const deletedTeam = newTeamArray.find(
+                                (e) => e.id === coachTeam.id,
+                              );
+                              // get the index of the team in the copy of the array
+                              const deletedTeamIndex =
+                                newTeamArray.indexOf(deletedTeam);
+                              // splice the index out of the array
+                              if (deletedTeam) {
+                                newTeamArray.splice(deletedTeamIndex, 1);
+                              }
+
+                              return newTeamArray;
+                            };
+
+                            setCoachTeams(deleteTeam());
+                          }
                         }}
                       >
                         <BsIcons.BsTrashFill size={20} />
@@ -280,46 +295,94 @@ export default function SingleUserProfile(props: Props) {
           <PlayerProfile user={props.user} />
           <div css={mainSecondSubContainer}>
             <h2>YOUR TEAMS</h2>
+            <h3>
+              Congratulations, you have been accepted to the following teams
+            </h3>
 
             <div css={gridContainer}>
-              {props.playerTeams.map((playerTeam) => {
-                return (
-                  <div key={playerTeam.id}>
-                    <div css={teamHeader}>
-                      <h3>{playerTeam.teamName}</h3>
+              {props.playerTeams
+                .filter((team) => team.statusId === 1)
+                .map((playerTeam) => {
+                  return (
+                    <div key={playerTeam.id}>
+                      <div css={teamHeader}>
+                        <h3>{playerTeam.teamName}</h3>
+                      </div>
+                      <div css={teamInfoBox}>
+                        <div>
+                          <GiIcons.GiVolleyballBall
+                            style={{
+                              color: '#1d2a48',
+                            }}
+                            size={30}
+                          />
+                          <p>
+                            <span>Sport type:</span> {playerTeam.sportType}
+                          </p>
+                        </div>
+                        <div>
+                          <MdIcons.MdToday
+                            style={{
+                              color: '#1d2a48',
+                            }}
+                            size={30}
+                          />
+                          <p>
+                            <span>Founded at:</span> {playerTeam.founded}
+                          </p>
+                        </div>
+                        <div>
+                          <Link href={`/teams/${playerTeam.id}`}>
+                            <a css={link}>Go to team</a>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
-                    <div css={teamInfoBox}>
-                      <div>
-                        <GiIcons.GiVolleyballBall
-                          style={{
-                            color: '#1d2a48',
-                          }}
-                          size={30}
-                        />
-                        <p>
-                          <span>Sport type:</span> {playerTeam.sportType}
-                        </p>
+                  );
+                })}
+            </div>
+            {/* Player awaiting */}
+
+            <div css={mainSecondSubContainer}>
+              <h4>PENDING REQUESTS</h4>
+
+              <div css={gridContainer}>
+                {props.playerTeams
+                  .filter((team) => team.statusId === 3)
+                  .map((playerTeam) => {
+                    return (
+                      <div key={playerTeam.id}>
+                        <div css={teamHeader}>
+                          <h3>{playerTeam.teamName}</h3>
+                        </div>
+                        <div css={teamInfoBox}>
+                          <div>
+                            <GiIcons.GiVolleyballBall
+                              style={{
+                                color: '#1d2a48',
+                              }}
+                              size={30}
+                            />
+                            <p>
+                              <span>Sport type:</span> {playerTeam.sportType}
+                            </p>
+                          </div>
+                          <div>
+                            <MdIcons.MdToday
+                              style={{
+                                color: '#1d2a48',
+                              }}
+                              size={30}
+                            />
+                            <p>
+                              <span>Founded at:</span> {playerTeam.founded}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <div>
-                        <MdIcons.MdToday
-                          style={{
-                            color: '#1d2a48',
-                          }}
-                          size={30}
-                        />
-                        <p>
-                          <span>Founded at:</span> {playerTeam.founded}
-                        </p>
-                      </div>
-                      <div>
-                        <Link href={`/teams/${playerTeam.id}`}>
-                          <a css={link}>Go to team</a>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                    );
+                  })}
+              </div>
             </div>
           </div>
         </div>
@@ -360,6 +423,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // Getting all teams the player got accepted to
   const playerTeams = await getPlayerTeamsByUserId(json.user.id);
+
+  console.log('playerTeams', playerTeams);
 
   // spreading the json, will help us to put either the user OR the errors in the return
   return {

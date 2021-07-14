@@ -25,6 +25,7 @@ export const button = css`
   width: 100%;
   margin-bottom: 20px;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
 `;
 
 // Link as Button
@@ -38,6 +39,7 @@ export const link = css`
   font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
 
   :hover {
     color: white;

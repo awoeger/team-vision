@@ -137,15 +137,17 @@ export default function TeamMembers(props: Props) {
             </span>
           </h2>
           <table>
-            <tr css={acceptedMembers}>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Playing since</th>
-              <th>Experience level</th>
-              <th>Position on the team</th>
-              <th>Message to the coach</th>
-              <th>Delete</th>
-            </tr>
+            <thead css={acceptedMembers}>
+              <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Playing since</th>
+                <th>Experience level</th>
+                <th>Position on the team</th>
+                <th>Message to the coach</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
             {members
               .filter((member) => member.statusId === 1)
               .map((member) => {
