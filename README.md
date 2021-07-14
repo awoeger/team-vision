@@ -1,34 +1,66 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Team Vision
 
-## Getting Started
+![Screenshot 1]()
 
-First, run the development server:
+![Screenshot 2]()
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+![Screenshot 3]()
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployed Version
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+You can visit the deployed website under:
+[Team Vision]().
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+This project was created as the final project of the requirements for the Upleveled bootcamp in Vienna.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Functionalities
 
-## Learn More
+This management app for sport teams includes the following functionalities:
 
-To learn more about Next.js, take a look at the following resources:
+- Register either as a coach or a player
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Coaches:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Create different teams and let your players sign-up for it
+- Check out a players application before you can accept or deny them to the team
+- Create events and see all attending, possibly attending and non attending players in one spot
 
-## Deploy on Vercel
+Players:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Send your favourite team a player request and tell the coach, why you are the right person for the team
+- See all upcoming events for the season, filter them and tell the coach and your co-players, if you are attending or not
+- Have a collection of exercises for home workouts to keep you fit throughout the season
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Technologies
+
+- Next.js
+- React.js
+- Postgres
+- Emotion
+- Typescript
+- Jest / Cypress
+
+## SetUp Guide
+
+To work on this project by yourself, please follow the upcoming steps:
+
+- Clone repo to your local machine
+- Download and install PostgreSQL
+- Create a user and database for this project
+- Modify the info in the .env-example file
+- Rename the file to .env
+- Install dotenv-cli with <yarn global add dotenv-cli>
+- Run <yarn install> in your command line
+- Run the migrations for your local database with <yarn migrateup>
+- Start the server by running <yarn dev>
+
+## Deploy your own website to Heroku
+
+- Sign up for Heroku: signup.heroku.com
+- Create a new App
+- Choose a name and select the "Europe" Region
+- Click on the button in the middle called "Connect to GitHub"
+- Search for your repository in the search box at the bottom of the page and click on the "Connect" button Click on the button for "Enable Automatic Deploys"
+- Go back to the Overview tab and click on "Configure Add-On"
+- Search for "Postgres" and select "Heroku Postgres" from the results
+- Trigger a deploy pushing to your github repo and enjoy.

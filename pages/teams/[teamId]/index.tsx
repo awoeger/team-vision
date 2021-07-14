@@ -291,6 +291,13 @@ export default function SingleTeamPage(props: Props) {
                             onClick={async (singleEvent) => {
                               singleEvent.preventDefault();
 
+                              // if (
+                              //   window.confirm(
+                              //     'Are you sure you wish to delete this team?',
+                              //   )
+                              // )
+                              //   this.onCancel(item);
+
                               const response = await fetch(
                                 `/api/teams-by-team-id/events`,
                                 {
