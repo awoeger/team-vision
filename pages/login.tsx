@@ -10,8 +10,6 @@ import { getValidSessionByToken } from '../util/database';
 import { button, darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { LoginResponse } from './api/login';
 
-// TODO: focus-visible on input fields
-
 export const mainContainer = css`
   background-image: url(/images/background_blue_smoke.PNG);
   background-size: cover;
@@ -88,7 +86,7 @@ export default function Login(props: Props) {
       <Layout username={props.username} />
 
       <Head>
-        <title>Login</title>
+        <title>Team Vision - Login</title>
       </Head>
       <div css={mainContainer}>
         <div css={mainSubContainer}>

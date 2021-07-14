@@ -30,7 +30,7 @@ export default function RegistrationSuccessful(props: Props) {
   return (
     <>
       <Head>
-        <title>Registration Successful</title>
+        <title>Team Vision - Registration Successful</title>
       </Head>
       <Layout username={props.username} />
       <div css={mainContainer}>

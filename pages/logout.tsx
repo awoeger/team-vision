@@ -21,7 +21,7 @@ export default function Logout(props: Props) {
   return (
     <>
       <Head>
-        <title>Logout Successful</title>
+        <title>Team Vision - Logout Successful</title>
       </Head>
       <Layout username={props.username} />
       <div css={mainContainer}>

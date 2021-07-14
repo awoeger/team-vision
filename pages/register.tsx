@@ -49,7 +49,7 @@ export default function Register(props: Props) {
   return (
     <>
       <Head>
-        <title>Register</title>
+        <title>Team Vision - Register</title>
       </Head>
       <Layout username={props.username} />
       <div css={mainContainer}>
