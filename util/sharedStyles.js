@@ -44,6 +44,11 @@ export const link = css`
   :hover {
     color: white;
   }
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    font-size: 0.8em;
+  }
 `;
 
 // Heading for Event and Exercise Page

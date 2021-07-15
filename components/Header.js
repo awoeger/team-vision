@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
-import { darkBlue, largeText } from '../util/sharedStyles';
+import { darkBlue, largeText, normalText } from '../util/sharedStyles';
 
 const headerContainer = css`
   display: flex;
@@ -36,6 +36,12 @@ const headerContainer = css`
 
     :hover::after {
       width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    a {
+      font-size: 17px;
     }
   }
 `;

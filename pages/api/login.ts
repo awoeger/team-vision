@@ -63,8 +63,6 @@ export default async function loginHandler(
 
     // Save the token to the database with a automatically generated time limit of 24 hours
 
-    // TODO like in register.ts if statement if res.status
-
     const session = await insertSession(token, Number(userWithPasswordHash.id));
 
     const cookie = createSerializedSessionCookie(session.token);

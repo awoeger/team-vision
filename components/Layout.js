@@ -5,7 +5,6 @@ export default function Layout(props) {
     <>
       <Header username={props.username} />
       <div>{props.children}</div>
-      {/* <Footer /> */}
     </>
   );
 }

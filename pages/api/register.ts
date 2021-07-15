@@ -92,7 +92,6 @@ export default async function registerHandler(
     const token = crypto.randomBytes(64).toString('base64');
 
     // Save the token to the database with a automatically generated time limit of 24 hours
-    // TODO write if statement with status
     // if (!Number.isInteger(userNew.id)) {
     //   return res.status();
     // }

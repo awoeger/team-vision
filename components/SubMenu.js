@@ -29,8 +29,6 @@ const navText = css`
     cursor: pointer;
     margin-right: 30px;
     margin-left: 10px;
-    display: flex;
-    align-items: center;
 
     ::after {
       content: '';

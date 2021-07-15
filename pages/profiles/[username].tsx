@@ -65,10 +65,11 @@ const mainSecondSubContainer = css`
   height: 90vh;
   width: 100%;
   text-align: center;
+  padding: 0 100px;
 
   h2,
   h4 {
-    margin: 60px 100px 20px 100px;
+    margin: 60px 0 20px 0;
     padding: 10px 0;
     color: white;
     border-radius: 20px;
@@ -82,6 +83,23 @@ const mainSecondSubContainer = css`
   h4 {
     background: #ffa500;
   }
+
+  @media (max-width: 1024px) {
+    padding: 0 60px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0 20px;
+
+    h2,
+    h4 {
+      font-size: 1.2em;
+    }
+
+    h3 {
+      font-size: 0.9em;
+    }
+  }
 `;
 
 const gridContainer = css`
@@ -90,7 +108,15 @@ const gridContainer = css`
   grid-template-rows: 1fr;
   gap: 40px 100px;
   justify-items: stretch;
-  margin: 30px 100px 30px 100px;
+  margin: 30px 0;
+
+  @media (max-width: 1024px) {
+    gap: 20px 50px;
+  }
+
+  @media (max-width: 768px) {
+    gap: 20px 20px;
+  }
 `;
 
 const teamHeader = css`
@@ -124,6 +150,26 @@ const teamHeader = css`
     border-radius: 90%;
     border: none;
     cursor: pointer;
+
+    .btn {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 10px 10px;
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    h3 {
+      font-size: ${normalText};
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -150,6 +196,19 @@ const teamInfoBox = css`
     span {
       font-weight: 500;
       margin-left: 10px;
+    }
+  }
+
+  .icons {
+    color: ${darkBlue};
+    width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .icons {
+      width: 20px;
+      height: 20px;
     }
   }
 `;
@@ -214,7 +273,7 @@ export default function SingleUserProfile(props: Props) {
                             )
                           ) {
                             const response = await fetch(
-                              `/api/users-by-username/${props.user.username}`,
+                              `/api/users-by-username/${props.user?.username}`,
                               {
                                 method: 'DELETE',
                                 headers: {
@@ -251,29 +310,19 @@ export default function SingleUserProfile(props: Props) {
                           }
                         }}
                       >
-                        <BsIcons.BsTrashFill size={20} />
+                        <BsIcons.BsTrashFill className="btn" />
                       </button>
                     </div>
 
                     <div css={teamInfoBox}>
                       <div>
-                        <GiIcons.GiVolleyballBall
-                          style={{
-                            color: '#1d2a48',
-                          }}
-                          size={30}
-                        />
+                        <GiIcons.GiVolleyballBall className="icons" />
                         <p>
                           <span>Sport type:</span> {coachTeam.sportType}
                         </p>
                       </div>
                       <div>
-                        <MdIcons.MdToday
-                          style={{
-                            color: '#1d2a48',
-                          }}
-                          size={30}
-                        />
+                        <MdIcons.MdToday className="icons" />
                         <p>
                           <span>Founded at:</span> {coachTeam.founded}
                         </p>
@@ -310,23 +359,13 @@ export default function SingleUserProfile(props: Props) {
                       </div>
                       <div css={teamInfoBox}>
                         <div>
-                          <GiIcons.GiVolleyballBall
-                            style={{
-                              color: '#1d2a48',
-                            }}
-                            size={30}
-                          />
+                          <GiIcons.GiVolleyballBall className="icons" />
                           <p>
                             <span>Sport type:</span> {playerTeam.sportType}
                           </p>
                         </div>
                         <div>
-                          <MdIcons.MdToday
-                            style={{
-                              color: '#1d2a48',
-                            }}
-                            size={30}
-                          />
+                          <MdIcons.MdToday className="icons" />
                           <p>
                             <span>Founded at:</span> {playerTeam.founded}
                           </p>
@@ -341,8 +380,8 @@ export default function SingleUserProfile(props: Props) {
                   );
                 })}
             </div>
-            {/* Player awaiting */}
 
+            {/* Player awaiting */}
             <div css={mainSecondSubContainer}>
               <h4>PENDING REQUESTS</h4>
 
@@ -357,23 +396,13 @@ export default function SingleUserProfile(props: Props) {
                         </div>
                         <div css={teamInfoBox}>
                           <div>
-                            <GiIcons.GiVolleyballBall
-                              style={{
-                                color: '#1d2a48',
-                              }}
-                              size={30}
-                            />
+                            <GiIcons.GiVolleyballBall className="icons" />
                             <p>
                               <span>Sport type:</span> {playerTeam.sportType}
                             </p>
                           </div>
                           <div>
-                            <MdIcons.MdToday
-                              style={{
-                                color: '#1d2a48',
-                              }}
-                              size={30}
-                            />
+                            <MdIcons.MdToday className="icons" />
                             <p>
                               <span>Founded at:</span> {playerTeam.founded}
                             </p>
@@ -423,8 +452,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   // Getting all teams the player got accepted to
   const playerTeams = await getPlayerTeamsByUserId(json.user.id);
-
-  console.log('playerTeams', playerTeams);
 
   // spreading the json, will help us to put either the user OR the errors in the return
   return {

@@ -12,6 +12,16 @@ export const mainFirstSubContainer = css`
   align-items: center;
   background: ${lightGrey};
   border-right: 2px solid ${darkBlue};
+  text-align: center;
+
+  .whistleIcon {
+    background: ${darkBlue};
+    border-radius: 200px;
+    padding: 20px;
+    width: 100px;
+    height: 100px;
+    color: white;
+  }
 
   h1 {
     font-size: 1.5em;
@@ -38,6 +48,24 @@ export const mainFirstSubContainer = css`
       font-weight: 600;
     }
   }
+
+  @media (max-width: 1024px) {
+    width: 35%;
+  }
+
+  @media (max-width: 768px) {
+    width: 40%;
+    padding: 10px;
+
+    h1 {
+      font-size: 1.2em;
+    }
+
+    .whistleIcon {
+      width: 80px;
+      height: 80px;
+    }
+  }
 `;
 
 const buttonDiv = css`
@@ -48,15 +76,7 @@ export default function CoachProfile(props) {
   return (
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
-      <GiIcons.GiWhistle
-        style={{
-          color: 'white',
-          background: '#1d2a48',
-          borderRadius: '200px',
-          padding: '20px',
-        }}
-        size={100}
-      />
+      <GiIcons.GiWhistle className="whistleIcon" />
       <h2>Welcome Coach</h2>
       <h3>
         {props.user.userFirstName} {props.user.userLastName}
@@ -69,7 +89,9 @@ export default function CoachProfile(props) {
       </p>
       <div css={buttonDiv}>
         <Link href="/profiles/create-new-team">
-          <a css={link}>Create new team</a>
+          <a className="button" css={link}>
+            Create new team
+          </a>
         </Link>
       </div>
     </div>
