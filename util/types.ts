@@ -96,3 +96,13 @@ export type Event = {
   eventLocation: string;
   eventDescription: string;
 };
+
+// Types for exercise page
+
+export type Exercise = {
+  id: Number;
+  bodypart: String;
+  title: String;
+  equipment: String;
+  video: String;
+};

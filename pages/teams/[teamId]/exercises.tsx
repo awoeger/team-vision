@@ -16,21 +16,15 @@ import {
   heading,
   largeText,
   lightBlue,
+  normalText,
 } from '../../../util/sharedStyles';
+import { Exercise } from '../../../util/types';
 
 type Props = {
   username: String;
   teamId: Number;
   userRoleId: Number;
   allExercises: Exercise[];
-};
-
-type Exercise = {
-  id: Number;
-  bodypart: String;
-  title: String;
-  equipment: String;
-  video: String;
 };
 
 const exerciseMainContainer = css`
@@ -56,6 +50,14 @@ const exerciseSubContainer = css`
     text-transform: uppercase;
     color: white;
   }
+
+  @media (max-width: 1024px) {
+    margin-left: 200px;
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 100px;
+  }
 `;
 
 const exerciseHeader = css`
@@ -69,6 +71,11 @@ const exerciseHeader = css`
   border-top-right-radius: 20px;
   padding: 15px 20px;
   width: 100%;
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 const exerciseBody = css`
@@ -98,7 +105,7 @@ const exerciseBody = css`
   }
 
   p {
-    margin-left: 20px;
+    margin-left: 10px;
     margin-right: 20px;
     display: flex;
     align-items: center;
@@ -107,6 +114,35 @@ const exerciseBody = css`
   span {
     font-weight: 500;
     margin-left: 10px;
+  }
+
+  .icon {
+    width: 25px;
+    height: 25px;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: ${normalText};
+
+    .videoDiv {
+      padding: 40px;
+    }
+
+    .icon {
+      display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    p,
+    span {
+      font-size: 16px;
+      margin: 2px;
+    }
+
+    div {
+      margin: 10px;
+    }
   }
 `;
 
@@ -140,6 +176,11 @@ export const filterContainer = css`
     :hover {
       background: rgb(28 154 150 / 50%);
     }
+  }
+
+  @media (max-width: 768px) {
+    left: 0;
+    top: 170px;
   }
 `;
 
@@ -198,22 +239,22 @@ export default function Exercises(props: Props) {
           <button onClick={handleAllExercisesClick}>All Exercises</button>
 
           <button onClick={handleAllArmExercisesClick}>
-            <GiIcons.GiBiceps className="icon"={30} />
+            <GiIcons.GiBiceps className="icon" />
             <span>Arms</span>
           </button>
 
           <button onClick={handleAllCoreExercisesClick}>
-            <BiIcons.BiBody className="icon"={30} />
+            <BiIcons.BiBody className="icon" />
             <span>Core</span>
           </button>
 
           <button onClick={handleAllLegsExercisesClick}>
-            <GiIcons.GiLeg className="icon"={30} />
+            <GiIcons.GiLeg className="icon" />
             <span>Legs</span>
           </button>
 
           <button onClick={handleAllAgilityExercisesClick}>
-            <FaIcons.FaRunning className="icon"={30} />
+            <FaIcons.FaRunning className="icon" />
             <span>Agility</span>
           </button>
         </div>
@@ -222,18 +263,17 @@ export default function Exercises(props: Props) {
             return (
               <div css={exerciseSubContainer} key={exercise.id}>
                 <div css={exerciseHeader}>
-                  {/* <GiIcons.GiBiceps size={30} /> */}
                   {exercise.bodypart === 'Arms' ? (
-                    <GiIcons.GiBiceps className="icon"={30} />
+                    <GiIcons.GiBiceps className="icon" />
                   ) : undefined}
                   {exercise.bodypart === 'Legs' ? (
-                    <GiIcons.GiLeg className="icon"={30} />
+                    <GiIcons.GiLeg className="icon" />
                   ) : undefined}
                   {exercise.bodypart === 'Core' ? (
-                    <BiIcons.BiBody className="icon"={30} />
+                    <BiIcons.BiBody className="icon" />
                   ) : undefined}
                   {exercise.bodypart === 'Agility' ? (
-                    <FaIcons.FaRunning className="icon"={30} />
+                    <FaIcons.FaRunning className="icon" />
                   ) : undefined}
                   <h2>{exercise.bodypart}</h2>
                 </div>
@@ -243,7 +283,7 @@ export default function Exercises(props: Props) {
                     <h3>{exercise.title}</h3>
 
                     <p>
-                      <BiIcons.BiDumbbell className="icon"={30} />
+                      <BiIcons.BiDumbbell className="icon" />
                       <span>Equipment: </span> <span>{exercise.equipment}</span>
                     </p>
                   </div>
