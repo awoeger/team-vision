@@ -40,17 +40,13 @@ export const formContainer = css`
     padding: 30px;
     width: 40%;
 
+    div {
+      display: flex;
+    }
+
     h1 {
       color: ${darkBlue};
       font-size: ${largeText};
-      text-align: center;
-      padding-bottom: 20px;
-    }
-
-    h2 {
-      color: ${darkBlue};
-      font-size: ${normalText};
-      font-weight: 400;
       text-align: center;
       padding-bottom: 30px;
     }
@@ -61,31 +57,55 @@ export const formContainer = css`
       text-align: left;
       color: ${darkBlue};
       font-weight: 600;
+      margin-bottom: 5px;
 
       input,
-      select {
+      select,
+      textarea {
         margin: 5px 0 20px 0;
         width: 100%;
         padding: 5px;
         font-size: ${normalText};
       }
+
+      textarea {
+        line-height: 40px;
+      }
+
+      .neighborInput {
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      h1 {
+        font-size: ${normalText};
+      }
     }
   }
-`;
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
 
-const textarea = css`
-  margin: 5px 0 20px 0;
-  width: 100%;
-  padding-left: 10px;
-  font-size: ${normalText};
-  text-align: left;
-  line-height: 40px;
+    form {
+      width: 70%;
+    }
+  }
 `;
 
 const imageContainer = css`
   display: flex;
   justify-content: center;
   padding-left: 50px;
+
+  @media (max-width: 1024px) {
+    width: 50%;
+    padding: 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 70%;
+    margin-top: 10px;
+  }
 `;
 
 export default function PlayerRequest(props: Props) {
@@ -138,11 +158,6 @@ export default function PlayerRequest(props: Props) {
           }}
         >
           <h1>Player request</h1>
-          <h2>
-            You want to be part of a team? Send a request to the coach!
-            <br /> As soon as you get accepted,
-            <br /> your team will be displayed on your profile page.
-          </h2>
 
           <label>
             Which team would you like to apply for?
@@ -178,36 +193,39 @@ export default function PlayerRequest(props: Props) {
             />
           </label>
 
-          <label>
-            Since when have you been playing this sport?
-            <input
-              required
-              minLength={7}
-              maxLength={7}
-              placeholder="mm/yyyy"
-              value={playingSince}
-              onChange={(event) => {
-                setPlayingSince(event.currentTarget.value);
-              }}
-            />
-          </label>
+          <div>
+            <label>
+              Since when have you been playing this sport?
+              <input
+                className="neighborInput"
+                required
+                minLength={7}
+                maxLength={7}
+                placeholder="mm/yyyy"
+                value={playingSince}
+                onChange={(event) => {
+                  setPlayingSince(event.currentTarget.value);
+                }}
+              />
+            </label>
 
-          <label>
-            How would you rate your experience level?
-            <select
-              required
-              id="experienceLevel"
-              value={experienceLevel}
-              onChange={(event) => {
-                setExperienceLevel(event.currentTarget.value);
-              }}
-            >
-              <option>Please select</option>
-              <option value="Beginner">Beginner</option>
-              <option value="Advanced">Advanced</option>
-              <option value="Professional">Professional</option>
-            </select>
-          </label>
+            <label>
+              How would you rate your experience level?
+              <select
+                required
+                id="experienceLevel"
+                value={experienceLevel}
+                onChange={(event) => {
+                  setExperienceLevel(event.currentTarget.value);
+                }}
+              >
+                <option>Please select</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Professional">Professional</option>
+              </select>
+            </label>
+          </div>
 
           <label>
             Send your message to the coach.
@@ -215,7 +233,6 @@ export default function PlayerRequest(props: Props) {
               required
               minLength={5}
               maxLength={100}
-              css={textarea}
               placeholder="Why do you want to join this team?"
               value={message}
               onChange={(event) => {
