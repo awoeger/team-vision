@@ -24,6 +24,10 @@ export const formContainer = css`
   align-items: center;
   padding-left: 100px;
 
+  @media (max-width: 1024px) {
+    padding-left: 40px;
+  }
+
   form {
     display: flex;
     flex-direction: column;
@@ -62,6 +66,18 @@ export const formContainer = css`
         font-size: ${normalText};
       }
     }
+
+    @media (max-width: 768px) {
+      margin-top: 70px;
+
+      h1 {
+        font-size: ${normalText};
+      }
+
+      h2 {
+        display: none;
+      }
+    }
   }
 `;
 
@@ -69,6 +85,10 @@ const imageContainer = css`
   display: flex;
   justify-content: center;
   padding-left: 50px;
+
+  @media (max-width: 1024px) {
+    width: 70%;
+  }
 `;
 
 export default function CreateNewTeamForm(props: Props) {
@@ -164,6 +184,7 @@ export default function CreateNewTeamForm(props: Props) {
         </form>
         <div css={imageContainer}>
           <Image
+            className="image"
             alt="Logo Icon"
             src="/images/rugby-players.png"
             width="750px"

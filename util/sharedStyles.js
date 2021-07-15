@@ -26,6 +26,11 @@ export const button = css`
   margin-bottom: 20px;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+    font-size: 0.8em;
+  }
 `;
 
 // Link as Button
