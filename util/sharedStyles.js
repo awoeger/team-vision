@@ -69,7 +69,7 @@ export const filterContainer = css`
   flex-direction: column;
   margin: 100px 0 0 100px;
   position: fixed;
-  left: 50px;
+  left: 150px;
   top: 210px;
 
   button {
@@ -93,6 +93,20 @@ export const filterContainer = css`
 
     :hover {
       background: rgb(28 154 150 / 50%);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    left: 50px;
+  }
+
+  @media (max-width: 768px) {
+    top: 190px;
+    left: 0;
+    margin: 100px 0 0 50px;
+
+    button {
+      font-size: ${normalText};
     }
   }
 `;

@@ -22,8 +22,10 @@ import {
   largeText,
   lightBlue,
   link,
+  normalText,
   orange,
 } from '../../../util/sharedStyles';
+import { DeleteEventRequest, Event, TeamName } from '../../../util/types';
 
 type Props = {
   username: String;
@@ -31,27 +33,6 @@ type Props = {
   teamId: Number;
   events: Event[];
   userRoleId: Number;
-};
-
-type Event = {
-  id: number;
-  eventType: string;
-  teamId: number;
-  formattedStartDay: string;
-  formattedEndDay: string;
-  startTime: string;
-  endTime: string;
-  meetingTime: string;
-  eventLocation: string;
-  eventDescription: string;
-};
-
-type TeamName = {
-  teamName: string;
-};
-
-type DeleteEventRequest = {
-  id: Number;
 };
 
 const mainContainer = css`
@@ -62,7 +43,7 @@ const mainContainer = css`
 
 const eventsMainContainer = css`
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   margin-top: 70px;
   margin-bottom: 50px;
   width: 70%;
@@ -123,6 +104,16 @@ const eventHeader = css`
     border: none;
     cursor: pointer;
   }
+
+  .icon {
+    min-width: 30px;
+    height: 30px;
+  }
+
+  .trashicon {
+    min-width: 20px;
+    height: 20px;
+  }
 `;
 
 const eventBody = css`
@@ -156,10 +147,29 @@ const eventSubBody = css`
       margin-right: 5px;
     }
   }
+
+  @media (max-width: 768px) {
+    .icon {
+      min-width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 const eventInfos = css`
   max-width: 50%;
+
+  .icon {
+    min-width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .icon {
+      min-width: 20px;
+      height: 20px;
+    }
+  }
 `;
 
 const eventMessage = css`
@@ -175,6 +185,17 @@ const eventMessage = css`
   h3 {
     padding-left: 10px;
   }
+
+  .icon {
+    min-width: 30px;
+    height: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .icon {
+      min-width: 20px;
+      height: 20px;
+    }
 `;
 
 const noEventsContainer = css`
@@ -248,15 +269,15 @@ export default function SingleTeamPage(props: Props) {
         <div css={filterContainer}>
           <button onClick={handleAllEventsClick}>All events</button>
           <button onClick={handleAllTrainingsClick}>
-            <BiIcons.BiDumbbell size={30} />
+            <BiIcons.BiDumbbell className="icon" />
             <span>Trainings</span>
           </button>
           <button onClick={handleAllTournamentsClick}>
-            <FaIcons.FaTrophy size={30} />
+            <FaIcons.FaTrophy className="icon" />
             <span>Tournaments</span>
           </button>
           <button onClick={handleAllSocialsClick}>
-            <GiIcons.GiPartyPopper size={30} />
+            <GiIcons.GiPartyPopper className="icon" />
             <span>Socials</span>
           </button>
         </div>
@@ -276,13 +297,13 @@ export default function SingleTeamPage(props: Props) {
                       <div css={eventHeader}>
                         <div>
                           {event.eventType === 'Training' ? (
-                            <BiIcons.BiDumbbell size={30} />
+                            <BiIcons.BiDumbbell className="icon" />
                           ) : undefined}
                           {event.eventType === 'Tournament' ? (
-                            <FaIcons.FaTrophy size={30} />
+                            <FaIcons.FaTrophy className="icon" />
                           ) : undefined}
                           {event.eventType === 'Social' ? (
-                            <GiIcons.GiPartyPopper size={30} />
+                            <GiIcons.GiPartyPopper className="icon" />
                           ) : undefined}
                           <h2>{event.eventType}</h2>
                         </div>
@@ -334,7 +355,7 @@ export default function SingleTeamPage(props: Props) {
                               }
                             }}
                           >
-                            <BsIcons.BsTrashFill size={20} />
+                            <BsIcons.BsTrashFill className="trashicon" />
                           </button>
                         ) : undefined}
                       </div>
@@ -342,7 +363,7 @@ export default function SingleTeamPage(props: Props) {
                       <div css={eventBody}>
                         <div css={eventInfos}>
                           <div css={eventDate}>
-                            <AiIcons.AiOutlineCalendar size={30} />
+                            <AiIcons.AiOutlineCalendar className="icon" />
                             {event.formattedStartDay ===
                             event.formattedEndDay ? (
                               <h3>{event.formattedStartDay}</h3>
@@ -355,7 +376,7 @@ export default function SingleTeamPage(props: Props) {
                           </div>
 
                           <div css={eventSubBody}>
-                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <AiIcons.AiOutlineClockCircle className="icon" />
                             <p>
                               <span>MEETING: </span>
                               {event.meetingTime}
@@ -363,7 +384,7 @@ export default function SingleTeamPage(props: Props) {
                           </div>
 
                           <div css={eventSubBody}>
-                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <AiIcons.AiOutlineClockCircle className="icon" />
                             <p>
                               <span>START:</span>
                               {event.startTime}
@@ -371,7 +392,7 @@ export default function SingleTeamPage(props: Props) {
                           </div>
 
                           <div css={eventSubBody}>
-                            <AiIcons.AiOutlineClockCircle size={30} />
+                            <AiIcons.AiOutlineClockCircle className="icon" />
                             <p>
                               <span>END:</span>
                               {event.endTime}
@@ -379,7 +400,7 @@ export default function SingleTeamPage(props: Props) {
                           </div>
 
                           <div css={eventSubBody}>
-                            <GrIcons.GrLocation size={30} />
+                            <GrIcons.GrLocation className="icon" />
                             <p>
                               <span>LOCATION:</span>
                               {event.eventLocation}
@@ -389,7 +410,7 @@ export default function SingleTeamPage(props: Props) {
 
                         <div css={eventMessage}>
                           <div>
-                            <BiIcons.BiMessageDetail size={30} />
+                            <BiIcons.BiMessageDetail className="icon" />
                             <h3>Message from your coach</h3>
                           </div>
                           <p>{event.eventDescription}</p>

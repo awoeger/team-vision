@@ -130,7 +130,7 @@ export default function TeamMembers(props: Props) {
         <div css={teamMembersContainer}>
           <h1>Team Members</h1>
           <h2>
-            <BsIcons.BsPersonCheckFill size={25} />{' '}
+            <BsIcons.BsPersonCheckFill className="icon"={25} />{' '}
             <span>
               Accepted Members -{' '}
               {members.filter((member) => member.statusId === 1).length}
@@ -202,14 +202,14 @@ export default function TeamMembers(props: Props) {
                         setMembers(declineMember());
                       }}
                     >
-                      <BsIcons.BsTrashFill size={20} />
+                      <BsIcons.BsTrashFill className="icon"={20} />
                     </button>
                   </tr>
                 );
               })}
           </table>
           <h2>
-            <BsIcons.BsFillPersonFill size={25} />{' '}
+            <BsIcons.BsFillPersonFill className="icon"={25} />{' '}
             <span>
               Awaiting Players -{' '}
               {members.filter((member) => member.statusId === 3).length}
@@ -279,7 +279,7 @@ export default function TeamMembers(props: Props) {
                               setMembers(acceptMember());
                             }}
                           >
-                            <FaIcons.FaCheck size={20} />
+                            <FaIcons.FaCheck className="icon"={20} />
                           </button>
                           <button
                             css={declineButton}
@@ -323,7 +323,7 @@ export default function TeamMembers(props: Props) {
                               setMembers(declineMember());
                             }}
                           >
-                            <BsIcons.BsTrashFill size={20} />
+                            <BsIcons.BsTrashFill className="icon"={20} />
                           </button>
                         </div>
                       </td>

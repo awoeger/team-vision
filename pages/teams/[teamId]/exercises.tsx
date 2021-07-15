@@ -198,22 +198,22 @@ export default function Exercises(props: Props) {
           <button onClick={handleAllExercisesClick}>All Exercises</button>
 
           <button onClick={handleAllArmExercisesClick}>
-            <GiIcons.GiBiceps size={30} />
+            <GiIcons.GiBiceps className="icon"={30} />
             <span>Arms</span>
           </button>
 
           <button onClick={handleAllCoreExercisesClick}>
-            <BiIcons.BiBody size={30} />
+            <BiIcons.BiBody className="icon"={30} />
             <span>Core</span>
           </button>
 
           <button onClick={handleAllLegsExercisesClick}>
-            <GiIcons.GiLeg size={30} />
+            <GiIcons.GiLeg className="icon"={30} />
             <span>Legs</span>
           </button>
 
           <button onClick={handleAllAgilityExercisesClick}>
-            <FaIcons.FaRunning size={30} />
+            <FaIcons.FaRunning className="icon"={30} />
             <span>Agility</span>
           </button>
         </div>
@@ -224,16 +224,16 @@ export default function Exercises(props: Props) {
                 <div css={exerciseHeader}>
                   {/* <GiIcons.GiBiceps size={30} /> */}
                   {exercise.bodypart === 'Arms' ? (
-                    <GiIcons.GiBiceps size={30} />
+                    <GiIcons.GiBiceps className="icon"={30} />
                   ) : undefined}
                   {exercise.bodypart === 'Legs' ? (
-                    <GiIcons.GiLeg size={30} />
+                    <GiIcons.GiLeg className="icon"={30} />
                   ) : undefined}
                   {exercise.bodypart === 'Core' ? (
-                    <BiIcons.BiBody size={30} />
+                    <BiIcons.BiBody className="icon"={30} />
                   ) : undefined}
                   {exercise.bodypart === 'Agility' ? (
-                    <FaIcons.FaRunning size={30} />
+                    <FaIcons.FaRunning className="icon"={30} />
                   ) : undefined}
                   <h2>{exercise.bodypart}</h2>
                 </div>
@@ -243,7 +243,7 @@ export default function Exercises(props: Props) {
                     <h3>{exercise.title}</h3>
 
                     <p>
-                      <BiIcons.BiDumbbell size={30} />
+                      <BiIcons.BiDumbbell className="icon"={30} />
                       <span>Equipment: </span> <span>{exercise.equipment}</span>
                     </p>
                   </div>

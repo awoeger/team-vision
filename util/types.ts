@@ -73,3 +73,26 @@ export type PlayerTeam = {
 export type DeletedTeamResponse = {
   id: Number;
 };
+
+// Types for team profile page
+
+export type DeleteEventRequest = {
+  id: Number;
+};
+
+export type TeamName = {
+  teamName: string;
+};
+
+export type Event = {
+  id: number;
+  eventType: string;
+  teamId: number;
+  formattedStartDay: string;
+  formattedEndDay: string;
+  startTime: string;
+  endTime: string;
+  meetingTime: string;
+  eventLocation: string;
+  eventDescription: string;
+};

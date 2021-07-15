@@ -20,6 +20,11 @@ const navText = css`
   margin-left: 50px;
   list-style: none;
 
+  .icon {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
   a {
     text-decoration: none;
     color: ${darkBlue};
@@ -43,6 +48,12 @@ const navText = css`
       width: 100%;
     }
   }
+
+  @media (max-width: 768px) {
+    a {
+      font-size: 0.7em;
+    }
+  }
 `;
 
 const navMenuItems = css`
@@ -58,7 +69,7 @@ export default function SubMenu(props) {
       <nav css={navMenuActive}>
         <ul css={navMenuItems}>
           <li css={navText}>
-            <AiIcons.AiFillHome />
+            <AiIcons.AiFillHome className="icon" />
             <Link href={`/teams/${props.teamId}`}>
               <a>TEAM BASE</a>
             </Link>
@@ -66,14 +77,14 @@ export default function SubMenu(props) {
           {props.userRoleId === 1 ? (
             <>
               <li css={navText}>
-                <IoIcons.IoMdPeople />
+                <IoIcons.IoMdPeople className="icon" />
                 <Link href={`/teams/${props.teamId}/team-members`}>
                   <a>TEAM MEMBERS</a>
                 </Link>
               </li>
 
               <li css={navText}>
-                <AiIcons.AiOutlineCalendar />
+                <AiIcons.AiOutlineCalendar className="icon" />
                 <Link href={`/teams/${props.teamId}/create-new-event`}>
                   <a>CREATE EVENT</a>
                 </Link>
@@ -82,7 +93,7 @@ export default function SubMenu(props) {
           ) : undefined}
 
           <li css={navText}>
-            <FaIcons.FaRunning />
+            <FaIcons.FaRunning className="icon" />
             <Link href={`/teams/${props.teamId}/exercises`}>
               <a>EXERCISES</a>
             </Link>

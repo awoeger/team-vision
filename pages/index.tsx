@@ -241,7 +241,7 @@ export default function Home(props: Props) {
                 <a>
                   <IoIcons.IoIosArrowDown
                     style={{ color: 'white' }}
-                    size={40}
+                    className="icon"={40}
                     css={arrow}
                   />
                 </a>
@@ -300,7 +300,7 @@ export default function Home(props: Props) {
           <div css={gridContainer}>
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <RiIcons.RiTeamLine size={30} />
+                <RiIcons.RiTeamLine className="icon"={30} />
                 <h5>CREATE TEAMS</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -313,7 +313,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <FiIcons.FiUserCheck size={30} />
+                <FiIcons.FiUserCheck className="icon"={30} />
                 <h5>CHECK APPLICANTS</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -326,7 +326,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <AiIcons.AiOutlineCalendar size={30} />
+                <AiIcons.AiOutlineCalendar className="icon"={30} />
                 <h5>EVENT MANAGEMENT</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -341,7 +341,7 @@ export default function Home(props: Props) {
           <div css={gridContainer}>
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <CgIcons.CgProfile size={30} />
+                <CgIcons.CgProfile className="icon"={30} />
                 <h5>TEAM SIGN UP</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -354,7 +354,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <AiIcons.AiOutlineCalendar size={30} />
+                <AiIcons.AiOutlineCalendar className="icon"={30} />
                 <h5>EVENT SIGN UP</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -367,7 +367,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <BiIcons.BiDumbbell size={30} />
+                <BiIcons.BiDumbbell className="icon"={30} />
                 <h5>EXERCISES</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -386,7 +386,7 @@ export default function Home(props: Props) {
             <div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillHome size={30} />
+                  <AiIcons.AiFillHome className="icon"={30} />
                   <h5>Address</h5>
                 </div>
                 <p>Team Vision GmbH</p>
@@ -396,14 +396,14 @@ export default function Home(props: Props) {
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillMail size={30} />
+                  <AiIcons.AiFillMail className="icon"={30} />
                   <h5>Email</h5>
                 </div>
                 <p>team@vision.com</p>
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillPhone size={30} />
+                  <AiIcons.AiFillPhone className="icon"={30} />
                   <h5>Phone</h5>
                 </div>
                 <p>0664/ 555 55 44 33</p>
