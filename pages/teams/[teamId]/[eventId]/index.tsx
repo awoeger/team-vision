@@ -246,7 +246,7 @@ export default function SingleEventPage(props: Props) {
                         );
                       }}
                     >
-                      <FaIcons.FaThumbsUp className="icon"={20} />
+                      <FaIcons.FaThumbsUp className="icon" />
                     </button>
                     <button
                       css={maybeButton}
@@ -280,7 +280,7 @@ export default function SingleEventPage(props: Props) {
                         );
                       }}
                     >
-                      <FaIcons.FaQuestion className="icon"={20} />
+                      <FaIcons.FaQuestion className="icon" />
                     </button>
                     <button
                       css={noButton}
@@ -314,7 +314,7 @@ export default function SingleEventPage(props: Props) {
                         );
                       }}
                     >
-                      <FaIcons.FaThumbsDown className="icon"={20} />
+                      <FaIcons.FaThumbsDown className="icon" />
                     </button>
                   </div>
                 </div>

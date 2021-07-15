@@ -15,8 +15,6 @@ import {
 } from '../../../util/sharedStyles';
 import { RegisterResponse } from '../../api/register';
 
-// TODO: Make two input fields closer together (start date and end date)
-
 type Props = {
   username: String;
   teamId: Number;
@@ -75,11 +73,37 @@ export const formContainer = css`
       }
     }
   }
+
+  @media (max-width: 1024px) {
+    form {
+      width: 60%;
+      margin-right: 100px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+
+    form {
+      width: 70%;
+      margin-top: 40px;
+    }
+  }
 `;
 
 const neighborInputs = css`
   display: flex;
-  justify-content: space-between;
+
+  .start,
+  .mtime {
+    width: 90%;
+    margin-right: 20px;
+  }
+
+  .end,
+  .time {
+    width: 100%;
+  }
 `;
 
 const imageContainer = css`
@@ -87,6 +111,17 @@ const imageContainer = css`
   justify-content: center;
   padding-left: 15px;
   margin-right: 50px;
+
+  @media (max-width: 1024px) {
+    width: 90%;
+    padding: 0;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    width: 40%;
+    margin-top: 30px;
+  }
 `;
 
 export default function CreateEvent(props: Props) {
@@ -167,7 +202,7 @@ export default function CreateEvent(props: Props) {
             </label>
 
             <div css={neighborInputs}>
-              <label>
+              <label className="start">
                 Start Date
                 <input
                   required
@@ -180,7 +215,7 @@ export default function CreateEvent(props: Props) {
                 />
               </label>
 
-              <label>
+              <label className="end">
                 End Date
                 <input
                   required
@@ -195,7 +230,7 @@ export default function CreateEvent(props: Props) {
             </div>
 
             <div css={neighborInputs}>
-              <label>
+              <label className="mtime">
                 Meeting Time
                 <input
                   required
@@ -207,7 +242,7 @@ export default function CreateEvent(props: Props) {
                 />
               </label>
 
-              <label>
+              <label className="mtime">
                 Start Time
                 <input
                   required
@@ -219,7 +254,7 @@ export default function CreateEvent(props: Props) {
                 />
               </label>
 
-              <label>
+              <label className="time">
                 End Time
                 <input
                   required
