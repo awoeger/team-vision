@@ -85,6 +85,18 @@ const teamMembersContainer = css`
       box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px,
         rgba(0, 0, 0, 0.22) 0px 5px 5px;
     }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      .icon {
+        width: 15px;
+        height: 15px;
+      }
+    }
   }
 `;
 
@@ -130,7 +142,7 @@ export default function TeamMembers(props: Props) {
         <div css={teamMembersContainer}>
           <h1>Team Members</h1>
           <h2>
-            <BsIcons.BsPersonCheckFill className="icon"={25} />{' '}
+            <BsIcons.BsPersonCheckFill className="icon" />{' '}
             <span>
               Accepted Members -{' '}
               {members.filter((member) => member.statusId === 1).length}
@@ -202,14 +214,14 @@ export default function TeamMembers(props: Props) {
                         setMembers(declineMember());
                       }}
                     >
-                      <BsIcons.BsTrashFill className="icon"={20} />
+                      <BsIcons.BsTrashFill className="icon" />
                     </button>
                   </tr>
                 );
               })}
           </table>
           <h2>
-            <BsIcons.BsFillPersonFill className="icon"={25} />{' '}
+            <BsIcons.BsFillPersonFill className="icon" />{' '}
             <span>
               Awaiting Players -{' '}
               {members.filter((member) => member.statusId === 3).length}
@@ -279,7 +291,7 @@ export default function TeamMembers(props: Props) {
                               setMembers(acceptMember());
                             }}
                           >
-                            <FaIcons.FaCheck className="icon"={20} />
+                            <FaIcons.FaCheck className="icon" />
                           </button>
                           <button
                             css={declineButton}
@@ -323,7 +335,7 @@ export default function TeamMembers(props: Props) {
                               setMembers(declineMember());
                             }}
                           >
-                            <BsIcons.BsTrashFill className="icon"={20} />
+                            <BsIcons.BsTrashFill className="icon" />
                           </button>
                         </div>
                       </td>
