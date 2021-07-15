@@ -52,3 +52,24 @@ export type NewEvent = {
   eventLocation: string;
   eventDescription: string;
 };
+
+// Types for profile page
+export type CoachTeam = {
+  id: Number;
+  teamName: String;
+  sportType: String;
+  founded: String;
+  coachUserId: Number;
+};
+
+export type PlayerTeam = {
+  id: Number;
+  teamName: String;
+  sportType: String;
+  founded: String;
+  statusId: Number;
+};
+
+export type DeletedTeamResponse = {
+  id: Number;
+};

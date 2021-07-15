@@ -14,7 +14,7 @@ export const mainFirstSubContainer = css`
   border-right: 2px solid ${darkBlue};
   text-align: center;
 
-  .whistleIcon {
+  .icon {
     background: ${darkBlue};
     border-radius: 200px;
     padding: 20px;
@@ -76,7 +76,7 @@ export default function CoachProfile(props) {
   return (
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
-      <GiIcons.GiWhistle className="whistleIcon" />
+      <GiIcons.GiWhistle className="icon" />
       <h2>Welcome Coach</h2>
       <h3>
         {props.user.userFirstName} {props.user.userLastName}

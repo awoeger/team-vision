@@ -20,7 +20,12 @@ import {
   normalText,
   orange,
 } from '../../util/sharedStyles';
-import { ApplicationError, User } from '../../util/types';
+import {
+  ApplicationError,
+  CoachTeam,
+  PlayerTeam,
+  User,
+} from '../../util/types';
 import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
 type Props = {
@@ -29,26 +34,6 @@ type Props = {
   username?: String;
   coachTeams: CoachTeam[];
   playerTeams: PlayerTeam[];
-};
-
-type CoachTeam = {
-  id: Number;
-  teamName: String;
-  sportType: String;
-  founded: String;
-  coachUserId: Number;
-};
-
-type PlayerTeam = {
-  id: Number;
-  teamName: String;
-  sportType: String;
-  founded: String;
-  statusId: Number;
-};
-
-type DeletedTeamResponse = {
-  id: Number;
 };
 
 const error = css`
@@ -382,37 +367,40 @@ export default function SingleUserProfile(props: Props) {
             </div>
 
             {/* Player awaiting */}
-            <div css={mainSecondSubContainer}>
-              <h4>PENDING REQUESTS</h4>
+            {props.playerTeams.filter((team) => team.statusId === 3).length >
+            0 ? (
+              <div css={mainSecondSubContainer}>
+                <h4>PENDING REQUESTS</h4>
 
-              <div css={gridContainer}>
-                {props.playerTeams
-                  .filter((team) => team.statusId === 3)
-                  .map((playerTeam) => {
-                    return (
-                      <div key={playerTeam.id}>
-                        <div css={teamHeader}>
-                          <h3>{playerTeam.teamName}</h3>
-                        </div>
-                        <div css={teamInfoBox}>
-                          <div>
-                            <GiIcons.GiVolleyballBall className="icons" />
-                            <p>
-                              <span>Sport type:</span> {playerTeam.sportType}
-                            </p>
+                <div css={gridContainer}>
+                  {props.playerTeams
+                    .filter((team) => team.statusId === 3)
+                    .map((playerTeam) => {
+                      return (
+                        <div key={playerTeam.id}>
+                          <div css={teamHeader}>
+                            <h3>{playerTeam.teamName}</h3>
                           </div>
-                          <div>
-                            <MdIcons.MdToday className="icons" />
-                            <p>
-                              <span>Founded at:</span> {playerTeam.founded}
-                            </p>
+                          <div css={teamInfoBox}>
+                            <div>
+                              <GiIcons.GiVolleyballBall className="icons" />
+                              <p>
+                                <span>Sport type:</span> {playerTeam.sportType}
+                              </p>
+                            </div>
+                            <div>
+                              <MdIcons.MdToday className="icons" />
+                              <p>
+                                <span>Founded at:</span> {playerTeam.founded}
+                              </p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+                </div>
               </div>
-            </div>
+            ) : undefined}
           </div>
         </div>
       )}

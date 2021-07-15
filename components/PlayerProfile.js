@@ -12,15 +12,7 @@ export default function PlayerProfile(props) {
   return (
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
-      <FaIcons.FaRunning
-        style={{
-          color: 'white',
-          background: '#1d2a48',
-          borderRadius: '200px',
-          padding: '20px',
-        }}
-        size={100}
-      />
+      <FaIcons.FaRunning className="icon" />
       <h2>Welcome Player</h2>
       <h3>
         {props.user.userFirstName} {props.user.userLastName}
