@@ -13,6 +13,14 @@ const mainContainer = css`
   a {
     margin: 40px;
   }
+
+  @media (max-width: 1024px) {
+    margin-top: 50px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 150px;
+  }
 `;
 
 export default function NotFound() {

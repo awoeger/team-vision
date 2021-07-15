@@ -1,4 +1,3 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
