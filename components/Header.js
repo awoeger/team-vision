@@ -1,12 +1,14 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { darkBlue, largeText, normalText } from '../util/sharedStyles';
+import HeaderBurger from './HeaderBurger';
+import HeaderLeftNav from './HeaderLeftNav';
 
 const headerContainer = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 35px 0;
   width: 100%;
   background-color: ${darkBlue};
 
@@ -39,38 +41,32 @@ const headerContainer = css`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     a {
-      font-size: 17px;
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row-reverse;
+    a {
+      font-size: 20px;
+      padding: 20px;
     }
   }
 `;
 
 export default function Header(props) {
+  const [open, setOpen] = useState(false);
+
   return (
     <div css={headerContainer}>
-      <div>
-        <Link href="/">
-          <a>
-            <span>Home</span>
-          </a>
-        </Link>
-        <Link href="/#about">
-          <a>
-            <span>About</span>
-          </a>
-        </Link>
-        <Link href="/#guide">
-          <a>
-            <span>Guide</span>
-          </a>
-        </Link>
-        <Link href="/#contact">
-          <a>
-            <span>Contact</span>
-          </a>
-        </Link>
-      </div>
+      <HeaderLeftNav
+        shoppingCart={props.shoppingCart}
+        setShoppingCart={props.setShoppingCart}
+        open={open}
+      />
+      <HeaderBurger open={open} setOpen={setOpen} />
       <div>
         {props.username ? (
           <Link href={`/profiles/${props.username}`}>

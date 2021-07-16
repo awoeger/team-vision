@@ -84,6 +84,10 @@ const teamMembersContainer = css`
       border: none;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px,
         rgba(0, 0, 0, 0.22) 0px 5px 5px;
+
+      :active {
+        transform: translate(0, 3px);
+      }
     }
 
     .icon {
@@ -176,42 +180,48 @@ export default function TeamMembers(props: Props) {
                       onClick={async (event) => {
                         event.preventDefault();
 
-                        const response = await fetch(
-                          `/api/teams-by-team-id/team-members`,
-                          {
-                            method: 'DELETE',
-                            headers: {
-                              'Content-Type': 'application/json',
+                        if (
+                          window.confirm(
+                            'Are you sure you want to remove this player from your team?',
+                          )
+                        ) {
+                          const response = await fetch(
+                            `/api/teams-by-team-id/team-members`,
+                            {
+                              method: 'DELETE',
+                              headers: {
+                                'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({
+                                id: member.id,
+                              }),
                             },
-                            body: JSON.stringify({
-                              id: member.id,
-                            }),
-                          },
-                        );
-
-                        const json =
-                          (await response.json()) as DeclinedPlayerRequestResponse;
-
-                        // Delete Member on the frontend on decline button click
-                        const declineMember = () => {
-                          // create a copy of the allmembers array
-                          const newMemberArray = [...members];
-                          // find the person.id that has been clicked on
-                          const deletedMember = newMemberArray.find(
-                            (m) => m.id === member.id,
                           );
-                          // get the index of the person in the copy of the array
-                          const deletedMemberIndex =
-                            newMemberArray.indexOf(deletedMember);
-                          // splice the index out of the array
-                          if (deletedMember) {
-                            newMemberArray.splice(deletedMemberIndex, 1);
-                          }
 
-                          return newMemberArray;
-                        };
-                        // set the state to the result of the function
-                        setMembers(declineMember());
+                          const json =
+                            (await response.json()) as DeclinedPlayerRequestResponse;
+
+                          // Delete Member on the frontend on decline button click
+                          const declineMember = () => {
+                            // create a copy of the allmembers array
+                            const newMemberArray = [...members];
+                            // find the person.id that has been clicked on
+                            const deletedMember = newMemberArray.find(
+                              (m) => m.id === member.id,
+                            );
+                            // get the index of the person in the copy of the array
+                            const deletedMemberIndex =
+                              newMemberArray.indexOf(deletedMember);
+                            // splice the index out of the array
+                            if (deletedMember) {
+                              newMemberArray.splice(deletedMemberIndex, 1);
+                            }
+
+                            return newMemberArray;
+                          };
+                          // set the state to the result of the function
+                          setMembers(declineMember());
+                        }
                       }}
                     >
                       <BsIcons.BsTrashFill className="icon" />
@@ -297,42 +307,52 @@ export default function TeamMembers(props: Props) {
                             css={declineButton}
                             onClick={async (event) => {
                               event.preventDefault();
-                              const response = await fetch(
-                                `/api/teams-by-team-id/team-members`,
-                                {
-                                  method: 'DELETE',
-                                  headers: {
-                                    'Content-Type': 'application/json',
+
+                              if (
+                                window.confirm(
+                                  'Are you sure you want to decline the request from this player?',
+                                )
+                              ) {
+                                const response = await fetch(
+                                  `/api/teams-by-team-id/team-members`,
+                                  {
+                                    method: 'DELETE',
+                                    headers: {
+                                      'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                      id: member.id,
+                                    }),
                                   },
-                                  body: JSON.stringify({
-                                    id: member.id,
-                                  }),
-                                },
-                              );
-
-                              const json =
-                                (await response.json()) as DeclinedPlayerRequestResponse;
-
-                              // Delete Member on the frontend on decline button click
-                              const declineMember = () => {
-                                // create a copy of the allmembers array
-                                const newMemberArray = [...members];
-                                // find the person.id that has been clicked on
-                                const deletedMember = newMemberArray.find(
-                                  (m) => m.id === member.id,
                                 );
-                                // get the index of the person in the copy of the array
-                                const deletedMemberIndex =
-                                  newMemberArray.indexOf(deletedMember);
-                                // splice the index out of the array
-                                if (deletedMember) {
-                                  newMemberArray.splice(deletedMemberIndex, 1);
-                                }
 
-                                return newMemberArray;
-                              };
-                              // set the state to the result of the function
-                              setMembers(declineMember());
+                                const json =
+                                  (await response.json()) as DeclinedPlayerRequestResponse;
+
+                                // Delete Member on the frontend on decline button click
+                                const declineMember = () => {
+                                  // create a copy of the allmembers array
+                                  const newMemberArray = [...members];
+                                  // find the person.id that has been clicked on
+                                  const deletedMember = newMemberArray.find(
+                                    (m) => m.id === member.id,
+                                  );
+                                  // get the index of the person in the copy of the array
+                                  const deletedMemberIndex =
+                                    newMemberArray.indexOf(deletedMember);
+                                  // splice the index out of the array
+                                  if (deletedMember) {
+                                    newMemberArray.splice(
+                                      deletedMemberIndex,
+                                      1,
+                                    );
+                                  }
+
+                                  return newMemberArray;
+                                };
+                                // set the state to the result of the function
+                                setMembers(declineMember());
+                              }
                             }}
                           >
                             <BsIcons.BsTrashFill className="icon" />

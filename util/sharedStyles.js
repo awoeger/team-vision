@@ -27,6 +27,10 @@ export const button = css`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
 
+  :active {
+    transform: translate(0, 3px);
+  }
+
   @media (max-width: 768px) {
     padding: 8px;
     font-size: 0.8em;
@@ -46,14 +50,35 @@ export const link = css`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
 
-  :hover {
-    color: white;
-  }
-
   @media (max-width: 768px) {
     padding: 8px;
     font-size: 0.8em;
   }
+`;
+
+// Trash Button on team and events
+
+export const trashButton = css`
+  padding: 10px;
+  color: ${orange};
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 90%;
+  border: none;
+  cursor: pointer;
+
+  :hover {
+    background: white;
+  }
+
+  :active {
+    transform: translate(0, 3px);
+  }
+
+  .btn {
+    width: 20px;
+    height: 20px;
+  }
+}
 `;
 
 // Heading for Event and Exercise Page
@@ -93,6 +118,10 @@ export const filterContainer = css`
 
     :hover {
       background: rgb(28 154 150 / 50%);
+    }
+
+    :active {
+      transform: translate(0, 3px);
     }
   }
 

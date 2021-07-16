@@ -24,6 +24,7 @@ import {
   link,
   normalText,
   orange,
+  trashButton,
 } from '../../../util/sharedStyles';
 import { DeleteEventRequest, Event, TeamName } from '../../../util/types';
 
@@ -96,23 +97,9 @@ const eventHeader = css`
     }
   }
 
-  button {
-    padding: 10px;
-    color: ${orange};
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 90%;
-    border: none;
-    cursor: pointer;
-  }
-
   .icon {
     min-width: 30px;
     height: 30px;
-  }
-
-  .trashicon {
-    min-width: 20px;
-    height: 20px;
   }
 `;
 
@@ -196,6 +183,7 @@ const eventMessage = css`
       min-width: 20px;
       height: 20px;
     }
+  }
 `;
 
 const noEventsContainer = css`
@@ -309,6 +297,7 @@ export default function SingleTeamPage(props: Props) {
                         </div>
                         {props.userRoleId === 1 ? (
                           <button
+                            css={trashButton}
                             onClick={async (singleEvent) => {
                               singleEvent.preventDefault();
 
@@ -355,7 +344,7 @@ export default function SingleTeamPage(props: Props) {
                               }
                             }}
                           >
-                            <BsIcons.BsTrashFill className="trashicon" />
+                            <BsIcons.BsTrashFill className="btn" />
                           </button>
                         ) : undefined}
                       </div>

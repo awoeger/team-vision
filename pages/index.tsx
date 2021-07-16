@@ -6,7 +6,6 @@ import * as AiIcons from 'react-icons/ai';
 import * as BiIcons from 'react-icons/bi';
 import * as CgIcons from 'react-icons/cg';
 import * as FiIcons from 'react-icons/fi';
-import * as IoIcons from 'react-icons/io';
 import * as RiIcons from 'react-icons/ri';
 import Layout from '../components/Layout';
 import { darkBlue, largeText } from '../util/sharedStyles';
@@ -50,11 +49,6 @@ const firstSection = css`
   h2 {
     color: white;
   }
-`;
-
-const arrow = css`
-  position: absolute;
-  top: 850px;
 `;
 
 const aboutSubSection = css`
@@ -130,6 +124,11 @@ const headersForFunctionalites = css`
     font-size: 20px;
     margin-block-start: 0;
     margin-block-end: 0;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
   }
 `;
 
@@ -236,17 +235,6 @@ export default function Home(props: Props) {
                 <h2>Plan smarter, not harder</h2>
               </div>
             </div>
-            <div>
-              <Link href="/#about">
-                <a>
-                  <IoIcons.IoIosArrowDown
-                    style={{ color: 'white' }}
-                    className="icon"={40}
-                    css={arrow}
-                  />
-                </a>
-              </Link>
-            </div>
           </div>
         </section>
 
@@ -300,7 +288,7 @@ export default function Home(props: Props) {
           <div css={gridContainer}>
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <RiIcons.RiTeamLine className="icon"={30} />
+                <RiIcons.RiTeamLine className="icon" />
                 <h5>CREATE TEAMS</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -313,7 +301,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <FiIcons.FiUserCheck className="icon"={30} />
+                <FiIcons.FiUserCheck className="icon" />
                 <h5>CHECK APPLICANTS</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -326,7 +314,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <AiIcons.AiOutlineCalendar className="icon"={30} />
+                <AiIcons.AiOutlineCalendar className="icon" />
                 <h5>EVENT MANAGEMENT</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -341,7 +329,7 @@ export default function Home(props: Props) {
           <div css={gridContainer}>
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <CgIcons.CgProfile className="icon"={30} />
+                <CgIcons.CgProfile className="icon" />
                 <h5>TEAM SIGN UP</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -354,7 +342,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <AiIcons.AiOutlineCalendar className="icon"={30} />
+                <AiIcons.AiOutlineCalendar className="icon" />
                 <h5>EVENT SIGN UP</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -367,7 +355,7 @@ export default function Home(props: Props) {
 
             <div css={gridSubcontainer}>
               <div css={headersForFunctionalites}>
-                <BiIcons.BiDumbbell className="icon"={30} />
+                <BiIcons.BiDumbbell className="icon" />
                 <h5>EXERCISES</h5>
               </div>
               <div css={textBoxforFunctionalities}>
@@ -386,7 +374,7 @@ export default function Home(props: Props) {
             <div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillHome className="icon"={30} />
+                  <AiIcons.AiFillHome className="icon" />
                   <h5>Address</h5>
                 </div>
                 <p>Team Vision GmbH</p>
@@ -396,14 +384,14 @@ export default function Home(props: Props) {
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillMail className="icon"={30} />
+                  <AiIcons.AiFillMail className="icon" />
                   <h5>Email</h5>
                 </div>
                 <p>team@vision.com</p>
               </div>
               <div>
                 <div css={contactInfoHeader}>
-                  <AiIcons.AiFillPhone className="icon"={30} />
+                  <AiIcons.AiFillPhone className="icon" />
                   <h5>Phone</h5>
                 </div>
                 <p>0664/ 555 55 44 33</p>

@@ -19,10 +19,12 @@ import {
   link,
   normalText,
   orange,
+  trashButton,
 } from '../../util/sharedStyles';
 import {
   ApplicationError,
   CoachTeam,
+  DeletedTeamResponse,
   PlayerTeam,
   User,
 } from '../../util/types';
@@ -126,20 +128,6 @@ const teamHeader = css`
     margin-left: 10px;
     text-transform: uppercase;
     margin: 0 0 0 20px;
-  }
-
-  button {
-    padding: 10px;
-    color: ${orange};
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 90%;
-    border: none;
-    cursor: pointer;
-
-    .btn {
-      width: 20px;
-      height: 20px;
-    }
   }
 
   @media (max-width: 1024px) {
@@ -249,6 +237,7 @@ export default function SingleUserProfile(props: Props) {
                     <div css={teamHeader}>
                       <h3>{coachTeam.teamName}</h3>
                       <button
+                        css={trashButton}
                         onClick={async (singleTeam) => {
                           singleTeam.preventDefault();
 

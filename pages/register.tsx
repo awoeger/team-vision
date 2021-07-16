@@ -9,7 +9,6 @@ import { generateCsrfSecretByToken } from '../util/auth';
 import { getValidSessionByToken } from '../util/database';
 import { button } from '../util/sharedStyles';
 import { RegisterResponse } from './api/register';
-// import { darkBlue, largeText, lightBlue } from '../util/sharedStyles';
 import { mainContainer, mainSubContainer } from './login';
 
 type Props = {
@@ -218,6 +217,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     await import('../util/database');
 
   // Import and initialize the `csrf` library
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   const Tokens = await (await import('csrf')).default;
   const tokens = new Tokens();
 

@@ -176,6 +176,10 @@ export const filterContainer = css`
     :hover {
       background: rgb(28 154 150 / 50%);
     }
+
+    :active {
+      transform: translate(0, 3px);
+    }
   }
 
   @media (max-width: 768px) {
