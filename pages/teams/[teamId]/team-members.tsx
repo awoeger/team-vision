@@ -84,6 +84,7 @@ const teamMembersContainer = css`
       border: none;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 5px 10px,
         rgba(0, 0, 0, 0.22) 0px 5px 5px;
+      cursor: pointer;
 
       :active {
         transform: translate(0, 3px);

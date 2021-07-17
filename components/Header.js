@@ -47,11 +47,18 @@ const headerContainer = css`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 958px) {
+    a {
+      font-size: ${normalText};
+    }
+  }
+
+  @media (max-width: 924px) {
     flex-direction: row-reverse;
     a {
       font-size: 20px;
       padding: 20px;
+      margin: 0;
     }
   }
 `;

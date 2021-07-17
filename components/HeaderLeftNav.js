@@ -20,16 +20,12 @@ const navBarContainer = (open) => css`
     text-decoration: none;
     color: white;
 
-    @media (max-width: 768px) {
+    @media (max-width: 924px) {
       padding-bottom: 16px;
-    }
-
-    :hover {
-      font-weight: 400;
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 924px) {
     flex-flow: column nowrap;
     background-color: ${darkBlue};
     position: fixed;
