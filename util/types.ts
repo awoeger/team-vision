@@ -55,19 +55,19 @@ export type NewEvent = {
 
 // Types for profile page
 export type CoachTeam = {
-  id: Number;
-  teamName: String;
-  sportType: String;
-  founded: String;
-  coachUserId: Number;
+  id: number;
+  teamName: string;
+  sportType: string;
+  founded: string;
+  coachUserId: number;
 };
 
 export type PlayerTeam = {
-  id: Number;
-  teamName: String;
-  sportType: String;
-  founded: String;
-  statusId: Number;
+  id: number;
+  teamName: string;
+  sportType: string;
+  founded: string;
+  statusId: number;
 };
 
 export type DeletedTeamResponse = {
@@ -100,9 +100,69 @@ export type Event = {
 // Types for exercise page
 
 export type Exercise = {
-  id: Number;
-  bodypart: String;
-  title: String;
-  equipment: String;
-  video: String;
+  id: number;
+  bodypart: string;
+  title: string;
+  equipment: string;
+  video: string;
+};
+
+// Types Team Member Page
+export type Member = {
+  id: number;
+  experienceLevel: string;
+  playerMessage: string;
+  playingSince: string;
+  positionOnTeam: string;
+  statusId: number | string;
+  userFirstName: string;
+  userLastName: string;
+};
+
+export type UpdateRequestResponse = {
+  statusId: number;
+};
+
+export type DeclinedPlayerRequestResponse = {
+  id: number;
+};
+
+// Types Individual Event Page
+export type Response = {
+  usersId: number;
+  userFirstName: string;
+  userLastName: string;
+  response: string;
+};
+
+export type LoggedInUser = {
+  id: number;
+  userFirstName: string;
+  userLastName: string;
+};
+
+export type SingleEvent = {
+  id: number;
+  eventType: string;
+  teamId: number;
+  startDay: string;
+  endDay: string;
+  startTime: string;
+  endTime: string;
+  meetingTime: string;
+  eventLocation: string;
+  eventDescription: string;
+};
+
+export type UpdateEventResponse = {
+  usersId: number;
+  eventId: number;
+  response: string;
+};
+
+// Types for player-request
+
+export type TeamNameandIdforCoach = {
+  id: number;
+  teamName: string;
 };

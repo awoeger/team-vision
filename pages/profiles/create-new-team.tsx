@@ -12,8 +12,6 @@ import {
 } from '../../util/sharedStyles';
 import { RegisterResponse } from '../api/register';
 
-// TODO: Make page invisible for not logged in user
-
 type Props = {
   username: String;
 };

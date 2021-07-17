@@ -19,45 +19,19 @@ import {
   normalText,
   orange,
 } from '../../../../util/sharedStyles';
+import {
+  LoggedInUser,
+  Response,
+  SingleEvent,
+  UpdateEventResponse,
+} from '../../../../util/types';
 
 type Props = {
-  username: String;
-  event: Event[];
-  userRoleId: Number;
-  loggedinUser: User[];
+  username: string;
+  event: SingleEvent[];
+  userRoleId: number;
+  loggedinUser: LoggedInUser[];
   allResponsesForEvent: Response[];
-};
-
-type Response = {
-  usersId: number;
-  userFirstName: string;
-  userLastName: string;
-  response: string;
-};
-
-type User = {
-  id: Number;
-  userFirstName: String;
-  userLastName: String;
-};
-
-type Event = {
-  id: number;
-  eventType: string;
-  teamId: number;
-  startDay: string;
-  endDay: string;
-  startTime: string;
-  endTime: string;
-  meetingTime: string;
-  eventLocation: string;
-  eventDescription: string;
-};
-
-type UpdateEventResponse = {
-  usersId: Number;
-  eventId: Number;
-  response: String;
 };
 
 const mainContainer = css`

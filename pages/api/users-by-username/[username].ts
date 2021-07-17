@@ -12,7 +12,6 @@ export type SingleUserResponseType =
   // or it can be an error
   { user: User | null } | { errors: ApplicationError[] };
 
-// API design here is not so great, maybe don't copy
 export default async function singleUserHandler(
   req: NextApiRequest,
   res: NextApiResponse<SingleUserResponseType>,

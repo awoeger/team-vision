@@ -9,31 +9,17 @@ import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { getUserByValidSessionToken } from '../../../util/database';
 import { largeText, orange } from '../../../util/sharedStyles';
+import {
+  DeclinedPlayerRequestResponse,
+  Member,
+  UpdateRequestResponse,
+} from '../../../util/types';
 
 type Props = {
   username: String;
   teamId: Number;
   allMembers: Member[];
   userRoleId: Number;
-};
-
-type Member = {
-  id: Number;
-  experienceLevel: String;
-  playerMessage: String;
-  playingSince: String;
-  positionOnTeam: String;
-  statusId: Number | String;
-  userFirstName: String;
-  userLastName: String;
-};
-
-export type UpdateRequestResponse = {
-  statusId: number;
-};
-
-export type DeclinedPlayerRequestResponse = {
-  id: number;
 };
 
 const mainContainer = css`

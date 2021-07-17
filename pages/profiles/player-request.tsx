@@ -11,18 +11,12 @@ import {
   largeText,
   normalText,
 } from '../../util/sharedStyles';
+import { TeamNameandIdforCoach } from '../../util/types';
 import { RegisterResponse } from '../api/register';
-
-// TODO: Make page invisible for not logged in user
 
 type Props = {
   username: String;
   allTeamNamesandIdforCoach: TeamNameandIdforCoach[];
-};
-
-type TeamNameandIdforCoach = {
-  id: Number;
-  teamName: String;
 };
 
 export const formContainer = css`

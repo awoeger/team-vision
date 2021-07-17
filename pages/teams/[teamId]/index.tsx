@@ -22,8 +22,6 @@ import {
   largeText,
   lightBlue,
   link,
-  normalText,
-  orange,
   trashButton,
 } from '../../../util/sharedStyles';
 import { DeleteEventRequest, Event, TeamName } from '../../../util/types';
