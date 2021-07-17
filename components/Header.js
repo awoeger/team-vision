@@ -87,13 +87,13 @@ export default function Header(props) {
 
         {props.username ? (
           <Link href="/logout">
-            <a>
+            <a data-cy="header-logout-link">
               <span>Logout</span>
             </a>
           </Link>
         ) : (
           <Link href="/login">
-            <a>
+            <a data-cy="header-login-link">
               <span>Login</span>
             </a>
           </Link>

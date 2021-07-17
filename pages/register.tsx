@@ -91,6 +91,7 @@ export default function Register(props: Props) {
                 <label>
                   First Name
                   <input
+                    data-cy="registration-first-name"
                     required
                     maxLength={50}
                     placeholder="Karl"
@@ -106,6 +107,7 @@ export default function Register(props: Props) {
                 <label>
                   Last Name
                   <input
+                    data-cy="registration-last-name"
                     required
                     maxLength={50}
                     placeholder="Karlson"
@@ -122,6 +124,7 @@ export default function Register(props: Props) {
               <label>
                 Username
                 <input
+                  data-cy="registration-username"
                   required
                   maxLength={50}
                   placeholder="Karl_the_Lama"
@@ -137,6 +140,7 @@ export default function Register(props: Props) {
               <label>
                 Email
                 <input
+                  data-cy="registration-email"
                   required
                   maxLength={50}
                   placeholder="karl@karlson.com"
@@ -153,6 +157,7 @@ export default function Register(props: Props) {
               <label>
                 Password
                 <input
+                  data-cy="registration-password"
                   required
                   minLength={4}
                   placeholder="***********"
@@ -169,6 +174,7 @@ export default function Register(props: Props) {
               <label css={label}>
                 Role
                 <select
+                  data-cy="registration-role-coach"
                   id="role"
                   value={roleId}
                   onChange={(event) => {
@@ -181,7 +187,9 @@ export default function Register(props: Props) {
               </label>
             </div>
 
-            <button css={button}>CREATE ACCOUNT</button>
+            <button data-cy="registration-create-account" css={button}>
+              CREATE ACCOUNT
+            </button>
 
             <div style={{ color: 'red' }}>{error}</div>
           </form>

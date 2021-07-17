@@ -49,17 +49,17 @@ export default function HeaderLeftNav(props) {
         </a>
       </Link>
       <Link href="/#about">
-        <a>
+        <a data-cy="header-about-link">
           <li>About</li>
         </a>
       </Link>
       <Link href="/#guide">
-        <a>
+        <a data-cy="header-guide-link">
           <li>Guide</li>
         </a>
       </Link>
       <Link href="/#contact">
-        <a>
+        <a data-cy="header-contact-link">
           <li>Contact</li>
         </a>
       </Link>

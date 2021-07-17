@@ -135,6 +135,7 @@ export default function CreateNewTeamForm(props: Props) {
           <label htmlFor="Team name">
             Team name
             <input
+              data-cy="create-new-team-teamname"
               required
               minLength={3}
               maxLength={50}
@@ -150,6 +151,7 @@ export default function CreateNewTeamForm(props: Props) {
           <label htmlFor="Sport type">
             Sport type
             <input
+              data-cy="create-new-team-sporttype"
               required
               minLength={3}
               maxLength={50}
@@ -165,6 +167,7 @@ export default function CreateNewTeamForm(props: Props) {
           <label htmlFor="Date of establishment">
             Date of establishment
             <input
+              data-cy="create-new-team-date"
               required
               minLength={7}
               maxLength={7}

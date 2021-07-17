@@ -121,6 +121,7 @@ export default function Login(props: Props) {
               <label>
                 Username
                 <input
+                  data-cy="login-username"
                   required
                   name="username"
                   placeholder="Karl Karlson"
@@ -136,6 +137,7 @@ export default function Login(props: Props) {
               <label>
                 Password
                 <input
+                  data-cy="login-password"
                   required
                   name="password"
                   placeholder="*************"

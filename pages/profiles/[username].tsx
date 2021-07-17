@@ -18,7 +18,6 @@ import {
   largeText,
   link,
   normalText,
-  orange,
   trashButton,
 } from '../../util/sharedStyles';
 import {

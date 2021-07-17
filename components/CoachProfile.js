@@ -89,7 +89,7 @@ export default function CoachProfile(props) {
       </p>
       <div css={buttonDiv}>
         <Link href="/profiles/create-new-team">
-          <a className="button" css={link}>
+          <a data-cy="create-new-team" className="button" css={link}>
             Create new team
           </a>
         </Link>
