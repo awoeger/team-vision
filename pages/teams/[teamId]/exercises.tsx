@@ -154,15 +154,22 @@ export const filterContainer = css`
   left: 100px;
   top: 190px;
 
+  .button-active {
+    background: rgb(28 154 150 / 50%);
+  }
+
+  .button-inactive {
+    background: white;
+  }
+
   button {
     width: 100%;
     margin: 30px 0px;
     padding: 15px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     color: ${darkBlue};
-    background: white;
     border: ${lightBlue} 3px solid;
     border-radius: 10px;
     cursor: pointer;
@@ -191,6 +198,11 @@ export const filterContainer = css`
 export default function Exercises(props: Props) {
   const [allExercises, setAllExercises] = useState(props.allExercises);
   const [filteredExercises] = useState(allExercises);
+  const [allActive, setAllActive] = useState(true);
+  const [armsActive, setArmsActive] = useState(false);
+  const [legsActive, setLegsActive] = useState(false);
+  const [coreActive, setCoreActive] = useState(false);
+  const [agilityActive, setAgilityActive] = useState(false);
 
   const handleAllExercisesClick = () => {
     return setAllExercises(filteredExercises);
@@ -240,24 +252,84 @@ export default function Exercises(props: Props) {
       <h1 css={heading}>Exercises</h1>
       <div>
         <div css={filterContainer}>
-          <button onClick={handleAllExercisesClick}>All Exercises</button>
+          <button
+            className={allActive === true ? 'button-active' : 'button-inactive'}
+            onClick={() => {
+              handleAllExercisesClick();
+              setAllActive(true);
+              setArmsActive(false);
+              setCoreActive(false);
+              setLegsActive(false);
+              setAgilityActive(false);
+            }}
+          >
+            All Exercises
+          </button>
 
-          <button onClick={handleAllArmExercisesClick}>
+          <button
+            className={
+              armsActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllArmExercisesClick();
+              setAllActive(false);
+              setArmsActive(true);
+              setCoreActive(false);
+              setLegsActive(false);
+              setAgilityActive(false);
+            }}
+          >
             <GiIcons.GiBiceps className="icon" />
             <span>Arms</span>
           </button>
 
-          <button onClick={handleAllCoreExercisesClick}>
+          <button
+            className={
+              coreActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllCoreExercisesClick();
+              setAllActive(false);
+              setArmsActive(false);
+              setCoreActive(true);
+              setLegsActive(false);
+              setAgilityActive(false);
+            }}
+          >
             <BiIcons.BiBody className="icon" />
             <span>Core</span>
           </button>
 
-          <button onClick={handleAllLegsExercisesClick}>
+          <button
+            className={
+              legsActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllLegsExercisesClick();
+              setAllActive(false);
+              setArmsActive(false);
+              setCoreActive(false);
+              setLegsActive(true);
+              setAgilityActive(false);
+            }}
+          >
             <GiIcons.GiLeg className="icon" />
             <span>Legs</span>
           </button>
 
-          <button onClick={handleAllAgilityExercisesClick}>
+          <button
+            className={
+              agilityActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllAgilityExercisesClick();
+              setAllActive(false);
+              setArmsActive(false);
+              setCoreActive(false);
+              setLegsActive(false);
+              setAgilityActive(true);
+            }}
+          >
             <FaIcons.FaRunning className="icon" />
             <span>Agility</span>
           </button>

@@ -63,10 +63,9 @@ const eventsContainer = css`
 
   > div {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-template-rows: 1fr;
     gap: 50px 100px;
-    justify-items: stretch;
   }
 `;
 
@@ -209,6 +208,10 @@ const eventFooter = css`
 export default function SingleTeamPage(props: Props) {
   const [allEvents, setAllEvents] = useState(props.events);
   const [filteredEvents] = useState(allEvents);
+  const [allActive, setAllActive] = useState(true);
+  const [tournamentsActive, setTournamentActive] = useState(false);
+  const [trainingActive, setTrainingActive] = useState(false);
+  const [socialActive, setSocialActive] = useState(false);
 
   // onClick functions for filters
   const handleAllEventsClick = () => {
@@ -251,23 +254,65 @@ export default function SingleTeamPage(props: Props) {
 
       <h1 css={heading}>Welcome to the {props.teamName[0].teamName}</h1>
       <div css={mainContainer}>
-        {/* Filter buttons start */}
         <div css={filterContainer}>
-          <button onClick={handleAllEventsClick}>All events</button>
-          <button onClick={handleAllTrainingsClick}>
+          <button
+            className={allActive === true ? 'button-active' : 'button-inactive'}
+            onClick={() => {
+              handleAllEventsClick();
+              setAllActive(true);
+              setTrainingActive(false);
+              setTournamentActive(false);
+              setSocialActive(false);
+            }}
+          >
+            All events
+          </button>
+          <button
+            className={
+              trainingActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllTrainingsClick();
+              setTrainingActive(true);
+              setTournamentActive(false);
+              setSocialActive(false);
+              setAllActive(false);
+            }}
+          >
             <BiIcons.BiDumbbell className="icon" />
             <span>Trainings</span>
           </button>
-          <button onClick={handleAllTournamentsClick}>
+          <button
+            className={
+              tournamentsActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllTournamentsClick();
+              setTrainingActive(false);
+              setTournamentActive(true);
+              setSocialActive(false);
+              setAllActive(false);
+            }}
+          >
             <FaIcons.FaTrophy className="icon" />
             <span>Tournaments</span>
           </button>
-          <button onClick={handleAllSocialsClick}>
+          <button
+            className={
+              socialActive === true ? 'button-active' : 'button-inactive'
+            }
+            onClick={() => {
+              handleAllSocialsClick();
+              setTrainingActive(false);
+              setTournamentActive(false);
+              setSocialActive(true);
+              setAllActive(false);
+            }}
+          >
             <GiIcons.GiPartyPopper className="icon" />
             <span>Socials</span>
           </button>
         </div>
-        {/* Filter buttons end */}
 
         {props.events.length === 0 ? (
           <div css={noEventsContainer}>

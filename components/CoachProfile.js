@@ -1,7 +1,13 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import * as GiIcons from 'react-icons/gi';
-import { darkBlue, lightGrey, link, normalText } from '../util/sharedStyles';
+import {
+  darkBlue,
+  lightGrey,
+  link,
+  normalText,
+  orange,
+} from '../util/sharedStyles';
 
 export const mainFirstSubContainer = css`
   position: static;
@@ -15,7 +21,7 @@ export const mainFirstSubContainer = css`
   text-align: center;
 
   .icon {
-    background: ${darkBlue};
+    background: ${orange};
     border-radius: 200px;
     padding: 20px;
     width: 100px;

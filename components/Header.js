@@ -12,6 +12,12 @@ const headerContainer = css`
   width: 100%;
   background-color: ${darkBlue};
 
+  .icon {
+    color: white;
+    min-width: 30px;
+    min-height: 30px;
+  }
+
   > div {
     display: flex;
     align-items: center;

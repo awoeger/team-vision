@@ -196,6 +196,7 @@ export default function TeamMembers(props: Props) {
                             const deletedMember = newMemberArray.find(
                               (m) => m.id === member.id,
                             );
+
                             // get the index of the person in the copy of the array
                             const deletedMemberIndex =
                               newMemberArray.indexOf(deletedMember);

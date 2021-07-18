@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
-import { IconContext } from 'react-icons';
 import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
+import * as GiIcons from 'react-icons/gi';
 import * as IoIcons from 'react-icons/io';
-import { darkBlue, largeText, lightGrey } from '../util/sharedStyles';
+import { darkBlue, largeText, lightGrey, orange } from '../util/sharedStyles';
 
 const navMenuActive = css`
   display: flex;
@@ -19,6 +19,15 @@ const navText = css`
   padding: 8px 0px 8px 0px;
   margin-left: 50px;
   list-style: none;
+
+  .RoleIcon {
+    color: white;
+    background: ${orange};
+    border-radius: 100%;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+  }
 
   .icon {
     min-width: 20px;
@@ -65,41 +74,47 @@ const navMenuItems = css`
 
 export default function SubMenu(props) {
   return (
-    <IconContext.Provider value={{ color: '#1d2a48' }}>
-      <nav css={navMenuActive}>
-        <ul css={navMenuItems}>
-          <li css={navText}>
-            <AiIcons.AiFillHome className="icon" />
-            <Link href={`/teams/${props.teamId}`}>
-              <a>TEAM BASE</a>
-            </Link>
-          </li>
+    <nav css={navMenuActive}>
+      <ul css={navMenuItems}>
+        <li css={navText}>
+          {' '}
           {props.userRoleId === 1 ? (
-            <>
-              <li css={navText}>
-                <IoIcons.IoMdPeople className="icon" />
-                <Link href={`/teams/${props.teamId}/team-members`}>
-                  <a>TEAM MEMBERS</a>
-                </Link>
-              </li>
+            <GiIcons.GiWhistle className="RoleIcon" />
+          ) : (
+            <FaIcons.FaRunning className="RoleIcon" />
+          )}
+        </li>
+        <li css={navText}>
+          <AiIcons.AiFillHome className="icon" />
+          <Link href={`/teams/${props.teamId}`}>
+            <a>TEAM BASE</a>
+          </Link>
+        </li>
+        {props.userRoleId === 1 ? (
+          <>
+            <li css={navText}>
+              <IoIcons.IoMdPeople className="icon" />
+              <Link href={`/teams/${props.teamId}/team-members`}>
+                <a>TEAM MEMBERS</a>
+              </Link>
+            </li>
 
-              <li css={navText}>
-                <AiIcons.AiOutlineCalendar className="icon" />
-                <Link href={`/teams/${props.teamId}/create-new-event`}>
-                  <a>CREATE EVENT</a>
-                </Link>
-              </li>
-            </>
-          ) : undefined}
+            <li css={navText}>
+              <AiIcons.AiOutlineCalendar className="icon" />
+              <Link href={`/teams/${props.teamId}/create-new-event`}>
+                <a>CREATE EVENT</a>
+              </Link>
+            </li>
+          </>
+        ) : undefined}
 
-          <li css={navText}>
-            <FaIcons.FaRunning className="icon" />
-            <Link href={`/teams/${props.teamId}/exercises`}>
-              <a>EXERCISES</a>
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </IconContext.Provider>
+        <li css={navText}>
+          <FaIcons.FaRunning className="icon" />
+          <Link href={`/teams/${props.teamId}/exercises`}>
+            <a>EXERCISES</a>
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 }

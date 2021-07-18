@@ -78,7 +78,6 @@ export const trashButton = css`
     width: 20px;
     height: 20px;
   }
-}
 `;
 
 // Heading for Event and Exercise Page
@@ -97,15 +96,22 @@ export const filterContainer = css`
   left: 150px;
   top: 210px;
 
+  .button-active {
+    background: rgb(28 154 150 / 50%);
+  }
+
+  .button-inactive {
+    background: white;
+  }
+
   button {
     width: 100%;
     margin: 30px 0px;
     padding: 15px;
     text-transform: uppercase;
     font-size: 20px;
-    font-weight: 500;
+    font-weight: 600;
     color: ${darkBlue};
-    background: white;
     border: ${lightBlue} 3px solid;
     border-radius: 10px;
     cursor: pointer;

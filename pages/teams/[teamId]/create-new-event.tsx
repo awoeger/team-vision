@@ -187,6 +187,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Event Type
               <select
+                data-cy="event-eventtype"
                 required
                 id="eventType"
                 value={eventType}
@@ -205,6 +206,7 @@ export default function CreateEvent(props: Props) {
               <label className="start">
                 Start Date
                 <input
+                  data-cy="event-start-date"
                   required
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -218,6 +220,7 @@ export default function CreateEvent(props: Props) {
               <label className="end">
                 End Date
                 <input
+                  data-cy="event-end-date"
                   required
                   type="date"
                   placeholder="dd/mm/yyyy"
@@ -233,6 +236,7 @@ export default function CreateEvent(props: Props) {
               <label className="mtime">
                 Meeting Time
                 <input
+                  data-cy="event-meeting-time"
                   required
                   placeholder="hh:mm"
                   value={meetingTime}
@@ -245,6 +249,7 @@ export default function CreateEvent(props: Props) {
               <label className="mtime">
                 Start Time
                 <input
+                  data-cy="event-start-time"
                   required
                   placeholder="hh:mm"
                   value={startTime}
@@ -257,6 +262,7 @@ export default function CreateEvent(props: Props) {
               <label className="time">
                 End Time
                 <input
+                  data-cy="event-end-time"
                   required
                   placeholder="hh:mm"
                   value={endTime}
@@ -270,6 +276,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Event Location
               <input
+                data-cy="event-location"
                 required
                 placeholder="ASKÖ Sportzentrum, 1020 Wien"
                 value={eventLocation}
@@ -282,6 +289,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Description
               <textarea
+                data-cy="event-description"
                 placeholder="Please bring cleats and a mouthguard"
                 value={eventDescription}
                 onChange={(event) => {
