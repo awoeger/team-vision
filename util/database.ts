@@ -10,7 +10,7 @@ import {
   User,
   UserWithPasswordHash,
 } from '../util/types';
-import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
 
 setPostgresDefaultsOnHeroku();
 
