@@ -118,7 +118,7 @@ const declineButton = css`
 `;
 
 export default function TeamMembers(props: Props) {
-  const [members, setMembers] = useState(props.allMembers);
+  const [members, setMembers] = useState<Member[]>(props.allMembers);
 
   return (
     <>
@@ -198,13 +198,13 @@ export default function TeamMembers(props: Props) {
                             );
 
                             // get the index of the person in the copy of the array
-                            const deletedMemberIndex =
-                              newMemberArray.indexOf(deletedMember);
-                            // splice the index out of the array
                             if (deletedMember) {
+                              const deletedMemberIndex =
+                                newMemberArray.indexOf(deletedMember);
+                              // splice the index out of the array
+
                               newMemberArray.splice(deletedMemberIndex, 1);
                             }
-
                             return newMemberArray;
                           };
                           // set the state to the result of the function
@@ -327,7 +327,7 @@ export default function TeamMembers(props: Props) {
                                   );
                                   // get the index of the person in the copy of the array
                                   const deletedMemberIndex =
-                                    newMemberArray.indexOf(deletedMember);
+                                    newMemberArray.indexOf(deletedMember!);
                                   // splice the index out of the array
                                   if (deletedMember) {
                                     newMemberArray.splice(

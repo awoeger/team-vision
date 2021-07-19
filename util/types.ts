@@ -70,15 +70,7 @@ export type PlayerTeam = {
   statusId: number;
 };
 
-export type DeletedTeamResponse = {
-  id: Number;
-};
-
 // Types for team profile page
-
-export type DeleteEventRequest = {
-  id: Number;
-};
 
 export type TeamName = {
   teamName: string;

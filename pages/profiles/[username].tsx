@@ -23,7 +23,6 @@ import {
 import {
   ApplicationError,
   CoachTeam,
-  DeletedTeamResponse,
   PlayerTeam,
   User,
 } from '../../util/types';
@@ -246,7 +245,7 @@ export default function SingleUserProfile(props: Props) {
                               'Are you sure you want to delete this team?',
                             )
                           ) {
-                            const response = await fetch(
+                            await fetch(
                               `/api/users-by-username/${props.user?.username}`,
                               {
                                 method: 'DELETE',
@@ -259,9 +258,6 @@ export default function SingleUserProfile(props: Props) {
                               },
                             );
 
-                            const json =
-                              (await response.json()) as DeletedTeamResponse;
-
                             const deleteTeam = () => {
                               // create a copy of the allTeam array
                               const newTeamArray = [...coachTeams];
@@ -269,14 +265,15 @@ export default function SingleUserProfile(props: Props) {
                               const deletedTeam = newTeamArray.find(
                                 (e) => e.id === coachTeam.id,
                               );
+
                               // get the index of the team in the copy of the array
-                              const deletedTeamIndex =
-                                newTeamArray.indexOf(deletedTeam);
-                              // splice the index out of the array
                               if (deletedTeam) {
+                                const deletedTeamIndex =
+                                  newTeamArray.indexOf(deletedTeam);
+                                // splice the index out of the array
+
                                 newTeamArray.splice(deletedTeamIndex, 1);
                               }
-
                               return newTeamArray;
                             };
 
