@@ -9,11 +9,7 @@ import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import { getUserByValidSessionToken } from '../../../util/database';
 import { largeText, orange } from '../../../util/sharedStyles';
-import {
-  DeclinedPlayerRequestResponse,
-  Member,
-  UpdateRequestResponse,
-} from '../../../util/types';
+import { DeclinedPlayerRequestResponse, Member } from '../../../util/types';
 
 type Props = {
   username: String;
