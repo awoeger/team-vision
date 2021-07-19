@@ -146,7 +146,7 @@ export default function CreateEvent(props: Props) {
         <div css={formContainer}>
           <div css={imageContainer}>
             <Image
-              alt="Logo Icon"
+              alt="Female Runner"
               src="/images/female-runner.png"
               width="400px"
               height="730px"

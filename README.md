@@ -11,7 +11,7 @@
 ## Deployed Version
 
 You can visit the deployed website under:
-[Team Vision]().
+[Team Vision](https://teamvision.herokuapp.com/)
 
 This web application was created as the final project for the Upleveled bootcamp in Vienna.
 
@@ -32,6 +32,12 @@ Players:
 - Send your favourite team a player request and tell the coach, why you are the right person for the team
 - See all upcoming events for the season, filter them and tell the coach and your co-players, if you are attending or not
 - Have a collection of exercises for home workouts to keep you fit throughout the season
+
+## Planning phase
+
+- [Database Schema](https://drawsql.app/upleveled/diagrams/upleveled-final-project#) created with DrawSQL.
+- ![Ticket System with Trello](./public/images/Screenshot_Trello_Board.PNG)
+- ![Wireframing and design with Figma](./public/images/Screenshot_Trello_Board.PNG)
 
 ## Technologies
 
