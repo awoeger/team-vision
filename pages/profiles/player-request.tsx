@@ -12,7 +12,6 @@ import {
   normalText,
 } from '../../util/sharedStyles';
 import { TeamNameandIdforCoach } from '../../util/types';
-import { RegisterResponse } from '../api/register';
 
 type Props = {
   username: String;
@@ -129,24 +128,19 @@ export default function PlayerRequest(props: Props) {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            const response = await fetch(
-              `/api/users-by-username/player-request`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  teamChoice: teamChoice,
-                  positionOnTeam: positionOnTeam,
-                  playingSince: playingSince,
-                  experienceLevel: experienceLevel,
-                  message: message,
-                }),
+            await fetch(`/api/users-by-username/player-request`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-            );
-
-            const json = (await response.json()) as RegisterResponse;
+              body: JSON.stringify({
+                teamChoice: teamChoice,
+                positionOnTeam: positionOnTeam,
+                playingSince: playingSince,
+                experienceLevel: experienceLevel,
+                message: message,
+              }),
+            });
 
             router.push(`/profiles/${props.username}`);
           }}

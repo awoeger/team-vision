@@ -10,7 +10,6 @@ import {
   largeText,
   normalText,
 } from '../../util/sharedStyles';
-import { RegisterResponse } from '../api/register';
 
 type Props = {
   username: String;
@@ -105,22 +104,17 @@ export default function CreateNewTeamForm(props: Props) {
         <form
           onSubmit={async (event) => {
             event.preventDefault();
-            const response = await fetch(
-              `/api/users-by-username/create-new-team`,
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  teamName: teamName,
-                  sportType: sportType,
-                  foundedAt: foundedAt,
-                }),
+            await fetch(`/api/users-by-username/create-new-team`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
               },
-            );
-
-            const json = (await response.json()) as RegisterResponse;
+              body: JSON.stringify({
+                teamName: teamName,
+                sportType: sportType,
+                foundedAt: foundedAt,
+              }),
+            });
 
             router.push(`/profiles/${props.username}`);
           }}

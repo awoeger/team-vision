@@ -531,6 +531,7 @@ export async function getUserByUsernameAndToken(
 
   // If we have no user, then return undefined
   const user = users[0];
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (!user) return undefined;
 
   // Security: Match ids of session user with user

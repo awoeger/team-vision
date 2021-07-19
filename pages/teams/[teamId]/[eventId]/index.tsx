@@ -19,12 +19,7 @@ import {
   normalText,
   orange,
 } from '../../../../util/sharedStyles';
-import {
-  LoggedInUser,
-  Response,
-  SingleEvent,
-  UpdateEventResponse,
-} from '../../../../util/types';
+import { LoggedInUser, Response, SingleEvent } from '../../../../util/types';
 
 type Props = {
   username: string;
@@ -192,23 +187,17 @@ export default function SingleEventPage(props: Props) {
                       onClick={async (event) => {
                         event.preventDefault();
                         // Post Request via API Route to insert user into event_user table
-                        const response = await fetch(
-                          `/api/teams-by-team-id/single-event`,
-                          {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              usersId: user.id,
-                              eventId: props.event[0].id,
-                              response: 'Yes',
-                            }),
+                        await fetch(`/api/teams-by-team-id/single-event`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
                           },
-                        );
-
-                        const json =
-                          (await response.json()) as UpdateEventResponse;
+                          body: JSON.stringify({
+                            usersId: user.id,
+                            eventId: props.event[0].id,
+                            response: 'Yes',
+                          }),
+                        });
 
                         // set use State to the result of pushFirstEventResponse
                         setAllResponses(
@@ -226,24 +215,17 @@ export default function SingleEventPage(props: Props) {
                       css={maybeButton}
                       onClick={async (event) => {
                         event.preventDefault();
-
-                        const response = await fetch(
-                          `/api/teams-by-team-id/single-event`,
-                          {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              usersId: user.id,
-                              eventId: props.event[0].id,
-                              response: 'Maybe',
-                            }),
+                        await fetch(`/api/teams-by-team-id/single-event`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
                           },
-                        );
-
-                        const json =
-                          (await response.json()) as UpdateEventResponse;
+                          body: JSON.stringify({
+                            usersId: user.id,
+                            eventId: props.event[0].id,
+                            response: 'Maybe',
+                          }),
+                        });
 
                         setAllResponses(
                           pushFirstEventResponse(
@@ -261,23 +243,17 @@ export default function SingleEventPage(props: Props) {
                       onClick={async (event) => {
                         event.preventDefault();
 
-                        const response = await fetch(
-                          `/api/teams-by-team-id/single-event`,
-                          {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({
-                              usersId: user.id,
-                              eventId: props.event[0].id,
-                              response: 'No',
-                            }),
+                        await fetch(`/api/teams-by-team-id/single-event`, {
+                          method: 'POST',
+                          headers: {
+                            'Content-Type': 'application/json',
                           },
-                        );
-
-                        const json =
-                          (await response.json()) as UpdateEventResponse;
+                          body: JSON.stringify({
+                            usersId: user.id,
+                            eventId: props.event[0].id,
+                            response: 'No',
+                          }),
+                        });
 
                         setAllResponses(
                           pushFirstEventResponse(

@@ -111,10 +111,6 @@ export type Member = {
   userLastName: string;
 };
 
-export type UpdateRequestResponse = {
-  statusId: number;
-};
-
 export type DeclinedPlayerRequestResponse = {
   id: number;
 };

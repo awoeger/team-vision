@@ -13,7 +13,6 @@ import {
   largeText,
   normalText,
 } from '../../../util/sharedStyles';
-import { RegisterResponse } from '../../api/register';
 
 type Props = {
   username: String;
@@ -156,28 +155,23 @@ export default function CreateEvent(props: Props) {
           <form
             onSubmit={async (event) => {
               event.preventDefault();
-              const response = await fetch(
-                `/api/teams-by-team-id/create-new-event`,
-                {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                  },
-                  body: JSON.stringify({
-                    eventType: eventType,
-                    teamId: props.teamId,
-                    startDate: startDate,
-                    endDate: endDate,
-                    meetingTime: meetingTime,
-                    startTime: startTime,
-                    endTime: endTime,
-                    eventLocation: eventLocation,
-                    eventDescription: eventDescription,
-                  }),
+              await fetch(`/api/teams-by-team-id/create-new-event`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
                 },
-              );
-
-              const json = (await response.json()) as RegisterResponse;
+                body: JSON.stringify({
+                  eventType: eventType,
+                  teamId: props.teamId,
+                  startDate: startDate,
+                  endDate: endDate,
+                  meetingTime: meetingTime,
+                  startTime: startTime,
+                  endTime: endTime,
+                  eventLocation: eventLocation,
+                  eventDescription: eventDescription,
+                }),
+              });
 
               router.push(`/teams/${props.teamId}`);
             }}
