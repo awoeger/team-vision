@@ -45,6 +45,10 @@ const headerContainer = css`
     :hover::after {
       width: 100%;
     }
+
+    span {
+      padding-bottom: 16px;
+    }
   }
 
   @media (max-width: 1024px) {

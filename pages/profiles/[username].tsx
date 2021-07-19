@@ -27,7 +27,8 @@ import {
   PlayerTeam,
   User,
 } from '../../util/types';
-import { SingleUserResponseType } from '../api/users-by-username/[username]';
+
+// import { SingleUserResponseType } from '../api/users-by-username/[username]';
 
 type Props = {
   user?: User;
@@ -415,7 +416,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     );
 
-  const json = (await response.json()) as SingleUserResponseType;
+  const json = await response.json();
+
+  console.log('json.user', json.user);
 
   if ('errors' in json) {
     context.res.statusCode = 403;

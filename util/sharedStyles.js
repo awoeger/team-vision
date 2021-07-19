@@ -50,6 +50,10 @@ export const link = css`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
 
+  :active {
+    transform: translate(0, 3px);
+  }
+
   @media (max-width: 768px) {
     padding: 8px;
     font-size: 0.8em;
@@ -93,8 +97,8 @@ export const filterContainer = css`
   flex-direction: column;
   margin: 100px 0 0 100px;
   position: fixed;
-  left: 150px;
-  top: 210px;
+  left: 220px;
+  top: 220px;
 
   .button-active {
     background: rgb(28 154 150 / 50%);

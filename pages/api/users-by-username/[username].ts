@@ -5,16 +5,21 @@ import {
   getUserByUsernameAndToken,
   getValidSessionByToken,
 } from '../../../util/database';
-import { ApplicationError, User } from '../../../util/types';
 
-export type SingleUserResponseType =
-  // singleUserResponseType can be an object with user, which can be either Type User or null
-  // or it can be an error
-  { user: User | null } | { errors: ApplicationError[] };
+// import { ApplicationError, User } from '../../../util/types';
+
+// export type SingleUserResponseType =
+// singleUserResponseType can be an object with user, which can be either Type User or null
+// or it can be an error
+// { user: User | null } | { errors: ApplicationError[] };
+
+// type SingleUserResponseType =
+//   | { user: User | null; id: number }
+//   | { errors: ApplicationError[] };
 
 export default async function singleUserHandler(
   req: NextApiRequest,
-  res: NextApiResponse<SingleUserResponseType>,
+  res: NextApiResponse,
 ) {
   if (req.method === 'DELETE') {
     const validSession = await getValidSessionByToken(req.cookies.sessionToken);

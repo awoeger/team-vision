@@ -10,11 +10,7 @@ const navBarContainer = (open) => css`
   align-items: center;
   z-index: 1200;
 
-  padding: 0;
-
-  li {
-    padding: 16px 24px;
-  }
+  padding: 16px 0 16px 0;
 
   a {
     text-decoration: none;
