@@ -39,7 +39,7 @@ Players:
 - Ticket System with Trello
   ![Ticket System with Trello](./public/images/Screenshot_Trello_Board.PNG)
 - Wireframing and design with Figma
-  ![Wireframing and design with Figma](./public/images/Screenshot_Trello_Board.PNG)
+  ![Wireframing and design with Figma](./public/images/Screenshot_Figma.PNG)
 
 ## Technologies
 
