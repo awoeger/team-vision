@@ -36,8 +36,10 @@ Players:
 ## Planning phase
 
 - [Database Schema](https://drawsql.app/upleveled/diagrams/upleveled-final-project#) created with DrawSQL.
-- ![Ticket System with Trello](./public/images/Screenshot_Trello_Board.PNG)
-- ![Wireframing and design with Figma](./public/images/Screenshot_Trello_Board.PNG)
+- Ticket System with Trello
+  ![Ticket System with Trello](./public/images/Screenshot_Trello_Board.PNG)
+- Wireframing and design with Figma
+  ![Wireframing and design with Figma](./public/images/Screenshot_Trello_Board.PNG)
 
 ## Technologies
 
