@@ -251,7 +251,7 @@ export default function TeamMembers(props: Props) {
                             css={acceptButton}
                             onClick={async (event) => {
                               event.preventDefault();
-                              const response = await fetch(
+                              await fetch(
                                 `/api/teams-by-team-id/team-members`,
                                 {
                                   method: 'POST',
@@ -263,9 +263,6 @@ export default function TeamMembers(props: Props) {
                                   }),
                                 },
                               );
-
-                              const json =
-                                (await response.json()) as UpdateRequestResponse;
 
                               const acceptMember = () => {
                                 // create a copy of the allmembers array
