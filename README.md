@@ -1,12 +1,12 @@
 # Team Vision
 
-![Screenshot 1](./public/Screenshot1.PNG)
+![Screenshot 1](./public/images/Screenshot1.PNG)
 
-![Screenshot 2](./public/Screenshot2.PNG)
+![Screenshot 2](./public/images/Screenshot2.PNG)
 
-![Screenshot 3](./public/Screenshot3.PNG)
+![Screenshot 3](./public/images/Screenshot3.PNG)
 
-![Screenshot 4](./public/Screenshot4.PNG)
+![Screenshot 4](./public/images/Screenshot4.PNG)
 
 ## Deployed Version
 
