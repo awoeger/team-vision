@@ -27,8 +27,6 @@ import {
   User,
 } from '../../util/types';
 
-// import { SingleUserResponseType } from '../api/users-by-username/[username]';
-
 type Props = {
   user?: User;
   errors?: ApplicationError[];

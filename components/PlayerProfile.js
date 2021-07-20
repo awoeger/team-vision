@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
+
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import router from 'next/router';
