@@ -119,7 +119,7 @@ export default function PlayerRequest(props: Props) {
       <div css={formContainer}>
         <div css={imageContainer}>
           <Image
-            alt="Logo Icon"
+            alt="Baseball Player hitting ball"
             src="/images/baseball-player.jpg"
             width="750px"
             height="750px"

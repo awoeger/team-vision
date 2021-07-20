@@ -376,7 +376,7 @@ export default function SingleEventPage(props: Props) {
         </div>
         <div css={imageContainer}>
           <Image
-            alt="Logo Icon"
+            alt="Basketball Player running with ball"
             src="/images/basketball-player.jpg"
             width="700px"
             height="700px"
