@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
+import router from 'next/router';
+import * as BsIcons from 'react-icons/bs';
 import * as GiIcons from 'react-icons/gi';
 import {
   darkBlue,
@@ -19,6 +21,29 @@ export const mainFirstSubContainer = css`
   background: ${lightGrey};
   border-right: 2px solid ${darkBlue};
   text-align: center;
+
+  button {
+    padding: 10px;
+    color: ${orange};
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 90%;
+    border: none;
+    cursor: pointer;
+    margin: 40px;
+
+    :hover {
+      background: white;
+    }
+
+    :active {
+      transform: translate(0, 3px);
+    }
+
+    .btn {
+      width: 20px;
+      height: 20px;
+    }
+  }
 
   .icon {
     background: ${orange};
@@ -79,6 +104,7 @@ const buttonDiv = css`
 `;
 
 export default function CoachProfile(props) {
+  console.log('profile props', props);
   return (
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
@@ -100,6 +126,27 @@ export default function CoachProfile(props) {
           </a>
         </Link>
       </div>
+
+      <button
+        onClick={async (singleTeam) => {
+          singleTeam.preventDefault();
+
+          if (window.confirm('Are you sure you want to delete this profile?')) {
+            await fetch(`/api/users-by-username/${props.user?.username}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: props.user.id,
+              }),
+            });
+          }
+          router.push('/');
+        }}
+      >
+        <BsIcons.BsTrashFill className="btn" />
+      </button>
     </div>
   );
 }

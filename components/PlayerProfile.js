@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
+import router from 'next/router';
+import * as BsIcons from 'react-icons/bs';
 import * as FaIcons from 'react-icons/fa';
 import { link } from '../util/sharedStyles';
 import { mainFirstSubContainer } from './CoachProfile';
@@ -28,6 +30,26 @@ export default function PlayerProfile(props) {
           <a css={link}>Join a new team</a>
         </Link>
       </div>
+      <button
+        onClick={async (singleTeam) => {
+          singleTeam.preventDefault();
+
+          if (window.confirm('Are you sure you want to delete this profile?')) {
+            await fetch(`/api/users-by-username/${props.user?.username}`, {
+              method: 'DELETE',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                id: props.user.id,
+              }),
+            });
+          }
+          router.push('/');
+        }}
+      >
+        <BsIcons.BsTrashFill className="btn" />
+      </button>
     </div>
   );
 }

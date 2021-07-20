@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { convertQueryValueString } from '../../../util/context';
 import {
   deleteTeam,
+  deleteUser,
   getUserByUsernameAndToken,
   getValidSessionByToken,
 } from '../../../util/database';
@@ -24,8 +25,9 @@ export default async function singleUserHandler(
 
     // updatedStatusId is equal to the result of function updatePlayerRequest
     const deletedTeam = await deleteTeam(id);
+    const deletedUser = await deleteUser(id);
 
-    return res.status(200).json({ id: deletedTeam });
+    return res.status(200).json({ id: deletedTeam, idUser: deletedUser });
   }
 
   // Retrieve username from the query string (the square

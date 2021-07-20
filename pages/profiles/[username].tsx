@@ -415,8 +415,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const json = await response.json();
 
-  console.log('json.user', json.user);
-
   if ('errors' in json) {
     context.res.statusCode = 403;
   } else if (!json.user) {

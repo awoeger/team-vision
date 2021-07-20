@@ -124,6 +124,16 @@ export async function insertUser({
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
+export async function deleteUser(id: number) {
+  const deletedUser = await sql`
+    DELETE FROM users
+    WHERE id = ${id}
+    RETURNING
+    id
+  `;
+  return deletedUser.map((user) => camelcaseKeys(user)[0]);
+}
+
 export async function insertUserToEvent(
   usersId: number,
   eventId: number,
