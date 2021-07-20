@@ -5,12 +5,24 @@ import {
   deleteUser,
   getUserByUsernameAndToken,
   getValidSessionByToken,
+  updateUserById,
 } from '../../../util/database';
 
 export default async function singleUserHandler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
+  if (req.method === 'PUT') {
+    const user = await updateUserById(
+      req.body.userId,
+      req.body.firstName,
+      req.body.lastName,
+      req.body.username,
+      req.body.email,
+    );
+    return res.status(200).json({ user: user || null });
+  }
+
   if (req.method === 'DELETE') {
     const validSession = await getValidSessionByToken(req.cookies.sessionToken);
 

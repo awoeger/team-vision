@@ -134,6 +134,35 @@ export async function deleteUser(id: number) {
   return deletedUser.map((user) => camelcaseKeys(user)[0]);
 }
 
+export async function updateUserById(
+  userId: number,
+  firstName: string,
+  lastName: string,
+  username: string,
+  email: string,
+) {
+  if (!userId) return undefined;
+
+  const users = await sql<[User]>`
+    UPDATE
+      users
+    SET
+      user_first_name = ${firstName},
+      user_last_name = ${lastName},
+      username = ${username},
+      user_email = ${email}
+    WHERE
+      id = ${userId}
+    RETURNING
+      id,
+      user_first_name,
+      user_last_name,
+      username,
+      user_email
+  `;
+  return users.map((user) => camelcaseKeys(user))[0];
+}
+
 export async function insertUserToEvent(
   usersId: number,
   eventId: number,
