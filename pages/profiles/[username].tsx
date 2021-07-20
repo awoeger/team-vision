@@ -300,7 +300,9 @@ export default function SingleUserProfile(props: Props) {
                       </div>
                       <div>
                         <Link href={`/teams/${coachTeam.id}`}>
-                          <a css={link}>Go to team</a>
+                          <a data-cy="go-to-team" css={link}>
+                            Go to team
+                          </a>
                         </Link>
                       </div>
                     </div>

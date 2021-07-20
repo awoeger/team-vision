@@ -181,7 +181,7 @@ export default function CreateEvent(props: Props) {
             <label>
               Event Type
               <select
-                data-cy="event-eventtype"
+                data-cy="event-event-type"
                 required
                 id="eventType"
                 value={eventType}

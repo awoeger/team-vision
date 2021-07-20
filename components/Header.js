@@ -87,7 +87,7 @@ export default function Header(props) {
       <div>
         {props.username ? (
           <Link href={`/profiles/${props.username}`}>
-            <a>
+            <a data-cy="your-profile">
               <span>{props.username && 'Your Profile'} &nbsp;</span>
             </a>
           </Link>

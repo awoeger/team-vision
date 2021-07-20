@@ -172,7 +172,7 @@ export default function CreateNewTeamForm(props: Props) {
             />
           </label>
 
-          <button css={button} type="submit">
+          <button data-cy="create-new-team-button" css={button} type="submit">
             CREATE NEW TEAM
           </button>
         </form>
