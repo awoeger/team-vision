@@ -31,16 +31,16 @@ const burgerStyle = (open) => css`
     transform-origin: 1px;
     transition: all 0.3s linear;
 
-    &:nth-child(1) {
+    &:nth-type(1) {
       transform: ${open ? 'rotate(45deg)' : 'rotate(0deg)'};
     }
 
-    &:nth-child(2) {
+    &:nth-type(2) {
       transform: ${open ? 'translateX(100%)' : 'translateX(0)'};
       opacity: ${open ? 0 : 1};
     }
 
-    &:nth-child(3) {
+    &:nth-type(3) {
       transform: ${open ? 'rotate(-45deg)' : 'rotate(0deg)'};
     }
   }

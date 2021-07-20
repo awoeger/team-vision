@@ -104,7 +104,6 @@ const buttonDiv = css`
 `;
 
 export default function CoachProfile(props) {
-  console.log('profile props', props);
   return (
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
