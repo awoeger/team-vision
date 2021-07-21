@@ -46,4 +46,4 @@ jobs:
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
-           API_BASE_URL: ${{secrets.API_BASE_URL}}
+          API_BASE_URL: ${{secrets.API_BASE_URL}}
