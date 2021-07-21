@@ -19,6 +19,7 @@ jobs:
           postgresql db: ${{ secrets.PGDATABASE }}
           postgresql user: ${{ secrets.PGUSERNAME }}
           postgresql password: ${{ secrets.PGPASSWORD }}
+          CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
       - name: Checkout
         uses: actions/checkout@v2
       # Use the official setup-node action:
