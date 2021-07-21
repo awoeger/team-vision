@@ -7,6 +7,7 @@ describe('Can login as coach', () => {
     cy.get('[data-cy="login-password"]').type('triA1-PA55w0rd1');
     cy.contains('LOGIN').click();
     // Create new team
+
     cy.get('[data-cy="create-new-team"]').click();
     cy.get('[data-cy="create-new-team-teamname"]').type('Test Team');
     cy.get('[data-cy="create-new-team-sporttype"]').type('Test Sport');

@@ -25,7 +25,7 @@ declare module globalThis {
 
 // Connect only once to the database
 // https://github.com/vercel/next.js/issues/7811#issuecomment-715259370
-function connectOneTimeToDatabase() {
+export function connectOneTimeToDatabase() {
   let sql;
 
   if (process.env.NODE_ENV === 'production') {
@@ -107,6 +107,14 @@ export async function insertUser({
   userPasswordHash,
   userRoleId,
 }: UserWithPasswordHash) {
+  console.log('rock');
+  console.log(userFirstName);
+  console.log(userLastName);
+  console.log(userEmail);
+  console.log(username);
+  console.log(userPasswordHash);
+  console.log(userRoleId);
+
   const users = await sql<[User]>`
     INSERT INTO users
     -- column names
@@ -121,6 +129,8 @@ export async function insertUser({
       user_email,
       user_role_id
   `;
+
+  console.log(users);
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
@@ -255,6 +265,8 @@ export async function createNewTeam(
       founded,
       coach_user_id
   `;
+
+  console.log(teams);
   return teams.map((team) => camelcaseKeys(team))[0];
 }
 

@@ -141,10 +141,10 @@ const buttonDiv = css`
 
 export default function CoachProfile(props) {
   const [showEdit, setShowEdit] = useState(true);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState(props.user.userFirstName);
+  const [lastName, setLastName] = useState(props.user.userLastName);
+  const [username, setUsername] = useState(props.user.username);
+  const [email, setEmail] = useState(props.user.userEmail);
 
   return (
     <div css={mainFirstSubContainer}>
@@ -214,13 +214,13 @@ export default function CoachProfile(props) {
       ) : (
         <>
           <h3>
-            {props.user.userFirstName} {props.user.userLastName}
+            {firstName} {lastName}
           </h3>
           <p>
-            <span>Username:</span> {props.user.username}
+            <span>Username:</span> {username}
           </p>
           <p>
-            <span>Email:</span> {props.user.userEmail}
+            <span>Email:</span> {email}
           </p>
         </>
       )}
