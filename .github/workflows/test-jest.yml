@@ -28,14 +28,14 @@ jobs:
         with:
           node-version: '16.x'
       # Install all dependencies
-      # - run: yarn server-lockfile
-      - run: yarn server-migrate-up
+      - run: yarn --frozen-lockfile
+      - run: yarn migrate-up
         env:
           PGHOST: localhost
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
-      - run: yarn server
+      - run: yarn jest
         env:
           PGHOST: localhost
           PGDATABASE: ${{ secrets.PGDATABASE }}
