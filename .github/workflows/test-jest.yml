@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: '16.x'
       # Install all dependencies
-      - run: yarn server-lockfile
+      # - run: yarn server-lockfile
       - run: yarn server-migrate-up
         env:
           PGHOST: localhost
