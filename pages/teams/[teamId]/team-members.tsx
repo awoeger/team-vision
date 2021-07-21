@@ -248,6 +248,7 @@ export default function TeamMembers(props: Props) {
                       <td>
                         <div>
                           <button
+                            data-cy="accept-player-request"
                             css={acceptButton}
                             onClick={async (event) => {
                               event.preventDefault();
@@ -285,6 +286,7 @@ export default function TeamMembers(props: Props) {
                             <FaIcons.FaCheck className="icon" />
                           </button>
                           <button
+                            data-cy="decline-player-request"
                             css={declineButton}
                             onClick={async (event) => {
                               event.preventDefault();

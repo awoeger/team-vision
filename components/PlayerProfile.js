@@ -165,9 +165,9 @@ export default function PlayerProfile(props) {
       </div>
 
       <div css={buttonDiv}>
-        <Link href="/profiles/create-new-team">
-          <a data-cy="create-new-team" css={link}>
-            Create new team
+        <Link href="/profiles/player-request">
+          <a data-cy="join-a-team" css={link}>
+            JOIN A TEAM
           </a>
         </Link>
       </div>

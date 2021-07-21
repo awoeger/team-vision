@@ -150,7 +150,9 @@ export default function Login(props: Props) {
               </label>
             </div>
 
-            <button css={button}>LOGIN</button>
+            <button data-cy="login-button" css={button}>
+              LOGIN
+            </button>
             <div style={{ color: 'red' }}>{error}</div>
             <div />
             <div css={registerDiv}>

@@ -292,7 +292,7 @@ export default function CreateEvent(props: Props) {
               />
             </label>
 
-            <button css={button} type="submit">
+            <button data-cy="create-new-event" css={button} type="submit">
               CREATE EVENT
             </button>
           </form>

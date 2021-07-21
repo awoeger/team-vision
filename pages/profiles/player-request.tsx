@@ -150,6 +150,7 @@ export default function PlayerRequest(props: Props) {
           <label>
             Which team would you like to apply for?
             <select
+              data-cy="player-request-teamChoice"
               id="teamChoice"
               value={teamChoice}
               onChange={(event) => {
@@ -170,6 +171,7 @@ export default function PlayerRequest(props: Props) {
           <label>
             What position do you plan on playing?
             <input
+              data-cy="player-request-position"
               required
               minLength={3}
               maxLength={50}
@@ -185,6 +187,7 @@ export default function PlayerRequest(props: Props) {
             <label>
               Since when have you been playing this sport?
               <input
+                data-cy="player-request-playingTime"
                 className="neighborInput"
                 required
                 minLength={7}
@@ -200,6 +203,7 @@ export default function PlayerRequest(props: Props) {
             <label>
               How would you rate your experience level?
               <select
+                data-cy="player-request-experience"
                 required
                 id="experienceLevel"
                 value={experienceLevel}
@@ -218,6 +222,7 @@ export default function PlayerRequest(props: Props) {
           <label>
             Send your message to the coach.
             <textarea
+              data-cy="player-request-message"
               required
               minLength={5}
               maxLength={100}
@@ -229,7 +234,7 @@ export default function PlayerRequest(props: Props) {
             />
           </label>
 
-          <button css={button} type="submit">
+          <button data-cy="send-request" css={button} type="submit">
             SEND REQUEST
           </button>
         </form>

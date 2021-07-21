@@ -343,7 +343,9 @@ export default function SingleUserProfile(props: Props) {
                         </div>
                         <div>
                           <Link href={`/teams/${playerTeam.id}`}>
-                            <a css={link}>Go to team</a>
+                            <a data-cy="see-team-details" css={link}>
+                              Go to team
+                            </a>
                           </Link>
                         </div>
                       </div>
