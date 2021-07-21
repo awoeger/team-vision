@@ -167,7 +167,7 @@ export const filterContainer = css`
     margin: 30px 0px;
     padding: 15px;
     text-transform: uppercase;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: ${darkBlue};
     border: ${lightBlue} 3px solid;
