@@ -20,7 +20,7 @@ jobs:
           postgresql user: ${{ secrets.PGUSERNAME }}
           postgresql password: ${{ secrets.PGPASSWORD }}
           CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
-          # API_BASE_URL: ${{secrets.API_BASE_URL}}
+          API_BASE_URL: ${{secrets.API_BASE_URL}}
       - name: Checkout
         uses: actions/checkout@v2
       # Use the official setup-node action:
@@ -38,7 +38,7 @@ jobs:
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
-          #  API_BASE_URL: ${{secrets.API_BASE_URL}}
+           API_BASE_URL: ${{secrets.API_BASE_URL}}
 
       - run: yarn jest
         env:
@@ -47,4 +47,4 @@ jobs:
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
           CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
-          #  API_BASE_URL: ${{secrets.API_BASE_URL}}
+           API_BASE_URL: ${{secrets.API_BASE_URL}}
