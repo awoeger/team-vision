@@ -9,9 +9,18 @@ jobs:
     # https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     runs-on: ubuntu-latest
     steps:
-      # Use the official Checkout action:
-      # https://github.com/actions/checkout
-      - uses: actions/checkout@v2
+      # Set up PostgreSQL with this GitHub Action:
+      # https://github.com/Harmon758/postgresql-action
+      - uses: harmon758/postgresql-action@v1
+        with:
+          postgresql version: '13'
+          # Use GitHub Encrypted Secrets for the credentials
+          # https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets
+          postgresql db: ${{ secrets.PGDATABASE }}
+          postgresql user: ${{ secrets.PGUSERNAME }}
+          postgresql password: ${{ secrets.PGPASSWORD }}
+      - name: Checkout
+        uses: actions/checkout@v2
       # Use the official setup-node action:
       # https://github.com/actions/setup-node
       - name: Use Node.js
@@ -19,6 +28,16 @@ jobs:
         with:
           node-version: '16.x'
       # Install all dependencies
-      - run: yarn --frozen-lockfile
-      # Run the Jest unit tests
-      - run: yarn jest
+      - run: yarn server-lockfile
+      - run: yarn server-migrate-up
+        env:
+          PGHOST: localhost
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGUSERNAME: ${{ secrets.PGUSERNAME }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+      - run: yarn server
+        env:
+          PGHOST: localhost
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGUSERNAME: ${{ secrets.PGUSERNAME }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
