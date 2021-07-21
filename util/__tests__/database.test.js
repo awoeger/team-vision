@@ -4,6 +4,7 @@ import {
   createNewTeam,
   createPlayerRequest,
   deleteEvent,
+  deletePlayerRequest,
   deleteTeam,
   updatePlayerRequest,
 } from '../database';
@@ -61,20 +62,20 @@ test('createNewTeam creates correct DB entry', async () => {
   expect(newEvent[0].eventLocation).toBe(testEventLocation);
   expect(newEvent[0].eventDescription).toBe(testEventDescription);
 
-  // TODO: CreatePlayerRequest
-  const testTeamChoice = 'Test Team';
+  // CreatePlayerRequest
   const testPositionOnTeam = 'Test Position';
   const testPlayingSince = '10/1991';
   const testExperienceLevel = 'Beginner';
   const testMessage = 'Test Message';
+  const testPlayerId = 15;
 
   const newPlayerRequest = await createPlayerRequest(
-    testusersId,
-    testTeamChoice,
+    testTeamId,
     testPositionOnTeam,
     testPlayingSince,
     testExperienceLevel,
     testMessage,
+    testPlayerId,
   );
 
   expect(newPlayerRequest.positionOnTeam).toBe(testPositionOnTeam);
@@ -82,13 +83,13 @@ test('createNewTeam creates correct DB entry', async () => {
   expect(newPlayerRequest.experienceLevel).toBe(testExperienceLevel);
   expect(newPlayerRequest.playerMessage).toBe(testMessage);
 
-  // TODO: update Player Request
-  const testPlayerRequestId = newPlayerRequest[0].id;
+  // update Player Request
+  const testPlayerRequestId = newPlayerRequest.id;
   const updatedPlayerRequest = await updatePlayerRequest(testPlayerRequestId);
-  expect(updatedPlayerRequest[0].statusId).toBe(testPlayerRequestId);
+  expect(updatedPlayerRequest.statusId).toBe(1);
 
-  // TODO: delete Player Request
-  const deletedPlayerRequest = await deleteEvent(testPlayerRequestId);
+  // delete Player Request
+  const deletedPlayerRequest = await deletePlayerRequest(testPlayerRequestId);
   expect(deletedPlayerRequest[0].id).toBe(testPlayerRequestId);
 
   // delete Event

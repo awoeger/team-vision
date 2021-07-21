@@ -269,13 +269,6 @@ export async function createPlayerRequest(
   message: string,
   usersId: number,
 ) {
-  console.log(teamChoice);
-  console.log(positionOnTeam);
-  console.log(playingSince);
-  console.log(experienceLevel);
-  console.log(message);
-  console.log(usersId);
-
   const playerRequest = await sql<[PlayerRequest]>`
   INSERT INTO team_user
   (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
@@ -286,7 +279,6 @@ export async function createPlayerRequest(
     users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message, id
   `;
 
-  console.log('playerRequest', playerRequest);
   return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
@@ -305,13 +297,16 @@ export async function updatePlayerRequest(id: number) {
 }
 
 export async function deletePlayerRequest(id: number) {
+  console.log('id', id);
+
   const deletedStatus = await sql`
     DELETE FROM team_user
     WHERE id = ${id}
     RETURNING
     id
   `;
-  return deletedStatus.map((status) => camelcaseKeys(status)[0]);
+  console.log('deletedStatus', deletedStatus);
+  return deletedStatus.map((status) => camelcaseKeys(status));
 }
 
 export async function createNewEvent(
