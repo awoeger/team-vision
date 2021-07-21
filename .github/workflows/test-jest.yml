@@ -35,9 +35,12 @@ jobs:
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}
+
       - run: yarn jest
         env:
           PGHOST: localhost
           PGDATABASE: ${{ secrets.PGDATABASE }}
           PGUSERNAME: ${{ secrets.PGUSERNAME }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          CSRF_SECRET_SALT: ${{secrets.CSRF_SECRET_SALT}}

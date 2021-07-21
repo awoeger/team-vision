@@ -38,7 +38,7 @@ const navText = css`
     text-decoration: none;
     color: ${darkBlue};
     text-transform: uppercase;
-    font-size: ${largeText};
+    font-size: 20px;
     font-weight: 600;
     cursor: pointer;
     margin-right: 30px;
