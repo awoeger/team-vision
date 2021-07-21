@@ -107,14 +107,6 @@ export async function insertUser({
   userPasswordHash,
   userRoleId,
 }: UserWithPasswordHash) {
-  console.log('rock');
-  console.log(userFirstName);
-  console.log(userLastName);
-  console.log(userEmail);
-  console.log(username);
-  console.log(userPasswordHash);
-  console.log(userRoleId);
-
   const users = await sql<[User]>`
     INSERT INTO users
     -- column names
@@ -130,7 +122,6 @@ export async function insertUser({
       user_role_id
   `;
 
-  console.log(users);
   return users.map((user) => camelcaseKeys(user))[0];
 }
 
@@ -263,10 +254,10 @@ export async function createNewTeam(
       team_name,
       sport_type,
       founded,
-      coach_user_id
+      coach_user_id,
+      id
   `;
 
-  console.log(teams);
   return teams.map((team) => camelcaseKeys(team))[0];
 }
 
@@ -278,17 +269,24 @@ export async function createPlayerRequest(
   message: string,
   usersId: number,
 ) {
+  console.log(teamChoice);
+  console.log(positionOnTeam);
+  console.log(playingSince);
+  console.log(experienceLevel);
+  console.log(message);
+  console.log(usersId);
+
   const playerRequest = await sql<[PlayerRequest]>`
   INSERT INTO team_user
-  --column names
   (users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message)
   VALUES(
     ${usersId},  ${teamChoice}, 3, ${positionOnTeam}, ${playingSince}, ${experienceLevel}, ${message}
   )
   RETURNING
-  -- column names
-    users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message
+    users_id, team_id, status_id, position_on_team, playing_since, experience_level, player_message, id
   `;
+
+  console.log('playerRequest', playerRequest);
   return playerRequest.map((request) => camelcaseKeys(request))[0];
 }
 
@@ -336,7 +334,7 @@ export async function createNewEvent(
   )
   RETURNING
   -- column names
-    event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description
+    event_type, team_id, start_day, end_day, start_time, end_time, meeting_time, event_location, event_description, id
   `;
   return newEvent.map((event) => camelcaseKeys(event));
 }
@@ -483,6 +481,7 @@ export async function getCoachTeamsByUserId(userId: number) {
 }
 
 export async function deleteTeam(teamId: number) {
+  console.log('teamId', teamId);
   const teamInfo = await sql`
     DELETE FROM
      teams
@@ -491,7 +490,8 @@ export async function deleteTeam(teamId: number) {
     RETURNING
     id
   `;
-  return teamInfo.map((team) => camelcaseKeys(team)[0]);
+
+  return teamInfo.map((team) => camelcaseKeys(team));
 }
 
 export async function getPlayerTeamsByUserId(userId: number) {
