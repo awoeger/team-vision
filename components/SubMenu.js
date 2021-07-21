@@ -4,7 +4,7 @@ import * as AiIcons from 'react-icons/ai';
 import * as FaIcons from 'react-icons/fa';
 import * as GiIcons from 'react-icons/gi';
 import * as IoIcons from 'react-icons/io';
-import { darkBlue, largeText, lightGrey, orange } from '../util/sharedStyles';
+import { darkBlue, lightGrey, orange } from '../util/sharedStyles';
 
 const navMenuActive = css`
   display: flex;
