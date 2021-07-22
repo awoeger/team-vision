@@ -331,15 +331,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     userErrors = { message: 'Access denied' };
   } else {
     if (user.id && teamId) {
-      const isPlayerInTeam = await checkIfPlayerInTeam(user.id, Number(teamId));
       const isCoachInTeam = await checkIfCoachInTeam(user.id, Number(teamId));
-      if (
-        isPlayerInTeam &&
-        isPlayerInTeam[0].count === '0' &&
-        isCoachInTeam &&
-        isCoachInTeam[0].count === '0'
-      ) {
-        userErrors = { message: 'You are not allowed to visit this team.' };
+      if (isCoachInTeam && isCoachInTeam[0].count === '0') {
+        userErrors = { message: 'You are not authorized to visit this page.' };
       }
     }
   }
