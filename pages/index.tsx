@@ -96,7 +96,6 @@ const gridContainer = css`
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   gap: 80px 30px;
-  grid-template-areas: '. . .';
   justify-items: stretch;
 `;
 
