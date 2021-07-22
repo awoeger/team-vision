@@ -141,6 +141,8 @@ const textBoxforFunctionalities = css`
 `;
 
 const guideSection = css`
+  margin-bottom: 60px;
+
   h3 {
     text-transform: uppercase;
     font-size: 2em;
