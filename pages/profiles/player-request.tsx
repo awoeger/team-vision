@@ -1,10 +1,14 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
-import { getAllTeamNamesandId } from '../../util/database';
+import {
+  getAllTeamNamesandId,
+  getUserByValidSessionToken,
+} from '../../util/database';
 import {
   button,
   darkBlue,
@@ -16,6 +20,7 @@ import { TeamNameandIdforCoach } from '../../util/types';
 type Props = {
   username: String;
   allTeamNamesandIdforCoach: TeamNameandIdforCoach[];
+  userRoleId: number;
 };
 
 export const formContainer = css`
@@ -115,6 +120,17 @@ export default function PlayerRequest(props: Props) {
           <title>User not found!</title>
         </Head>
         <p>Access denied</p>
+      </Layout>
+    );
+  }
+
+  if (props.userRoleId === 1) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <p>You are not authorized to visit this page.</p>
       </Layout>
     );
   }
@@ -254,12 +270,17 @@ export default function PlayerRequest(props: Props) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const sessionToken = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId ?? null;
+
   const allTeamNamesandIdforCoach = await getAllTeamNamesandId();
 
   return {
     props: {
       allTeamNamesandIdforCoach,
+      userRoleId,
     },
   };
 }

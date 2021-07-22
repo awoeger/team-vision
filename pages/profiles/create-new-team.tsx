@@ -1,9 +1,11 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
+import { getUserByValidSessionToken } from '../../util/database';
 import {
   button,
   darkBlue,
@@ -12,7 +14,8 @@ import {
 } from '../../util/sharedStyles';
 
 type Props = {
-  username: String;
+  username: string;
+  userRoleId: number;
 };
 
 export const formContainer = css`
@@ -100,6 +103,20 @@ export default function CreateNewTeamForm(props: Props) {
           <title>User not found!</title>
         </Head>
         <p>Access denied</p>
+      </Layout>
+    );
+  }
+
+  if (props.userRoleId === 2) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <p>
+          Unfortunately you are not a coach. You are not authorized to visit
+          this page.
+        </p>
       </Layout>
     );
   }
@@ -200,4 +217,16 @@ export default function CreateNewTeamForm(props: Props) {
       </div>
     </>
   );
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const sessionToken = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(sessionToken);
+  const userRoleId = user?.userRoleId ?? null;
+
+  return {
+    props: {
+      userRoleId,
+    },
+  };
 }
