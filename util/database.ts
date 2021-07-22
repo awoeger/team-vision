@@ -689,8 +689,8 @@ export async function checkIfPlayerInTeam(userId: number, teamId: number) {
   return results.map((result) => camelcaseKeys(result));
 }
 
-export async function checkIfCoachInTeam(userId: number, teamId: number) {
-  if (!userId) return undefined;
+export async function checkIfCoachInTeam(coachId: number, teamId: number) {
+  if (!coachId) return undefined;
   if (!teamId) return undefined;
 
   const results = await sql`
@@ -699,7 +699,7 @@ export async function checkIfCoachInTeam(userId: number, teamId: number) {
     FROM
       team_user
     WHERE
-    users_id = ${userId}
+    coach_user_id = ${coachId}
     AND
     team_id = ${teamId}
   `;
