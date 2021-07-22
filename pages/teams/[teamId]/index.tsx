@@ -106,8 +106,7 @@ const eventBody = css`
   border-right: 2px solid ${lightBlue};
   display: flex;
   justify-content: space-evenly;
-
-  padding: 20px;
+  padding: 20px 20px 0 20px;
 `;
 
 const eventDate = css`
@@ -198,12 +197,13 @@ const noEventsContainer = css`
 
 const eventFooter = css`
   border: 2px solid ${lightBlue};
+  border-top: none;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  padding: 10px 30px;
+  justify-content: center;
+  padding: 10px 50px 10px 30px;
 `;
 
 export default function SingleTeamPage(props: Props) {
@@ -462,22 +462,11 @@ export default function SingleTeamPage(props: Props) {
                         </div>
                       </div>
 
-                      {props.userRoleId === 2 ? (
-                        <div css={eventFooter}>
-                          <p>Total attendees: 18</p>
-
-                          <Link href={`/teams/${props.teamId}/${event.id}`}>
-                            <a css={link}>SEE EVENT DETAILS</a>
-                          </Link>
-                        </div>
-                      ) : (
-                        <div css={eventFooter}>
-                          <p>Total attendees: 18</p>
-                          <Link href={`/teams/${props.teamId}/${event.id}`}>
-                            <a css={link}>See event details</a>
-                          </Link>
-                        </div>
-                      )}
+                      <div css={eventFooter}>
+                        <Link href={`/teams/${props.teamId}/${event.id}`}>
+                          <a css={link}>SEE EVENT DETAILS</a>
+                        </Link>
+                      </div>
                     </div>
                   );
                 })}
