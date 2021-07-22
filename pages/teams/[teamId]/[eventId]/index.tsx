@@ -27,6 +27,7 @@ type Props = {
   userRoleId: number;
   loggedinUser: LoggedInUser[];
   allResponsesForEvent: Response[];
+  userErrors: { message: string };
 };
 
 const mainContainer = css`
@@ -157,6 +158,19 @@ const noTableHeader = css`
 
 export default function SingleEventPage(props: Props) {
   const [allResponses, setAllResponses] = useState(props.allResponsesForEvent);
+
+  const errors = props.userErrors;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (errors) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <div>Error: {errors.message}</div>
+      </Layout>
+    );
+  }
 
   return (
     <>
@@ -394,17 +408,26 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // get UserRole Id which parts of the app the user is allowed to see
   const sessionToken = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(sessionToken);
-  const userRoleId = user?.userRoleId;
+  const userRoleId = user?.userRoleId ?? null;
   const userId = user?.id;
 
+  let loggedinUser = null;
   // get all members of team
-  const teamId = context.query.teamId;
-  const loggedinUser = await getAllMembersNamesByTeamId(
-    Number(teamId),
-    Number(userId),
-  );
+  if (userId) {
+    const teamId = context.query.teamId;
+    loggedinUser = await getAllMembersNamesByTeamId(
+      Number(teamId),
+      Number(userId),
+    );
+  }
 
   const allResponsesForEvent = await getAllResponsesForEvent(Number(eventId));
+
+  let userErrors = null;
+
+  if (!user) {
+    userErrors = { message: 'Access denied' };
+  }
 
   return {
     props: {
@@ -412,6 +435,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       userRoleId,
       loggedinUser,
       allResponsesForEvent,
+      userErrors,
     },
   };
 }

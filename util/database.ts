@@ -671,3 +671,37 @@ export async function deleteSessionByToken(token: string) {
   `;
   return sessions.map((session) => camelcaseKeys(session))[0];
 }
+
+export async function checkIfPlayerInTeam(userId: number, teamId: number) {
+  if (!userId) return undefined;
+  if (!teamId) return undefined;
+
+  const results = await sql`
+    SELECT
+      COUNT(*)
+    FROM
+      team_user
+    WHERE
+    users_id = ${userId}
+    AND
+    team_id = ${teamId}
+  `;
+  return results.map((result) => camelcaseKeys(result));
+}
+
+export async function checkIfCoachInTeam(userId: number, teamId: number) {
+  if (!userId) return undefined;
+  if (!teamId) return undefined;
+
+  const results = await sql`
+    SELECT
+      COUNT(*)
+    FROM
+      team_user
+    WHERE
+    users_id = ${userId}
+    AND
+    team_id = ${teamId}
+  `;
+  return results.map((result) => camelcaseKeys(result));
+}
