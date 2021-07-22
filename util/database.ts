@@ -297,15 +297,12 @@ export async function updatePlayerRequest(id: number) {
 }
 
 export async function deletePlayerRequest(id: number) {
-  console.log('id', id);
-
   const deletedStatus = await sql`
     DELETE FROM team_user
     WHERE id = ${id}
     RETURNING
     id
   `;
-  console.log('deletedStatus', deletedStatus);
   return deletedStatus.map((status) => camelcaseKeys(status));
 }
 
@@ -476,7 +473,6 @@ export async function getCoachTeamsByUserId(userId: number) {
 }
 
 export async function deleteTeam(teamId: number) {
-  console.log('teamId', teamId);
   const teamInfo = await sql`
     DELETE FROM
      teams

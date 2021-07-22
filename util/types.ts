@@ -30,6 +30,7 @@ export type TeamInfo = {
   teamName: string;
   sportType: string;
   foundedAt: string;
+  coachUserId: number;
 };
 
 export type PlayerRequest = {
