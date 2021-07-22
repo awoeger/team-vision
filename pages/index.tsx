@@ -157,56 +157,6 @@ const guideSection = css`
   }
 `;
 
-const contactSection = css`
-  display: flex;
-  margin-top: 100px;
-
-  h3 {
-    text-transform: uppercase;
-    color: ${darkBlue};
-    font-size: 2em;
-    padding: 30px 0 20px 20px;
-    margin-left: 20px;
-  }
-`;
-
-const contactInformation = css`
-  padding-left: 30px;
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  width: 35%;
-
-  div {
-    margin-left: 10px;
-  }
-
-  h5 {
-    color: ${darkBlue};
-    font-size: ${largeText};
-    margin-left: 20px;
-    margin-block-start: 0;
-    margin-block-end: 0;
-  }
-
-  p {
-    color: ${darkBlue};
-    font-size: 18px;
-    margin-left: 30px;
-  }
-`;
-
-const contactInfoHeader = css`
-  display: flex;
-  align-items: center;
-  margin-top: 20px;
-`;
-
-const imageContainer = css`
-  display: flex;
-  justify-content: center;
-`;
-
 type Props = {
   username: String;
 };
@@ -365,46 +315,6 @@ export default function Home(props: Props) {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        <section css={contactSection} id="contact">
-          <div css={contactInformation}>
-            <h3>Contact information</h3>
-            <div>
-              <div>
-                <div css={contactInfoHeader}>
-                  <AiIcons.AiFillHome className="icon" />
-                  <h5>Address</h5>
-                </div>
-                <p>Team Vision GmbH</p>
-                <p>Schönerweg 45</p>
-                <p>1020 Vienna</p>
-                <p>Austria</p>
-              </div>
-              <div>
-                <div css={contactInfoHeader}>
-                  <AiIcons.AiFillMail className="icon" />
-                  <h5>Email</h5>
-                </div>
-                <p>team@vision.com</p>
-              </div>
-              <div>
-                <div css={contactInfoHeader}>
-                  <AiIcons.AiFillPhone className="icon" />
-                  <h5>Phone</h5>
-                </div>
-                <p>0664/ 555 55 44 33</p>
-              </div>
-            </div>
-          </div>
-          <div css={imageContainer}>
-            <Image
-              alt="Soccer Players fighting for a ball"
-              src="/images/soccer-players.jpg"
-              width="850px"
-              height="850px"
-            />
           </div>
         </section>
       </div>
