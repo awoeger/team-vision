@@ -21,8 +21,8 @@ type Props = {
 export const formContainer = css`
   display: flex;
   align-items: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
+  justify-content: space-around;
+  margin: 50px;
 
   form {
     display: flex;
@@ -88,7 +88,6 @@ export const formContainer = css`
 const imageContainer = css`
   display: flex;
   justify-content: center;
-  padding-left: 50px;
 
   @media (max-width: 1024px) {
     width: 50%;
@@ -133,8 +132,8 @@ export default function PlayerRequest(props: Props) {
           <Image
             alt="Baseball Player hitting ball"
             src="/images/baseball-player.jpg"
-            width="750px"
-            height="750px"
+            width="600px"
+            height="600px"
           />
         </div>
         <form
