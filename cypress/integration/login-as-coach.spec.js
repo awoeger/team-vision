@@ -78,28 +78,20 @@ describe('Can login as coach', () => {
     // Go to team
     cy.get('[data-cy="go-to-team"]').click();
 
-    // Accept player request
+    // Decline player request
     cy.contains('TEAM MEMBERS').click();
-    cy.get('[data-cy="accept-player-request"]').click();
+    cy.get('[data-cy="decline-player-request"]').click();
+
+    // Delete event
+    cy.contains('TEAM BASE').click();
+    cy.get('[data-cy="delete-event"]').click({ force: true });
+
+    // Delete team
+    cy.get('[data-cy="your-profile"]').click();
+    cy.get('[data-cy="delete-team"]').click();
 
     // Logout as coach
     cy.get('[data-cy="header-logout-link"]').click();
     cy.url().should('include', '/logout');
-
-    //  SWITCHING PROFILES
-    // Login as player
-    cy.get('[data-cy="header-login-link"]').click({ force: true });
-    cy.url().should('include', '/login');
-    cy.get('[data-cy="login-username"]').type('user_player_test');
-    cy.get('[data-cy="login-password"]').type('triA1-PA55w0rd2');
-    cy.get('[data-cy="login-button"]').click();
-    cy.get('[data-cy="your-profile"]').click();
-    cy.wait(10000);
-    cy.url().should('include', '/profiles/user_player_test');
-
-    // Go to team page
-    cy.get('[data-cy="see-team-details"]').click();
-
-    //
   });
 });

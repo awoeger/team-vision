@@ -234,6 +234,7 @@ export default function SingleUserProfile(props: Props) {
                     <div css={teamHeader}>
                       <h3>{coachTeam.teamName}</h3>
                       <button
+                        data-cy="delete-team"
                         css={trashButton}
                         onClick={async (singleTeam) => {
                           singleTeam.preventDefault();

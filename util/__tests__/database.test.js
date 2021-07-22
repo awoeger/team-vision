@@ -18,7 +18,7 @@ test('createNewTeam creates correct DB entry', async () => {
   const testTeamName = 'Test Team';
   const testSportType = 'Test Sport Type';
   const testFoundedAt = '10/1999';
-  const testusersId = 13;
+  const testusersId = 1;
 
   const newTeam = await createNewTeam(
     testTeamName,
@@ -67,7 +67,7 @@ test('createNewTeam creates correct DB entry', async () => {
   const testPlayingSince = '10/1991';
   const testExperienceLevel = 'Beginner';
   const testMessage = 'Test Message';
-  const testPlayerId = 15;
+  const testPlayerId = 2;
 
   const newPlayerRequest = await createPlayerRequest(
     testTeamId,

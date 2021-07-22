@@ -340,6 +340,7 @@ export default function SingleTeamPage(props: Props) {
                         </div>
                         {props.userRoleId === 1 ? (
                           <button
+                            data-cy="delete-event"
                             css={trashButton}
                             onClick={async (singleEvent) => {
                               singleEvent.preventDefault();
