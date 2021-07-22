@@ -6,7 +6,11 @@ import router from 'next/router';
 import { useState } from 'react';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getUserByValidSessionToken } from '../../../util/database';
+import {
+  checkIfCoachInTeam,
+  checkIfPlayerInTeam,
+  getUserByValidSessionToken,
+} from '../../../util/database';
 import {
   button,
   darkBlue,
@@ -325,6 +329,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (!user) {
     userErrors = { message: 'Access denied' };
+  } else {
+    if (user.id && teamId) {
+      const isPlayerInTeam = await checkIfPlayerInTeam(user.id, Number(teamId));
+      const isCoachInTeam = await checkIfCoachInTeam(user.id, Number(teamId));
+      if (
+        isPlayerInTeam &&
+        isPlayerInTeam[0].count === '0' &&
+        isCoachInTeam &&
+        isCoachInTeam[0].count === '0'
+      ) {
+        userErrors = { message: 'You are not allowed to visit this team.' };
+      }
+    }
   }
 
   return {

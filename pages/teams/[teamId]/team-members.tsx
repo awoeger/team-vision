@@ -7,7 +7,11 @@ import * as BsIcons from 'react-icons/bs';
 import * as FaIcons from 'react-icons/fa';
 import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
-import { getUserByValidSessionToken } from '../../../util/database';
+import {
+  checkIfCoachInTeam,
+  checkIfPlayerInTeam,
+  getUserByValidSessionToken,
+} from '../../../util/database';
 import { largeText, orange } from '../../../util/sharedStyles';
 import { DeclinedPlayerRequestResponse, Member } from '../../../util/types';
 
@@ -387,6 +391,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   if (!user) {
     userErrors = { message: 'Access denied' };
+  } else {
+    if (user.id && teamId) {
+      const isPlayerInTeam = await checkIfPlayerInTeam(user.id, Number(teamId));
+      const isCoachInTeam = await checkIfCoachInTeam(user.id, Number(teamId));
+      if (
+        isPlayerInTeam &&
+        isPlayerInTeam[0].count === '0' &&
+        isCoachInTeam &&
+        isCoachInTeam[0].count === '0'
+      ) {
+        userErrors = { message: 'You are not allowed to visit this team.' };
+      }
+    }
   }
 
   return {

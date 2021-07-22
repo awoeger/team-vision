@@ -697,11 +697,11 @@ export async function checkIfCoachInTeam(coachId: number, teamId: number) {
     SELECT
       COUNT(*)
     FROM
-      team_user
+    teams
     WHERE
     coach_user_id = ${coachId}
     AND
-    team_id = ${teamId}
+    id = ${teamId}
   `;
   return results.map((result) => camelcaseKeys(result));
 }
