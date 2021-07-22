@@ -146,10 +146,10 @@ export default function CreateEvent(props: Props) {
         <div css={formContainer}>
           <div css={imageContainer}>
             <Image
-              alt="Female Runner"
-              src="/images/female-runner.png"
-              width="400px"
-              height="730px"
+              alt="Two soccer players fighting for a ball"
+              src="/images/soccer-players.jpg"
+              width="500px"
+              height="500px"
             />
           </div>
           <form
