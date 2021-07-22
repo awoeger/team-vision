@@ -8,7 +8,6 @@ import Layout from '../../../components/Layout';
 import SubMenu from '../../../components/SubMenu';
 import {
   checkIfCoachInTeam,
-  checkIfPlayerInTeam,
   getUserByValidSessionToken,
 } from '../../../util/database';
 import {
