@@ -34,7 +34,7 @@ test('createNewTeam creates correct DB entry', async () => {
   // Create new Event
   const testEventType = 'Training';
   const testTeamId = newTeam.id;
-  const testStartDate = ' 19.12.2022';
+  const testStartDate = '19.12.2022';
   const testEndDate = '19.12.2022';
   const testMeetingTime = '18:00';
   const testStartTime = '19:00';
