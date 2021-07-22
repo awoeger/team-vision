@@ -29,7 +29,7 @@ const mainContainer = css`
 export const formContainer = css`
   display: flex;
   align-items: center;
-  margin-left: 70px;
+  margin: 0 100px 0 0;
 
   form {
     display: flex;
@@ -108,8 +108,6 @@ const neighborInputs = css`
 const imageContainer = css`
   display: flex;
   justify-content: center;
-  padding-left: 15px;
-  margin-right: 50px;
 
   @media (max-width: 1024px) {
     width: 90%;
@@ -148,8 +146,8 @@ export default function CreateEvent(props: Props) {
             <Image
               alt="Two soccer players fighting for a ball"
               src="/images/soccer-players.jpg"
-              width="500px"
-              height="500px"
+              width="800px"
+              height="800px"
             />
           </div>
           <form
