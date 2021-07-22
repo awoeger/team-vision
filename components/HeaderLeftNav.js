@@ -54,11 +54,6 @@ export default function HeaderLeftNav(props) {
           <li>Guide</li>
         </a>
       </Link>
-      <Link href="/#contact">
-        <a data-cy="header-contact-link">
-          <li>Contact</li>
-        </a>
-      </Link>
     </ul>
   );
 }
