@@ -18,6 +18,7 @@ type Props = {
   username: String;
   teamId: Number;
   userRoleId: Number;
+  userErrors: { message: string };
 };
 
 const mainContainer = css`
@@ -130,6 +131,19 @@ export default function CreateEvent(props: Props) {
   const [endTime, setEndTime] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [eventDescription, setEventDescription] = useState('');
+
+  const errors = props.userErrors;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (errors) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <div>Error: {errors.message}</div>
+      </Layout>
+    );
+  }
 
   return (
     <>
@@ -305,12 +319,19 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const sessionToken = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(sessionToken);
-  const userRoleId = user?.userRoleId;
+  const userRoleId = user?.userRoleId ?? null;
+
+  let userErrors = null;
+
+  if (!user) {
+    userErrors = { message: 'Access denied' };
+  }
 
   return {
     props: {
       teamId,
       userRoleId,
+      userErrors,
     },
   };
 }

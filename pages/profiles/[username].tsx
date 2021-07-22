@@ -200,6 +200,7 @@ export default function SingleUserProfile(props: Props) {
   }
 
   // Show message if user does not exist
+
   if (!props.user) {
     return (
       <Layout>
@@ -416,19 +417,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     );
 
+  let coachTeams = null;
+  let playerTeams = null;
   const json = await response.json();
 
   if ('errors' in json) {
     context.res.statusCode = 403;
   } else if (!json.user) {
     context.res.statusCode = 404;
+  } else {
+    // Getting all teams the coach has created
+    coachTeams = await getCoachTeamsByUserId(json.user.id);
+
+    // Getting all teams the player got accepted to
+    playerTeams = await getPlayerTeamsByUserId(json.user.id);
   }
-
-  // Getting all teams the coach has created
-  const coachTeams = await getCoachTeamsByUserId(json.user.id);
-
-  // Getting all teams the player got accepted to
-  const playerTeams = await getPlayerTeamsByUserId(json.user.id);
 
   // spreading the json, will help us to put either the user OR the errors in the return
   return {

@@ -13,9 +13,10 @@ import { DeclinedPlayerRequestResponse, Member } from '../../../util/types';
 
 type Props = {
   username: String;
-  teamId: Number;
+  teamId: number;
   allMembers: Member[];
-  userRoleId: Number;
+  userRoleId: number;
+  userErrors: { message: string };
 };
 
 const mainContainer = css`
@@ -115,6 +116,19 @@ const declineButton = css`
 
 export default function TeamMembers(props: Props) {
   const [members, setMembers] = useState<Member[]>(props.allMembers);
+
+  const errors = props.userErrors;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (errors) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <div>Error: {errors.message}</div>
+      </Layout>
+    );
+  }
 
   return (
     <>
@@ -367,13 +381,20 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const sessionToken = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(sessionToken);
-  const userRoleId = user?.userRoleId;
+  const userRoleId = user?.userRoleId ?? null;
+
+  let userErrors = null;
+
+  if (!user) {
+    userErrors = { message: 'Access denied' };
+  }
 
   return {
     props: {
       teamId,
       ...json,
       userRoleId,
+      userErrors,
     },
   };
 }

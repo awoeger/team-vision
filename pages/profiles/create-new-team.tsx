@@ -92,6 +92,18 @@ export default function CreateNewTeamForm(props: Props) {
   const [sportType, setSportType] = useState('');
   const [foundedAt, setFoundedAt] = useState('');
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!props.username) {
+    return (
+      <Layout>
+        <Head>
+          <title>User not found!</title>
+        </Head>
+        <p>Access denied</p>
+      </Layout>
+    );
+  }
+
   return (
     <>
       <Head>

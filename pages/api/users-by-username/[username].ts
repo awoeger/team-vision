@@ -30,9 +30,7 @@ export default async function singleUserHandler(
 
     // check if userId, etc. is not undefined
     if (!validSession) {
-      return res
-        .status(403)
-        .json({ errors: [{ message: 'No valid session.' }] });
+      return res.status(403).json({ errors: [{ message: 'Unauthorized' }] });
     }
 
     // updatedStatusId is equal to the result of function updatePlayerRequest

@@ -108,6 +108,18 @@ export default function PlayerRequest(props: Props) {
   const [experienceLevel, setExperienceLevel] = useState('');
   const [message, setMessage] = useState('');
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (!props.username) {
+    return (
+      <Layout>
+        <Head>
+          <title>User not found!</title>
+        </Head>
+        <p>Access denied</p>
+      </Layout>
+    );
+  }
+
   return (
     <>
       <Head>

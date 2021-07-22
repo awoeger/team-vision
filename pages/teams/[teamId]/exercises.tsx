@@ -25,6 +25,7 @@ type Props = {
   teamId: Number;
   userRoleId: Number;
   allExercises: Exercise[];
+  userErrors: { message: string };
 };
 
 const exerciseMainContainer = css`
@@ -240,6 +241,19 @@ export default function Exercises(props: Props) {
     return setAllExercises(allAgility);
   };
 
+  const errors = props.userErrors;
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (errors) {
+    return (
+      <Layout>
+        <Head>
+          <title>Error</title>
+        </Head>
+        <div>Error: {errors.message}</div>
+      </Layout>
+    );
+  }
+
   return (
     <>
       <Head>
@@ -378,15 +392,22 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const teamId = context.query.teamId;
   const sessionToken = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(sessionToken);
-  const userRoleId = user?.userRoleId;
+  const userRoleId = user?.userRoleId ?? null;
 
   const allExercises = await getAllExercises();
+
+  let userErrors = null;
+
+  if (!user) {
+    userErrors = { message: 'Access denied' };
+  }
 
   return {
     props: {
       userRoleId,
       teamId,
       allExercises,
+      userErrors,
     },
   };
 }
