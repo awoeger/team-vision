@@ -417,7 +417,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   let loggedinUser = null;
   // get all members of team
   if (userId) {
-    const teamId = context.query.teamId;
     loggedinUser = await getAllMembersNamesByTeamId(
       Number(teamId),
       Number(userId),
