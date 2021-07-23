@@ -44,9 +44,8 @@ export default function NotFound() {
             <a css={link}> Go back to safety</a>
           </Link>
         </div>
-        <div>
+        <div className="imageContainer">
           <Image
-            className="image"
             alt="American Football Player standing"
             src="/images/football-player.jpg"
             width="700px"
