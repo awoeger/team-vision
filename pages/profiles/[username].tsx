@@ -43,6 +43,10 @@ const error = css`
 
 const mainContainer = css`
   display: flex;
+
+  @media (max-width: 888px) {
+    flex-direction: column;
+  }
 `;
 
 const mainSecondSubContainer = css`
@@ -72,6 +76,12 @@ const mainSecondSubContainer = css`
     padding: 0 60px;
   }
 
+  @media (max-width: 888px) {
+    h2 {
+      margin-top: 20px;
+    }
+  }
+
   @media (max-width: 768px) {
     padding: 0 20px;
 
@@ -82,6 +92,18 @@ const mainSecondSubContainer = css`
 
     h3 {
       font-size: 0.9em;
+    }
+
+    @media (max-width: 568px) {
+      h4,
+      h2 {
+        margin-left: 30px;
+        margin-right: 30px;
+      }
+
+      h3 {
+        font-size: 1.3em;
+      }
     }
   }
 `;
@@ -100,6 +122,11 @@ const gridContainer = css`
 
   @media (max-width: 768px) {
     gap: 20px 20px;
+  }
+
+  @media (max-width: 568px) {
+    grid-template-columns: 1fr;
+    margin: 0 30px;
   }
 `;
 
@@ -127,7 +154,7 @@ const teamHeader = css`
     margin: 0 0 0 20px;
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1129px) {
     padding: 10px 10px;
 
     h3 {

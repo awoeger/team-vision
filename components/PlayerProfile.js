@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-condition */
-
-import { css } from '@emotion/react';
 import Link from 'next/link';
 import router from 'next/router';
 import { useState } from 'react';
@@ -9,11 +7,7 @@ import * as BsIcons from 'react-icons/bs';
 import * as FaIcons from 'react-icons/fa';
 import * as GrIcons from 'react-icons/gr';
 import { link } from '../util/sharedStyles';
-import { editForm, mainFirstSubContainer } from './CoachProfile';
-
-const buttonDiv = css`
-  margin-top: 20px;
-`;
+import { buttonDiv, editForm, mainFirstSubContainer } from './CoachProfile';
 
 export default function PlayerProfile(props) {
   const [showEdit, setShowEdit] = useState(true);
@@ -25,7 +19,7 @@ export default function PlayerProfile(props) {
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
       <FaIcons.FaRunning className="icon" />
-      <h2>Welcome Player</h2>
+
       {!showEdit ? (
         <form css={editForm}>
           <div>
@@ -87,17 +81,22 @@ export default function PlayerProfile(props) {
           </div>
         </form>
       ) : (
-        <>
-          <h3>
-            {firstName} {lastName}
-          </h3>
-          <p>
-            <span>Username:</span> {username}
-          </p>
-          <p>
-            <span>Email:</span> {email}
-          </p>
-        </>
+        <div className="profileSubDiv">
+          <div className="welcomeDiv">
+            <h2>Welcome Player</h2>
+            <h3>
+              {firstName} {lastName}
+            </h3>
+          </div>
+          <div className="usernameDiv">
+            <p>
+              <span>Username:</span> {username}
+            </p>
+            <p>
+              <span>Email:</span> {email}
+            </p>
+          </div>
+        </div>
       )}
 
       <div>

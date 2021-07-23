@@ -52,7 +52,7 @@ export const mainFirstSubContainer = css`
   }
 
   .icon {
-    background: ${orange};
+    background: ${darkBlue};
     border-radius: 200px;
     padding: 20px;
     width: 100px;
@@ -67,7 +67,7 @@ export const mainFirstSubContainer = css`
 
   h2 {
     font-size: ${normalText};
-    margin-top: 60px;
+    margin-top: 40px;
     font-weight: 600;
   }
 
@@ -86,21 +86,65 @@ export const mainFirstSubContainer = css`
     }
   }
 
-  @media (max-width: 1024px) {
+  @media (max-width: 1138px) {
     width: 35%;
   }
 
-  @media (max-width: 768px) {
-    width: 40%;
-    padding: 10px;
+  @media (max-width: 888px) {
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .icon {
+      width: 80px;
+      height: 80px;
+    }
 
     h1 {
+      display: none;
+    }
+
+    h3,
+    h2 {
+      margin: 0;
       font-size: 1.2em;
     }
 
-    .whistleIcon {
-      width: 80px;
-      height: 80px;
+    .welcomeDiv {
+      margin: 0 30px;
+    }
+
+    button {
+      margin: 5px;
+    }
+  }
+
+  @media (max-width: 744px) {
+    .icon {
+      width: 60px;
+      height: 60px;
+      padding: 8px;
+    }
+
+    h3,
+    h2 {
+      font-size: 1em;
+    }
+
+    .welcomeDiv {
+      margin: 0;
+    }
+
+    .profileButtons {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 536px) {
+    .icon {
+      display: none;
     }
   }
 `;
@@ -137,6 +181,10 @@ export const editForm = css`
 
 const buttonDiv = css`
   margin-top: 20px;
+
+  @media (max-width: 888px) {
+    margin-top: 0;
+  }
 `;
 
 export default function CoachProfile(props) {
@@ -150,7 +198,7 @@ export default function CoachProfile(props) {
     <div css={mainFirstSubContainer}>
       <h1>Your Profile</h1>
       <GiIcons.GiWhistle className="icon" />
-      <h2>Welcome Coach</h2>
+
       {!showEdit ? (
         <form css={editForm}>
           <div>
@@ -212,20 +260,25 @@ export default function CoachProfile(props) {
           </div>
         </form>
       ) : (
-        <>
-          <h3>
-            {firstName} {lastName}
-          </h3>
-          <p>
-            <span>Username:</span> {username}
-          </p>
-          <p>
-            <span>Email:</span> {email}
-          </p>
-        </>
+        <div className="profileSubDiv">
+          <div className="welcomeDiv">
+            <h2>Welcome Coach</h2>
+            <h3>
+              {firstName} {lastName}
+            </h3>
+          </div>
+          <div className="usernameDiv">
+            <p>
+              <span>Username:</span> {username}
+            </p>
+            <p>
+              <span>Email:</span> {email}
+            </p>
+          </div>
+        </div>
       )}
 
-      <div>
+      <div className="profileButtons">
         <button
           data-cy="user-edit-details-button"
           onClick={async () => {
