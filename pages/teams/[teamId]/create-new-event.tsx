@@ -77,20 +77,17 @@ export const formContainer = css`
     }
   }
 
-  @media (max-width: 1024px) {
-    form {
-      width: 60%;
-      margin-right: 100px;
-    }
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 990px) {
     flex-direction: column-reverse;
 
     form {
-      width: 70%;
+      width: 80%;
       margin-top: 40px;
     }
+  }
+
+  @media (max-width: 646px) {
+    margin: 0;
   }
 `;
 
@@ -107,21 +104,22 @@ const neighborInputs = css`
   .time {
     width: 100%;
   }
+
+  @media (max-width: 646px) {
+    flex-direction: column;
+    .start,
+    .mtime {
+      width: 100%;
+    }
+  }
 `;
 
 const imageContainer = css`
   display: flex;
   justify-content: center;
 
-  @media (max-width: 1024px) {
-    width: 90%;
-    padding: 0;
-    margin: 0;
-  }
-
-  @media (max-width: 768px) {
-    width: 40%;
-    margin-top: 30px;
+  @media (max-width: 990px) {
+    margin-top: 20px;
   }
 `;
 

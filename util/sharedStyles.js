@@ -95,13 +95,12 @@ export const heading = css`
 export const filterContainer = css`
   display: flex;
   flex-direction: column;
-  margin: 100px 0 0 100px;
-  position: fixed;
-  left: 220px;
-  top: 220px;
+  margin-top: 40px;
+  margin-right: 30px;
 
   .button-active {
-    background: rgb(28 154 150 / 50%);
+    background: rgb(28 154 150);
+    color: white;
   }
 
   .button-inactive {
@@ -127,25 +126,48 @@ export const filterContainer = css`
     }
 
     :hover {
-      background: rgb(28 154 150 / 50%);
+      background: rgb(28 154 150);
+      color: white;
     }
 
     :active {
       transform: translate(0, 3px);
+      background: rgb(28 154 150);
+      color: white;
     }
-  }
-
-  @media (max-width: 1024px) {
-    left: 50px;
-  }
-
-  @media (max-width: 768px) {
-    top: 190px;
-    left: 0;
-    margin: 100px 0 0 50px;
 
     button {
       font-size: ${normalText};
+    }
+  }
+
+  @media (max-width: 899px) {
+    flex-direction: row;
+    margin: 0;
+    justify-content: space-between;
+
+    button {
+      width: 22%;
+      font-size: 16px;
+      text-align: center;
+
+      span {
+        margin: 0;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 777px) {
+    button {
+      font-size: 0.8em;
+    }
+
+    @media (max-width: 644px) {
+      flex-wrap: wrap;
     }
   }
 `;

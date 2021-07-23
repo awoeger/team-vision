@@ -58,9 +58,37 @@ const navText = css`
     }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 856px) {
     a {
-      font-size: 0.7em;
+      font-size: 0.8em;
+    }
+  }
+
+  @media (max-width: 750px) {
+    justify-content: space-evenly;
+    margin-left: 0px;
+
+    li {
+      margin: 0;
+    }
+
+    .RoleIcon,
+    .iconLi {
+      display: none;
+      margin: 0;
+    }
+
+    .lastNavText {
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    flex-wrap: wrap;
+    text-align: center;
+
+    a {
+      margin: 0;
     }
   }
 `;
@@ -111,7 +139,7 @@ export default function SubMenu(props) {
         <li css={navText}>
           <FaIcons.FaRunning className="icon" />
           <Link href={`/teams/${props.teamId}/exercises`}>
-            <a>EXERCISES</a>
+            <a className="lastNavText">EXERCISES</a>
           </Link>
         </li>
       </ul>

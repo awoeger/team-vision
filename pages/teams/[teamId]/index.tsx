@@ -41,18 +41,29 @@ const mainContainer = css`
   width: 100%;
   display: flex;
   justify-content: center;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  @media (max-width: 899px) {
+    flex-direction: column;
+  }
 `;
 
 const eventsMainContainer = css`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   margin-top: 70px;
   margin-bottom: 50px;
-  width: 70%;
+  width: 50%;
+
+  @media (max-width: 899px) {
+    width: 100%;
+    justify-content: center;
+  }
 `;
 
 const eventsContainer = css`
-  width: 60%;
+  width: 100%;
 
   h1 {
     text-align: center;
