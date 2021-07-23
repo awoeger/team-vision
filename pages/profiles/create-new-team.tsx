@@ -21,7 +21,9 @@ type Props = {
 export const formContainer = css`
   display: flex;
   align-items: center;
-  padding-left: 100px;
+  align-content: center;
+  margin-left: 100px;
+  height: 90vh;
 
   @media (max-width: 1024px) {
     padding-left: 40px;
@@ -65,28 +67,39 @@ export const formContainer = css`
         font-size: ${normalText};
       }
     }
+  }
+  @media (max-width: 941px) {
+    flex-direction: column;
+    margin-left: 0;
 
-    @media (max-width: 768px) {
-      margin-top: 70px;
+    form {
+      width: 80%;
 
       h1 {
-        font-size: ${normalText};
-      }
-
-      h2 {
-        display: none;
+        font-size: ${largeText};
       }
     }
+  }
+
+  @media (max-width: 941px) {
+    margin-top: 30px;
+    padding: 0;
   }
 `;
 
 const imageContainer = css`
   display: flex;
   justify-content: center;
-  padding-left: 50px;
+  padding-left: 100px;
 
-  @media (max-width: 1024px) {
+  @media (max-width: 996px) {
     width: 70%;
+  }
+
+  @media (max-width: 922px) {
+    width: 80%;
+    margin-top: 20px;
+    padding: 0;
   }
 `;
 
@@ -210,8 +223,8 @@ export default function CreateNewTeamForm(props: Props) {
             className="image"
             alt="Logo Icon"
             src="/images/rugby-players.png"
-            width="750px"
-            height="750px"
+            width="550px"
+            height="500px"
           />
         </div>
       </div>
