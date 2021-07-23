@@ -44,6 +44,12 @@ export const mainContainer = css`
       }
     }
   }
+  /*
+  @media (max-width: 476px) {
+    form {
+      width: 60%;
+    }
+  } */
 `;
 
 export const mainSubContainer = css`
@@ -52,6 +58,10 @@ export const mainSubContainer = css`
   border-radius: 20px;
   background-color: white;
   text-align: center;
+
+  @media (max-width: 476px) {
+    width: 70%;
+  }
 `;
 
 const registerDiv = css`
@@ -66,6 +76,10 @@ const registerDiv = css`
     color: ${lightBlue};
     font-weight: bold;
     margin-top: 0;
+  }
+
+  @media (max-width: 476px) {
+    width: 100%;
   }
 `;
 
