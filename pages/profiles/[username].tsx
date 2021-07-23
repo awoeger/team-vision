@@ -317,9 +317,6 @@ export default function SingleUserProfile(props: Props) {
           <PlayerProfile user={props.user} />
           <div css={mainSecondSubContainer}>
             <h2>YOUR TEAMS</h2>
-            <h3>
-              Congratulations, you have been accepted to the following teams
-            </h3>
 
             <div css={gridContainer}>
               {props.playerTeams

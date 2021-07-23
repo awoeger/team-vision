@@ -49,6 +49,26 @@ const firstSection = css`
   h2 {
     color: white;
   }
+
+  @media (max-width: 656px) {
+    font-size: 0.7em;
+  }
+
+  @media (max-width: 464px) {
+    font-size: 0.6em;
+
+    h1 {
+      margin-top: 10px;
+    }
+  }
+
+  @media (max-width: 396px) {
+    padding-left: 20px;
+    h1 {
+      font-size: 4em;
+      margin-top: 10px;
+    }
+  }
 `;
 
 const aboutSubSection = css`
@@ -77,10 +97,20 @@ const aboutSubSection = css`
       color: white;
       font-size: 18px;
       margin: 10px 40px 40px 40px;
-      text-align: justify;
 
       a {
         color: white;
+      }
+    }
+  }
+
+  @media (max-width: 590px) {
+    > div {
+      flex-direction: column;
+
+      div {
+        width: 80%;
+        margin: 0 40px 10px 40px;
       }
     }
   }
@@ -97,6 +127,20 @@ const gridContainer = css`
   grid-template-rows: 1fr;
   gap: 80px 30px;
   justify-items: stretch;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 30px;
+  }
+
+  @media (max-width: 689px) {
+    grid-template-columns: 1fr;
+    gap: 10px 30px;
+  }
+
+  @media (max-width: 482px) {
+    margin: 30px 50px 20px 50px;
+  }
 `;
 
 const gridSubcontainer = css`
@@ -136,8 +180,12 @@ const textBoxforFunctionalities = css`
   border-top: none;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
-  padding: 20px 80px 20px 80px;
+  padding: 20px 80px;
   font-size: 18px;
+
+  @media (max-width: 1159px) {
+    padding: 20px 30px;
+  }
 `;
 
 const guideSection = css`
@@ -155,6 +203,10 @@ const guideSection = css`
   h4 {
     margin: 30px 0 30px 120px;
     font-size: ${largeText};
+
+    @media (max-width: 482px) {
+      margin-left: 50px;
+    }
   }
 `;
 
