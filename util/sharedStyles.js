@@ -11,6 +11,7 @@ export const orange = '#fd3c01';
 export const normalText = '16px';
 export const smallText = '0.75rem';
 export const largeText = '1.5rem';
+export const mediumlargeText = '1.8rem';
 export const extralargeText = '2rem';
 
 // Button

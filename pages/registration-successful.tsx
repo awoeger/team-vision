@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Layout from '../components/Layout';
+import { extralargeText } from '../util/sharedStyles';
 
 const mainContainer = css`
   background-image: url(/images/background_blue_smoke.PNG);
@@ -19,6 +20,12 @@ const mainContainer = css`
 
   a {
     color: white;
+  }
+
+  @media (min-width: 1441px) {
+    h2 {
+      font-size: ${extralargeText};
+    }
   }
 `;
 

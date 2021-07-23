@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 import Layout from '../components/Layout';
 import { deleteSessionByToken } from '../util/database';
+import { extralargeText } from '../util/sharedStyles';
 import { mainContainer } from './login';
 
 type Props = {
@@ -14,6 +15,10 @@ type Props = {
 
 const heading = css`
   color: white;
+
+  @media (min-width: 1441px) {
+    font-size: ${extralargeText};
+  }
 
   @media (max-width: 472px) {
     padding: 0 20px;

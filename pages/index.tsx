@@ -8,7 +8,12 @@ import * as CgIcons from 'react-icons/cg';
 import * as FiIcons from 'react-icons/fi';
 import * as RiIcons from 'react-icons/ri';
 import Layout from '../components/Layout';
-import { darkBlue, largeText } from '../util/sharedStyles';
+import {
+  darkBlue,
+  extralargeText,
+  largeText,
+  mediumlargeText,
+} from '../util/sharedStyles';
 
 const heroDiv = css`
   display: flex;
@@ -48,6 +53,10 @@ const firstSection = css`
 
   h2 {
     color: white;
+  }
+
+  @media (min-width: 1441px) {
+    font-size: ${extralargeText};
   }
 
   @media (max-width: 656px) {
@@ -101,6 +110,13 @@ const aboutSubSection = css`
       a {
         color: white;
       }
+    }
+  }
+
+  @media (min-width: 1441px) {
+    font-size: ${extralargeText};
+    p {
+      font-size: ${mediumlargeText};
     }
   }
 
@@ -183,6 +199,10 @@ const textBoxforFunctionalities = css`
   padding: 20px 80px;
   font-size: 18px;
 
+  @media (min-width: 1441px) {
+    font-size: ${mediumlargeText};
+  }
+
   @media (max-width: 1159px) {
     padding: 20px 30px;
   }
@@ -203,10 +223,14 @@ const guideSection = css`
   h4 {
     margin: 30px 0 30px 120px;
     font-size: ${largeText};
+  }
 
-    @media (max-width: 482px) {
-      margin-left: 50px;
-    }
+  @media (min-width: 1441px) {
+    font-size: ${extralargeText};
+  }
+
+  @media (max-width: 482px) {
+    margin-left: 50px;
   }
 `;
 

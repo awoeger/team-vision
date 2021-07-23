@@ -6,7 +6,14 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import { getValidSessionByToken } from '../util/database';
-import { button, darkBlue, largeText, lightBlue } from '../util/sharedStyles';
+import {
+  button,
+  darkBlue,
+  extralargeText,
+  largeText,
+  lightBlue,
+  mediumlargeText,
+} from '../util/sharedStyles';
 import { LoginResponse } from './api/login';
 
 export const mainContainer = css`
@@ -44,6 +51,24 @@ export const mainContainer = css`
       }
     }
   }
+
+  @media (min-width: 1441px) {
+    div {
+      h1 {
+        font-size: ${extralargeText};
+      }
+    }
+
+    label {
+      font-size: ${extralargeText};
+
+      input {
+        font-size: ${extralargeText};
+        margin: 10px 0 30px 0;
+      }
+    }
+  }
+
   @media (max-width: 900px) {
     height: 100vh;
   }
@@ -55,6 +80,10 @@ export const mainSubContainer = css`
   border-radius: 20px;
   background-color: white;
   text-align: center;
+
+  @media (min-width: 1441px) {
+    width: 40%;
+  }
 
   @media (max-width: 476px) {
     width: 70%;
@@ -73,6 +102,17 @@ const registerDiv = css`
     color: ${lightBlue};
     font-weight: bold;
     margin-top: 0;
+  }
+
+  @media (min-width: 1441px) {
+    div {
+      margin-right: 0;
+    }
+
+    p,
+    a {
+      font-size: ${mediumlargeText};
+    }
   }
 
   @media (max-width: 476px) {
