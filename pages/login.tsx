@@ -44,12 +44,9 @@ export const mainContainer = css`
       }
     }
   }
-  /*
-  @media (max-width: 476px) {
-    form {
-      width: 60%;
-    }
-  } */
+  @media (max-width: 900px) {
+    height: 100vh;
+  }
 `;
 
 export const mainSubContainer = css`
