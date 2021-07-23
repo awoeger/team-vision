@@ -89,6 +89,7 @@ const navText = css`
 
     a {
       margin: 0;
+      padding: 10px;
     }
   }
 `;
