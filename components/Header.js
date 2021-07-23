@@ -1,7 +1,12 @@
 import { css } from '@emotion/react';
 import Link from 'next/link';
 import { useState } from 'react';
-import { darkBlue, largeText, normalText } from '../util/sharedStyles';
+import {
+  darkBlue,
+  extralargeText,
+  largeText,
+  normalText,
+} from '../util/sharedStyles';
 import HeaderBurger from './HeaderBurger';
 import HeaderLeftNav from './HeaderLeftNav';
 
@@ -48,6 +53,13 @@ const headerContainer = css`
 
     span {
       padding-bottom: 16px;
+    }
+  }
+
+  @media (min-width: 1441px) {
+    a {
+      font-size: ${extralargeText};
+      padding: 30px;
     }
   }
 
