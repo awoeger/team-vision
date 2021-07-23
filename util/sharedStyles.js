@@ -146,6 +146,10 @@ export const filterContainer = css`
     margin: 0;
     justify-content: space-between;
 
+    div {
+      display: flex;
+    }
+
     button {
       width: 22%;
       font-size: 16px;
@@ -168,6 +172,24 @@ export const filterContainer = css`
 
     @media (max-width: 644px) {
       flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 621px) {
+    button {
+      width: 40%;
+      margin: 10px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 390px) {
+    button {
+      padding: 10px 5px;
+    }
+
+    span {
+      font-size: 0.9em;
     }
   }
 `;

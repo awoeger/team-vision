@@ -60,6 +60,10 @@ const eventsMainContainer = css`
     width: 100%;
     justify-content: center;
   }
+
+  @media (max-width: 899px) {
+    margin-top: 30px;
+  }
 `;
 
 const eventsContainer = css`
@@ -120,6 +124,11 @@ const eventBody = css`
   display: flex;
   justify-content: space-evenly;
   padding: 20px 20px 0 20px;
+
+  @media (max-width: 453px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const eventDate = css`
@@ -167,6 +176,10 @@ const eventInfos = css`
       height: 20px;
     }
   }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const eventMessage = css`
@@ -193,6 +206,13 @@ const eventMessage = css`
       min-width: 20px;
       height: 20px;
     }
+  }
+
+  @media (max-width: 453px) {
+    padding: 0;
+    border-top: ${lightBlue} solid 2px;
+    border-left: none;
+    max-width: 100%;
   }
 `;
 
@@ -294,7 +314,7 @@ export default function SingleTeamPage(props: Props) {
               setSocialActive(false);
             }}
           >
-            All events
+            <span>All events</span>
           </button>
           <button
             className={
@@ -311,6 +331,7 @@ export default function SingleTeamPage(props: Props) {
             <BiIcons.BiDumbbell className="icon" />
             <span>Trainings</span>
           </button>
+
           <button
             className={
               tournamentsActive === true ? 'button-active' : 'button-inactive'
