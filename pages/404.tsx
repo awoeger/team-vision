@@ -8,18 +8,23 @@ const mainContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 
   h1,
   a {
     margin: 40px;
   }
 
-  @media (max-width: 1024px) {
-    margin-top: 50px;
+  @media (max-width: 599px) {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
   }
 
-  @media (max-width: 768px) {
-    margin-top: 150px;
+  @media (max-width: 434px) {
+    h1 {
+      font-size: 1em;
+    }
   }
 `;
 
@@ -41,10 +46,11 @@ export default function NotFound() {
         </div>
         <div>
           <Image
+            className="image"
             alt="American Football Player standing"
             src="/images/football-player.jpg"
-            width="800px"
-            height="800px"
+            width="700px"
+            height="700px"
           />
         </div>
       </div>
