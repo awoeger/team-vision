@@ -21,6 +21,7 @@ import {
   normalText,
 } from '../../../util/sharedStyles';
 import { Exercise } from '../../../util/types';
+import { mainContainer } from './';
 
 type Props = {
   username: String;
@@ -37,7 +38,6 @@ const exerciseMainContainer = css`
   gap: 50px 100px;
   justify-items: center;
   margin-top: 50px;
-  margin-left: 100px;
 `;
 
 const exerciseSubContainer = css`
@@ -45,21 +45,14 @@ const exerciseSubContainer = css`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 50%;
+  width: 90%;
   color: white;
+  margin-top: 20px;
 
   h2 {
     margin-left: 20px;
     text-transform: uppercase;
     color: white;
-  }
-
-  @media (max-width: 1024px) {
-    margin-left: 200px;
-  }
-
-  @media (max-width: 768px) {
-    margin-left: 100px;
   }
 `;
 
@@ -147,18 +140,26 @@ const exerciseBody = css`
       margin: 10px;
     }
   }
+
+  @media (max-width: 635px) {
+    flex-direction: column;
+
+    div {
+      width: 100%;
+    }
+  }
 `;
 
+// Container for filter functionality
 export const filterContainer = css`
   display: flex;
   flex-direction: column;
-  margin: 100px 0 0 100px;
-  position: fixed;
-  left: 100px;
-  top: 190px;
+  margin-top: 40px;
+  margin-right: 30px;
 
   .button-active {
-    background: rgb(28 154 150 / 50%);
+    background: rgb(28 154 150);
+    color: white;
   }
 
   .button-inactive {
@@ -184,17 +185,72 @@ export const filterContainer = css`
     }
 
     :hover {
-      background: rgb(28 154 150 / 50%);
+      background: rgb(28 154 150);
+      color: white;
     }
 
     :active {
       transform: translate(0, 3px);
+      background: rgb(28 154 150);
+      color: white;
+    }
+
+    button {
+      font-size: ${normalText};
     }
   }
 
-  @media (max-width: 768px) {
-    left: 0;
-    top: 170px;
+  @media (max-width: 899px) {
+    flex-direction: row;
+    margin-top: 30px;
+    justify-content: space-between;
+
+    div {
+      display: flex;
+    }
+
+    button {
+      width: 22%;
+      margin: 10px;
+      font-size: 16px;
+      text-align: center;
+
+      span {
+        margin: 0;
+      }
+
+      .icon {
+        display: none;
+      }
+    }
+  }
+
+  @media (max-width: 777px) {
+    button {
+      font-size: 0.8em;
+    }
+
+    @media (max-width: 644px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 621px) {
+    button {
+      width: 40%;
+      margin: 10px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 390px) {
+    button {
+      padding: 10px 5px;
+    }
+
+    span {
+      font-size: 0.9em;
+    }
   }
 `;
 
@@ -266,7 +322,7 @@ export default function Exercises(props: Props) {
       <Layout username={props.username} />
       <SubMenu userRoleId={props.userRoleId} teamId={props.teamId} />
       <h1 css={heading}>Exercises</h1>
-      <div>
+      <div css={mainContainer}>
         <div css={filterContainer}>
           <button
             className={allActive === true ? 'button-active' : 'button-inactive'}

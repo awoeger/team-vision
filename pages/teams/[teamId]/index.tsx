@@ -37,7 +37,7 @@ type Props = {
   userErrors: { message: string };
 };
 
-const mainContainer = css`
+export const mainContainer = css`
   width: 100%;
   display: flex;
   justify-content: center;
