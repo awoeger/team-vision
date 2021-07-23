@@ -71,6 +71,12 @@ const headerContainer = css`
       margin: 0;
     }
   }
+
+  @media (max-width: 377px) {
+    a {
+      font-size: ${normalText};
+    }
+  }
 `;
 
 export default function Header(props) {
