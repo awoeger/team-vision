@@ -33,6 +33,7 @@ const teamMembersContainer = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: auto;
 
   h1 {
     margin: 40px 0;
