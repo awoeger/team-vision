@@ -81,11 +81,37 @@ export const formContainer = css`
       }
     }
   }
-  @media (max-width: 768px) {
+
+  @media (max-width: 946px) {
     flex-direction: column-reverse;
 
     form {
-      width: 70%;
+      width: 80%;
+
+      h1 {
+        font-size: ${largeText};
+      }
+    }
+  }
+
+  @media (max-width: 618px) {
+    flex-direction: column-reverse;
+
+    form {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 430px) {
+    flex-direction: column-reverse;
+
+    form {
+      width: 100%;
+
+      .mainNeighborInput {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 `;
@@ -99,9 +125,13 @@ const imageContainer = css`
     padding: 0;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 946px) {
     width: 70%;
     margin-top: 10px;
+  }
+
+  @media (max-width: 530px) {
+    width: 100%;
   }
 `;
 
@@ -210,7 +240,7 @@ export default function PlayerRequest(props: Props) {
             />
           </label>
 
-          <div>
+          <div className="mainNeighborInput">
             <label>
               Since when have you been playing this sport?
               <input
