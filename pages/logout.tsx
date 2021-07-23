@@ -14,6 +14,10 @@ type Props = {
 
 const heading = css`
   color: white;
+
+  @media (max-width: 472px) {
+    padding: 0 20px;
+  }
 `;
 
 export default function Logout(props: Props) {
