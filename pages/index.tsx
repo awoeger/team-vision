@@ -221,16 +221,13 @@ const guideSection = css`
   }
 
   h4 {
-    margin: 30px 0 30px 120px;
+    padding: 0 0 0 20px;
+    margin-left: 20px;
     font-size: ${largeText};
   }
 
   @media (min-width: 1441px) {
     font-size: ${extralargeText};
-  }
-
-  @media (max-width: 482px) {
-    margin-left: 50px;
   }
 `;
 

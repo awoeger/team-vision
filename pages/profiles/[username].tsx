@@ -53,7 +53,7 @@ const mainSecondSubContainer = css`
   height: 90vh;
   width: 100%;
   text-align: center;
-  padding: 0 100px;
+  padding: 0 60px;
 
   h2,
   h4 {
@@ -70,10 +70,6 @@ const mainSecondSubContainer = css`
 
   h4 {
     background: #ffa500;
-  }
-
-  @media (max-width: 1024px) {
-    padding: 0 60px;
   }
 
   @media (max-width: 888px) {
