@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 const burgerStyle = (open) => css`
   width: 2rem;
   height: 2rem;
-  position: fixed;
+  position: absolute;
   top: 20px;
   left: 24px;
   display: flex;
