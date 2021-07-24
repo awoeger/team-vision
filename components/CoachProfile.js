@@ -12,10 +12,40 @@ import {
   largeText,
   lightBlue,
   lightGrey,
-  link,
   normalText,
   orange,
 } from '../util/sharedStyles';
+
+// Link as Button
+export const link = css`
+  background-image: url('/images/button_background_lightBlue.PNG');
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px 15px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 4px 4px, rgba(0, 0, 0, 0.22) 0px 4px 4px;
+
+  :active {
+    transform: translate(0, 3px);
+  }
+
+  @media (max-width: 768px) {
+    margin-left: 10px;
+    padding: 8px;
+    font-size: 0.8em;
+  }
+
+  @media (max-width: 368px) {
+    padding: 8px;
+    font-size: 0.8em;
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
 
 export const mainFirstSubContainer = css`
   position: static;
