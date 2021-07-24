@@ -35,7 +35,12 @@ type Props = {
 const mainContainer = css`
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+
+  @media (max-width: 730px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const eventContainer = css`
@@ -43,7 +48,7 @@ const eventContainer = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 50px 0;
+  margin: 50px 20px;
 
   div {
     display: flex;
@@ -78,6 +83,17 @@ const eventContainer = css`
         border-top: 2px solid ${darkBlue};
         font-weight: 600;
       }
+    }
+  }
+
+  @media (max-width: 730px) {
+    align-items: center;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 475px) {
+    h2 {
+      font-size: 1.2em;
     }
   }
 `;
@@ -115,8 +131,7 @@ const userAttendingDiv = css`
 const imageContainer = css`
   display: flex;
   justify-content: center;
-  padding-left: 15px;
-  margin-right: 100px;
+  width: 80%;
 `;
 
 const yesButton = css`
@@ -394,8 +409,8 @@ export default function SingleEventPage(props: Props) {
           <Image
             alt="Basketball Player running with ball"
             src="/images/basketball-player.jpg"
-            width="700px"
-            height="700px"
+            width="450px"
+            height="500px"
           />
         </div>
       </div>
