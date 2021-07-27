@@ -240,8 +240,6 @@ const eventFooter = css`
 `;
 
 export default function SingleTeamPage(props: Props) {
-  console.log(props);
-
   const [allEvents, setAllEvents] = useState(props.events);
   const [filteredEvents] = useState(allEvents);
   const [allActive, setAllActive] = useState(true);
@@ -523,7 +521,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const user = (await getUserByValidSessionToken(sessionToken)) ?? null;
 
-  console.log('user', user);
   const userRoleId = user?.userRoleId ?? null;
 
   let userErrors = null;
